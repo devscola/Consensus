@@ -35,8 +35,17 @@ feature 'Login form' do
     click_on 'submit'
   end
 
+  def fill_wrong_credentials
+    fill_in 'username', with: 'wrong username'
+    fill_in 'password', with: 'wrong password'
+  end
+
   def redirected_to_home
     expect(page.title).to eq('Consensus home')
+  end
+
+  def warning_appears
+    expect(page).to have_css('#error')
   end
 
   scenario 'has a username field' do
@@ -65,6 +74,15 @@ feature 'Login form' do
     send_form
     redirected_to_home
   end
+
+  scenario 'login error' do
+    go_to_login
+
+    fill_wrong_credentials
+    send_form
+    warning_appears
+  end
+
 end
 
 
