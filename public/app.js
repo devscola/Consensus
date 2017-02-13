@@ -5,8 +5,10 @@ var error = {
     if (!this.theElement) {
       this.theElement =  document.getElementById('error');
     }
-
     return this.theElement;
+  },
+  dismiss: function() {
+    return document.getElementById('dismiss-error');
   },
   show: function() {
     this.element().style.display = 'block';
@@ -21,16 +23,16 @@ var loginForm = {
     return document.getElementById('submit');
   },
   username: function() {
-    return document.getElementById('username').value;
+    return document.getElementById('username');
   },
   password: function() {
-    return document.getElementById('password').value;
+    return document.getElementById('password');
   },
   prepareSubmit: function(callback) {
     this.submit().addEventListener('click', callback);
   },
   retrieveCredentials: function() {
-    return {username: this.username(), password: this.password()};
+    return {username: this.username().value, password: this.password().value};
   }
 }
 
@@ -43,6 +45,10 @@ function main() {
 function preparePage() {
   error.hide();
   loginForm.prepareSubmit(doLogin);
+  error.dismiss().addEventListener('click', function() {
+    error.hide();
+    loginForm.username().focus();
+  });
 }
   
 function goToHome() {

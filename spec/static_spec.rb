@@ -48,6 +48,19 @@ feature 'Login form' do
     expect(page).to have_css('#error')
   end
 
+  def warning_has_dismiss
+    expect(page).to have_css('#dismiss-error')
+  end
+
+  def dismiss_error
+    click_on 'dismiss-error'
+    expect(page).to have_no_css('#error')
+  end
+
+  def username_gets_focus
+    expect(page).to have_selector('#username:focus')
+  end
+
   scenario 'has a username field' do
     go_to_login
 
@@ -81,6 +94,17 @@ feature 'Login form' do
     fill_wrong_credentials
     send_form
     warning_appears
+  end
+
+  scenario 'dismiss error' do
+    go_to_login
+
+    fill_wrong_credentials
+    send_form
+    warning_appears
+    warning_has_dismiss
+    dismiss_error
+    username_gets_focus
   end
 
 end
