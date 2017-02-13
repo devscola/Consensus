@@ -17,29 +17,27 @@ Capybara.register_driver :chrome do |app|
 end
 Capybara.default_driver = :chrome
 
-describe 'Test environment' do
-  it 'WORKS!' do
-    visit('/index.html')
-    expect(page.title).to eq('Consensus')
-  end
-end
-
 describe 'Login form' do
-  it 'has a username field' do
+
+  def go_to_login
     visit('/index.html')
+  end
+
+  it 'has a username field' do
+    go_to_login
 
     expect(page).to have_css('#username')
   end
 
   it 'has a password field' do
-    visit('/index.html')
+    go_to_login
 
     expect(page).to have_css('#password')
     expect(page).to have_css('#password[type="password"]')
   end
 
   it 'has a submit button' do
-    visit('/index.html')
+    go_to_login
 
     expect(page).to have_css('#submit')
   end
