@@ -23,3 +23,24 @@ describe 'Test environment' do
     expect(page.title).to eq('Consensus')
   end
 end
+
+describe 'Login form' do
+  it 'has a username field' do
+    visit('/index.html')
+
+    expect(page).to have_css('#username')
+  end
+
+  it 'has a password field' do
+    visit('/index.html')
+
+    expect(page).to have_css('#password')
+    expect(page).to have_css('#password[type="password"]')
+  end
+
+  it 'has a submit button' do
+    visit('/index.html')
+
+    expect(page).to have_css('#submit')
+  end
+end
