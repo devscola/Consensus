@@ -57,6 +57,14 @@ feature 'Login form' do
     expect(page).to have_no_css('#error')
   end
 
+  def username_is_empty
+    expect(page.find('#username').value).to eq('') 
+  end
+
+  def password_is_empty
+    expect(page.find('#password').value).to eq('') 
+  end
+
   def username_gets_focus
     expect(page).to have_selector('#username:focus')
   end
@@ -104,6 +112,8 @@ feature 'Login form' do
     warning_appears
     warning_has_dismiss
     dismiss_error
+    username_is_empty
+    password_is_empty
     username_gets_focus
   end
 

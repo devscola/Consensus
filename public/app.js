@@ -1,40 +1,71 @@
-var HOME = '/home.html';
-var error = {
-  theElement: undefined,
-  element: function() {
-    if (!this.theElement) {
-      this.theElement =  document.getElementById('error');
-    }
-    return this.theElement;
-  },
-  dismiss: function() {
-    return document.getElementById('dismiss-error');
-  },
-  show: function() {
-    this.element().style.display = 'block';
-  },
-  hide: function() {
-    this.element().style.display = 'none';
+var Error = function() {
+
+  var element = document.getElementById('error');
+  var dismiss = document.getElementById('dismiss-error');
+
+  var show = function() {
+    element.style.display = 'block';
+  }
+
+  var hide = function() {
+    element.style.display = 'none';
+  }
+
+  var onDismiss = function(callback) {
+    dismiss.addEventListener('click', function() {
+        hide();
+        callback();
+    });
+  }
+
+  hide();
+
+  return {
+    element: element,
+    show: show,
+    hide: hide,
+    onDismiss: onDismiss
   }
 }
 
-var loginForm = {
-  submit: function() {
-    return document.getElementById('submit');
-  },
-  username: function() {
-    return document.getElementById('username');
-  },
-  password: function() {
-    return document.getElementById('password');
-  },
-  prepareSubmit: function(callback) {
-    this.submit().addEventListener('click', callback);
-  },
-  retrieveCredentials: function() {
-    return {username: this.username().value, password: this.password().value};
+var LoginForm = function() {
+
+  var submit = document.getElementById('submit');
+  var username = document.getElementById('username');
+  var password = document.getElementById('password');
+  
+  var prepareSubmit = function(callback) {
+      submit.addEventListener('click', callback);
+  };
+  
+  var retrieveCredentials = function() {
+      return {username: username.value, password: password.value};
+  };
+  
+  var focusOnUsername = function() {
+    username.focus();
+  };
+
+  var empty = function() {
+    username.value = '';
+    password.value = '';
+    focusOnUsername();
   }
+
+  return {
+    submit: submit,
+    username: username,
+    password: password,
+    prepareSubmit: prepareSubmit,
+    retrieveCredentials: retrieveCredentials,
+    empty: empty
+  }
+
 }
+
+var HOME = '/home.html';
+var error;
+var loginForm;
 
 main();
 
@@ -43,14 +74,14 @@ function main() {
 }
 
 function preparePage() {
-  error.hide();
-  loginForm.prepareSubmit(doLogin);
-  error.dismiss().addEventListener('click', function() {
-    error.hide();
-    loginForm.username().focus();
+  error = new Error();
+  loginForm = new LoginForm();
+  error.onDismiss(function() {
+    loginForm.empty();
   });
+  loginForm.prepareSubmit(doLogin);
 }
-  
+ 
 function goToHome() {
   window.location = HOME;
 }
