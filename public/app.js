@@ -89,6 +89,7 @@ function goToHome() {
 function doLogin() {
   var credentials = loginForm.retrieveCredentials();
   if (areValid(credentials)) {
+    error.hide();
     goToHome();
   } else {
     error.show();
