@@ -28,15 +28,11 @@ var Error = function() {
   }
 }
 
-var LoginForm = function() {
+var LoginForm = function(page) {
 
   var submit = document.getElementById('submit');
   var username = document.getElementById('username');
   var password = document.getElementById('password');
-  
-  var prepareSubmit = function(callback) {
-      submit.addEventListener('click', callback);
-  };
   
   var retrieveCredentials = function() {
       return {username: username.value, password: password.value};
@@ -52,64 +48,104 @@ var LoginForm = function() {
     focusOnUsername();
   }
 
+  var doLogin = function() {
+    var credentials = retrieveCredentials();
+    
+    LoginService().login(credentials, checkLogin);
+  }
+
+  var checkLogin = function(result) {
+    if (!result) return page.showError();
+
+    page.doLogin();
+  }
+
+  submit.addEventListener('click', doLogin);
+
   return {
     submit: submit,
     username: username,
     password: password,
-    prepareSubmit: prepareSubmit,
-    retrieveCredentials: retrieveCredentials,
     empty: empty
   }
 
 }
 
-var HOME = '/home.html';
-var error;
-var loginForm;
+var LoginService = function() {
+
+  function hasSucceeded(result) {
+    return result.valid;
+  }
+
+  function login(credentials, callback) {
+    doRequest('/login', credentials, function(result) {
+      var evaluated = hasSucceeded(result);
+      callback(evaluated);
+    });
+  }
+
+  function doRequest(endpoint, credentials, callback) {
+    var request = new XMLHttpRequest();
+    var OK = 200;
+
+    request.open('POST', endpoint);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onreadystatechange = function() {
+      if (request.readyState === XMLHttpRequest.DONE) {
+        if (request.status === OK) {
+          callback (JSON.parse(request.responseText));
+        }
+      }
+    }
+    request.send(JSON.stringify(credentials));
+  }
+
+
+  return {
+    login: login
+  }
+}
+
+var LoginPage = function() {
+
+  var error;
+  var loginForm;
+  var HOME = '/home.html';
+
+  var goToHome = function() {
+    window.location = HOME;
+  }
+
+  var showError = function() {
+    error.show();
+  }
+
+  var doLogin = function() {
+    error.hide();
+    goToHome();
+  }
+
+  error = new Error();
+  loginForm = new LoginForm({
+    showError: showError,
+    doLogin: doLogin
+  });
+
+  error.onDismiss(function() {
+    loginForm.empty();
+  });
+
+  return {
+    showError: showError,
+    doLogin: doLogin
+  }
+}
 
 main();
 
 function main() {
-  document.addEventListener('DOMContentLoaded', preparePage);
-}
 
-function preparePage() {
-  error = new Error();
-  loginForm = new LoginForm();
-  error.onDismiss(function() {
-    loginForm.empty();
+  document.addEventListener('DOMContentLoaded', function() {
+    new LoginPage();
   });
-  loginForm.prepareSubmit(doLogin);
-}
- 
-function goToHome() {
-  window.location = HOME;
-}
-
-function doLogin() {
-  var credentials = loginForm.retrieveCredentials();
-  
-  tryLogin(credentials, function(areValid) {
-    if (areValid) {
-      error.hide();
-      goToHome();
-    } else {
-      error.show();
-    }
-  });
-}
-
-function tryLogin(credentials, callback) {
-  var validator = new XMLHttpRequest();
-
-  validator.open('POST', '/login');
-  validator.setRequestHeader('Content-Type', 'application/json');
-  validator.onreadystatechange = function() {
-    if (validator.readyState === XMLHttpRequest.DONE) {
-      if (validator.status === 200) {
-        callback (JSON.parse(validator.responseText).valid);
-      }
-    }
-  }
-  validator.send(JSON.stringify(credentials));
 }
