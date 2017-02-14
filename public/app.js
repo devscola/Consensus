@@ -88,16 +88,28 @@ function goToHome() {
 
 function doLogin() {
   var credentials = loginForm.retrieveCredentials();
-  if (areValid(credentials)) {
-    error.hide();
-    goToHome();
-  } else {
-    error.show();
+  
+  tryLogin(credentials, function(areValid) {
+    if (areValid) {
+      error.hide();
+      goToHome();
+    } else {
+      error.show();
+    }
+  });
+}
+
+function tryLogin(credentials, callback) {
+  var validator = new XMLHttpRequest();
+
+  validator.open('POST', '/login');
+  validator.setRequestHeader('Content-Type', 'application/json');
+  validator.onreadystatechange = function() {
+    if (validator.readyState === XMLHttpRequest.DONE) {
+      if (validator.status === 200) {
+        callback (JSON.parse(validator.responseText).valid);
+      }
+    }
   }
+  validator.send(JSON.stringify(credentials));
 }
-
-function areValid(credentials) {
-  return (credentials.username == 'KingRobert') && (credentials.password == 'Stag');
-}
-
-

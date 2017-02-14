@@ -41,7 +41,8 @@ feature 'Login form' do
   end
 
   def redirected_to_home
-    expect(page.title).to eq('Consensus home')
+    # sleep 30
+    expect(page).to have_title('Consensus home')
   end
 
   def warning_appears
