@@ -11,24 +11,21 @@ var Error = function() {
     element.style.display = 'none';
   }
 
-  var onDismiss = function(callback) {
-    dismiss.addEventListener('click', function() {
-        hide();
-        callback();
-    });
-  }
+  dismiss.addEventListener('click', function() {
+    hide();
+    Bus.publish('dismissed');
+  });
 
   hide();
 
   return {
     element: element,
     show: show,
-    hide: hide,
-    onDismiss: onDismiss
+    hide: hide
   }
 }
 
-var LoginForm = function(page) {
+var LoginForm = function() {
 
   var submit = document.getElementById('submit');
   var username = document.getElementById('username');
@@ -51,13 +48,7 @@ var LoginForm = function(page) {
   var doLogin = function() {
     var credentials = retrieveCredentials();
     
-    LoginService().login(credentials, checkLogin);
-  }
-
-  var checkLogin = function(result) {
-    if (!result) return page.showError();
-
-    page.doLogin();
+    Bus.publish('LoginAttempt', credentials);
   }
 
   submit.addEventListener('click', doLogin);
@@ -68,23 +59,22 @@ var LoginForm = function(page) {
     password: password,
     empty: empty
   }
-
 }
 
 var LoginService = function() {
 
-  function hasSucceeded(result) {
+  var hasSucceeded = function(result) {
     return result.valid;
   }
 
-  function login(credentials, callback) {
+  var login = function(credentials) {
     doRequest('/login', credentials, function(result) {
       var evaluated = hasSucceeded(result);
-      callback(evaluated);
+      Bus.publish('LoginResult', evaluated);
     });
   }
 
-  function doRequest(endpoint, credentials, callback) {
+  var doRequest = function(endpoint, credentials, callback) {
     var request = new XMLHttpRequest();
     var OK = 200;
 
@@ -100,10 +90,9 @@ var LoginService = function() {
     request.send(JSON.stringify(credentials));
   }
 
+  Bus.subscribe('LoginAttempt', login);
 
-  return {
-    login: login
-  }
+  return {};
 }
 
 var LoginPage = function() {
@@ -125,19 +114,41 @@ var LoginPage = function() {
     goToHome();
   }
 
+  var checkLogin = function(result) {
+    if (!result) return showError();
+
+    doLogin();
+  }
+
   error = new Error();
-  loginForm = new LoginForm({
-    showError: showError,
-    doLogin: doLogin
-  });
+  loginForm = new LoginForm();
+  
+  new LoginService();
 
-  error.onDismiss(function() {
-    loginForm.empty();
-  });
+  Bus.subscribe('dismissed', loginForm.empty);
+  Bus.subscribe('LoginResult', checkLogin);
 
-  return {
-    showError: showError,
-    doLogin: doLogin
+  return {}
+}
+
+var Bus = {
+
+  topics: [],
+  subscribe: function(topic, handler) {
+    this.ensureTopic(topic);
+    this.subscriptions[topic].push(handler);
+  },
+  subscriptions: {},
+  publish: function(topic, data) {
+    this.subscriptions[topic].forEach(function(handler) {
+      handler(data);
+    });
+  },
+  ensureTopic: function(topic) {
+    if (this.subscriptions[topic]) return;
+
+    this.subscriptions[topic] = [];
+    this.topics.push(topic);
   }
 }
 
