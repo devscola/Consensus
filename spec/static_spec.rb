@@ -70,6 +70,18 @@ feature 'Login form' do
     expect(page).to have_selector('#username:focus')
   end
 
+  def password_is_hidden
+    expect(page).to have_css('#password[type="password"]')
+  end
+  
+  def toggle_password_visibility
+    click_on 'togglePassword' 
+  end
+
+  def password_is_shown
+    expect(page).to have_css('#password[type="text"]')
+  end
+
   scenario 'has a username field' do
     go_to_login
 
@@ -116,6 +128,17 @@ feature 'Login form' do
     username_is_empty
     password_is_empty
     username_gets_focus
+  end
+
+  scenario 'Toggle login password visualization' do
+    go_to_login
+
+    fill_proper_credentials
+    password_is_hidden
+    toggle_password_visibility
+    password_is_shown
+    toggle_password_visibility
+    password_is_hidden
   end
 
 end
