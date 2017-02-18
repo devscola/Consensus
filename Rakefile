@@ -1,7 +1,7 @@
 task :default => :start
 
 task :start do
-  sh 'rerun server.rb'
+  sh 'rerun app.rb'
 end
 
 task :test do

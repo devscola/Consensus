@@ -4,7 +4,7 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/rspec'
 
-require File.expand_path('../../server.rb', __FILE__)
+require File.expand_path('../../app.rb', __FILE__)
 
 Sinatra::Application.environment = :test
 Capybara.app = Sinatra::Application
