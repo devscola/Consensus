@@ -1,0 +1,14 @@
+.eye{
+    background-color: red;
+    background: url("../eye.png") no-repeat;
+    background-size: 100% auto;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    background-position: 0 -20%;
+}
+
+.eye.opened{
+    background-position: 0 78%;
+}
+

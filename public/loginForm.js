@@ -3,8 +3,8 @@ var LoginForm = function() {
   var submit = document.getElementById('submit');
   var username = document.getElementById('username');
   var password = document.getElementById('password');
-  var togglePasswordTemporaryButton = document.getElementById('togglePassword');
-  
+  var passwordToggler = document.getElementById('passwordToggler')
+
   var retrieveCredentials = function() {
       return {username: username.value, password: password.value};
   };
@@ -19,11 +19,13 @@ var LoginForm = function() {
     focusOnUsername();
   }
 
-  var togglePassword = function() {
+  var togglePasswordVisibility = function() {
     if (password.type === 'password') {
       password.type = 'text';
+      passwordToggler.className = 'eye opened';
     } else {
       password.type = 'password';
+      passwordToggler.className = 'eye';
     }
   }
 
@@ -34,7 +36,7 @@ var LoginForm = function() {
   }
 
   submit.addEventListener('click', doLogin);
-  togglePasswordTemporaryButton.addEventListener('click', togglePassword);
+  passwordToggler.addEventListener('click', togglePasswordVisibility)
 
   return {
     submit: submit,
