@@ -58,7 +58,7 @@ feature 'Login form' do
   end
   
   def toggle_password_visibility
-    click_on 'togglePassword' 
+     find('#passwordToggler').click
   end
 
   def password_is_shown
