@@ -5,23 +5,23 @@
 *Bundler* gem has to be installed first:
 
 ```
-gem install rake
+gem install bundler
 ```
 
-Now you can install the project gems.
+### install the gems in the local folder of the project
 ```
-bundle intall
+bundle install --path vendor/bundle
 ```
 
 ## Run tests
 
 ```
-rake test
+bundle exec rspec
 ```
 
 ## Launch the app
 
 ```
-rake
+bundle exec rake
 ```
 The app will be served on *http://localhost:4567/index.html*
