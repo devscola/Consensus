@@ -3,7 +3,7 @@ module TestSupport
     include Capybara::DSL
 
     def initialize
-      url = 'localhost:4567/index.html'
+      url = '/index.html'
       visit(url)
     end
 

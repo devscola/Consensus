@@ -1,6 +1,6 @@
-require 'selenium-webdriver'
 require 'spec_helper'
 require_relative 'test_support/login_page'
+require_relative '../app'
 
 feature "Login" do
   let(:login_page) do
