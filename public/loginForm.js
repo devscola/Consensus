@@ -8,7 +8,7 @@ var LoginForm = function() {
   var retrieveCredentials = function() {
       return {username: username.value, password: password.value};
   };
-  
+
   var focusOnUsername = function() {
     username.focus();
   };
@@ -21,17 +21,25 @@ var LoginForm = function() {
 
   var togglePasswordVisibility = function() {
     if (password.type === 'password') {
-      password.type = 'text';
-      passwordToggler.className = 'eye opened';
+      openEye();
     } else {
-      password.type = 'password';
-      passwordToggler.className = 'eye';
+      closeEye();
     }
+  }
+
+  var openEye = function() {
+    password.type = 'text';
+    passwordToggler.className = 'eye-opened';
+  }
+
+  var closeEye = function() {
+    password.type = 'password';
+    passwordToggler.className = 'eye-closed';
   }
 
   var doLogin = function() {
     var credentials = retrieveCredentials();
-    
+
     Bus.publish('LoginAttempt', credentials);
   }
 

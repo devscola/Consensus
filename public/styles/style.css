@@ -1,4 +1,5 @@
-.eye{
+.eye-closed,
+.eye-opened {
     background-color: red;
     background: url("../eye.png") no-repeat;
     background-size: 100% auto;
@@ -8,7 +9,7 @@
     background-position: 0 -20%;
 }
 
-.eye.opened{
+.eye-opened {
     background-position: 0 78%;
 }
 
