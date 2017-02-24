@@ -9,7 +9,7 @@ describe Repository do
     alpha_result = Repository.retrieve(:some_key)
     betta_result = Repository.retrieve(:other_key)
 
-    expect(alpha_result).to be(:some_item)
-    expect(betta_result).to be(:other_item)
+    expect(alpha_result).to be_a(Repository::Credential)
+    expect(betta_result).to be_a(Repository::Credential)
   end
 end

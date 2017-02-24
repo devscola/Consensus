@@ -32,28 +32,61 @@ class Repository
     ].freeze
     private_constant :LOGIN_CREDENTIALS
 
-    def store(key, item)
-      @contents ||= prepare_fake_users
+    def store(username, password)
+      @contents ||= retrieve_data
 
-      @contents[key] = item
+      @contents << Credential.new(username, password)
     end
 
-    def retrieve(key)
-      @contents ||= prepare_fake_users
+    def retrieve(username)
+      @contents ||= retrieve_data
 
-      @contents[key]
+      result = @contents.find do |credential|
+        credential.responds_to?(username)
+      end
+
+      result = Credential.get_null if result.nil?
+      result
     end
 
     private
 
-    def prepare_fake_users
-      correspondencies = {}
+    def retrieve_data
+      credentials = []
 
       LOGIN_CREDENTIALS.each do |user_credentials|
-        correspondencies[user_credentials[:username]] = user_credentials[:password] 
+        username = user_credentials[:username]
+        password = user_credentials[:password]
+
+        credentials << Credential.new(username, password)
       end
 
-      correspondencies
+      credentials
+    end
+  end
+
+  class Credential
+    def self.get_null
+      NullCredential.new(nil, nil)
+    end
+
+    def initialize(login, passphrase)
+      @username = login
+      @password = passphrase
+    end
+
+    def responds_to?(login)
+      return (@username == login)
+    end
+
+    def is_secured_by?(passphrase)
+      return (@password == passphrase)
+    end
+
+    class NullCredential < Credential
+      def is_secured_by?(passphrase)
+        return false
+      end
     end
   end
 end

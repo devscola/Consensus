@@ -1,19 +1,10 @@
 require_relative 'repository'
 
 class AuthorizationService
-  def self.verify(credentials)
-    begin  
-      username = credentials[:username]
-      password = credentials[:password]
-    rescue TypeError
-      raise InvalidFormatError
-    end
+  def self.verify(username, password)
+    return false if (username.nil? || password.nil?)
+    credential = Repository.retrieve(username)
 
-    registered_password = Repository.retrieve(username)
-
-    registered_password == password
-  end
-
-  class InvalidFormatError < ArgumentError
+    return credential.is_secured_by?(password)
   end
 end

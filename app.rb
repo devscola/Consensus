@@ -14,6 +14,6 @@ post '/login' do
   username = payload['username']
   password = payload['password']
 
-  return {valid: false}.to_json if [username, password].include?(nil)
-  {valid: AuthorizationService.verify(username: username, password: password)}.to_json
+  verified = AuthorizationService.verify(username, password)
+  {valid: verified}.to_json
 end
