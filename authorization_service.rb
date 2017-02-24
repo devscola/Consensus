@@ -3,8 +3,8 @@ require_relative 'repository'
 class AuthorizationService
   def self.verify(username, password)
     return false if (username.nil? || password.nil?)
-    registered_password = Repository.retrieve(username)
+    credential = Repository.retrieve(username)
 
-    return (registered_password == password)
+    return credential.is_secured_by?(password)
   end
 end
