@@ -148,7 +148,7 @@ docker push usuario/imagen
 
 #### B. DESCARGAR EL DOCKER DE CONSENSUS ####
 
-##### B1. DESCARGA Y  EJECUCIÓN DEL DOCKER EN LINUX #####
+##### B1. DESCARGA Y  EJECUCIÓN DEL DOCKER EN LINUX Y MACOS#####
 
 1.- Hay que ir a la web: hub.docker.com y buscar la imagen: elferrer/ruby , o puedes directamente descargarla:
 
