@@ -6,7 +6,9 @@ ENLACES: www.docker.com
 
 2.-  Para familiarizarte se aconseja ejecutar el ejemplo de *docker/whalesay*, tal como veréis en las instrucciones de instalación de Docker.
 
-Como ejemplo, te mostramos un típico error de la instalación de Docker en un Ubuntu. Cuando ejecutamos  el comando Docker recibiremos este error además de otros mensajes:
+3.- Te aconsejamos que sigas también los pasos de post-instalación (busca la página 'Post-installation steps for Linux') de Docker porque aprenderás a darle permisos root a docker para no estar continuamente introduciendo la contraseña... muy a mi pesar (Raul dixit).
+
+No obstante, si decides no seguir los pasos de la post-instalación te mostramos como ejemplo un típico error de la instalación de Docker en un Ubuntu. Cuando ejecutamos  el comando Docker recibiremos este error además de otros mensajes:
 
 *"WARNING: Error loading config file:/home/user/.docker/config.json - stat /home/user/.docker/config.json: permission denied"*
 
@@ -19,9 +21,7 @@ sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
 sudo chmod g+rwx "/home/$USER/.docker" -R
 ~~~
 
-3.- Una vez familiarizados te aconsejamos que borres los imágenes de ejemplo (docker/whalesay).
-
-4.- Como hack te aconsejamos que sigas también los pasos de post-inslaación de Docker porque aprenderás a darle permisos root a docker para no estar continuamente introduciendo la contraseña... muy a mi pesar (Raul dixit).
+4.- Una vez familiarizados sería conveniente que borrases los imágenes de ejemplo (docker/whalesay).
 
 
 ###  DESCARGAR EL GIT DE CONSENSUS ### 
@@ -113,7 +113,7 @@ RUN apk add make
 RUN bundle install
 ~~~
 
-Explicación del contenido:
+Explicación básica del contenido:
 
 "FROM": imagen de docker que utilizamos como base para crear nuestro docker, esta imagen es la base de nuestro docker. Al poner una versión concreta y no utilizar "latest" nos evitamos que nuestra imagen se esté actualizando constantemente con las novedades de la imagen origen, salvo que esta misma versión tenga una actualización (parches de seguridad, etc.).
 "RUN": Comando que se ejecuta desde la consola.
@@ -170,7 +170,7 @@ docker run -it --name consensus -v  $(pwd):/opt/consensus elferrer/ruby bundle e
 docker pull elferrer/ruby
 ~~~
 
-2.- Debemos compartir el disco C: (el disco en el que tienes la imagen) configurando *settings* en la aplicacion Docker.
+2.- Debemos compartir el disco C: (el disco en el que tienes la imagen) configurando *settings* en la aplicacion Docker. En el caso de windows debemos indicar la ruta completa, por ello utilizaremos como muestra "c:/carpeta/compartida" que deberás cambiar por la situación real donde has descargado el git de consensus.
 
 3.- Ponemos en marcha la imagen:
 
