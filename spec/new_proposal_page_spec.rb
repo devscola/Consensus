@@ -3,25 +3,22 @@ require_relative 'test_support/new_proposal_page'
 require_relative '../app'
 
 feature "New Proposal Home Page" do
-  scenario 'Has required elements' do
+
+  scenario 'Check if title accepts content' do
     new_proposal_page = NewProposalPage.new
 
-    expect(page).to have_css("#proposal-title")
-    expect(page).to have_css("#proposal-content")
-    expect(page).to have_css("#proposal-submit")
+    new_proposal_page.fill_title('Random title')
+
+    title_content = new_proposal_page.get_title_value()
+    expect(title_content).to eq('Random title')
   end
-  scenario 'Input proposal title has placeholder' do
+  
+  scenario 'Check if content field accept content' do
     new_proposal_page = NewProposalPage.new
 
-    result = find('#proposal-title')['placeholder']
+    new_proposal_page.fill_content('Lorem ipsum dolor sit')
 
-    expect(result).to eq("Type your title here. Remember, keep it short and clear")
-  end
-  scenario 'Input proposal content has placeholder' do
-    new_proposal_page = NewProposalPage.new
-
-    result = find('#proposal-content')['placeholder']
-
-    expect(result).to eq("Type your proposal text here. Remember, explain your proposal thoroughly")
+    title_content = new_proposal_page.get_content_value()
+    expect(title_content).to eq('Lorem ipsum dolor sit')
   end
 end
