@@ -11,7 +11,7 @@ feature "Login" do
     username = 'KingRobert'
     password = 'Stag'
 
-    login_page.sing_in(username, password)
+    login_page.sign_in(username, password)
 
     expect(page).to have_title('Consensus home')
   end
@@ -20,7 +20,7 @@ feature "Login" do
     username = ''
     password = ''
 
-    login_page.sing_in(username, password)
+    login_page.sign_in(username, password)
 
     expect_warning_has_appeared
   end
@@ -29,7 +29,7 @@ feature "Login" do
     username = 'wadus'
     password = 'yolo'
 
-    login_page.sing_in(username, password)
+    login_page.sign_in(username, password)
 
     expect_warning_has_appeared
   end
@@ -37,7 +37,7 @@ feature "Login" do
   scenario 'wrong credentials warning is dismisseable' do
     username = 'wadus'
     password = 'yolo'
-    login_page.sing_in(username, password)
+    login_page.sign_in(username, password)
 
     login_page.dismiss_wrong_credentials_warning
 
