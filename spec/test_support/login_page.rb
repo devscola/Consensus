@@ -1,4 +1,4 @@
-module TestSupport
+module Page
   class LoginPage
     include Capybara::DSL
 
@@ -8,7 +8,7 @@ module TestSupport
       validate!
     end
 
-    def sing_in(username, password)
+    def sign_in(username, password)
       fill_in('username', with: username)
       fill_in('password', with: password)
       click_button('submit')

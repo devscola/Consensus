@@ -4,7 +4,7 @@ require_relative '../app'
 
 feature 'Text area' do
   scenario 'counter shows text area length' do
-    text_area = TextArea.new
+    text_area = Page::TextArea.new
     text = 'some text'
 
     text_area.fill_text_area(text)
