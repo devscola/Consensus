@@ -6,7 +6,7 @@ set :static, true
 set :public_folder, './public/'
 
 get '/' do
-  'Hello World'
+  File.read(File.join('public', 'index.html'))
 end
 
 post '/login' do
