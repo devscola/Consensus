@@ -15,9 +15,16 @@ bundle install --path vendor/bundle
 
 ## Run tests
 
+to run _all_ tests use:
 ```
-bundle exec rspec
+bundle exec rake test_all
 ```
+
+to run _only_ unitarian specs use:
+```
+bundle exec rake test
+```
+
 
 ## Launch the app
 

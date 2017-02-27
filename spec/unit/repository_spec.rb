@@ -1,5 +1,5 @@
 require 'spec_helper'
-require_relative './../repository'
+require_relative './../../repository'
 
 describe Repository do
   it 'stores an item associated to a unique key' do
