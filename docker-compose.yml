@@ -1,0 +1,14 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+     - "5000:5000"
+    links:
+     - redis
+    volumes:
+     - .:/opt/consensus
+    command: [bundle, exec, rspec]
+  redis:
+    image: "redis:alpine"
+
