@@ -1,4 +1,4 @@
-## INSTALACIÓN DE DOCKER, SUGERENCIAS INICIALES. ## 
+## INSTALACIÓN DE DOCKER, SUGERENCIAS INICIALES.
 
 1.-  Instalar Docker según tus sistemas e instrucciones de la web:
 
@@ -21,10 +21,10 @@ sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
 sudo chmod g+rwx "/home/$USER/.docker" -R
 ~~~
 
-4.- Una vez familiarizados sería conveniente que borrases los imágenes de ejemplo (docker/whalesay).
+4.- Una vez familiarizado con el manejo de docker sería conveniente que borrases los imágenes de ejemplo.
 
 
-###  DESCARGAR EL GIT DE CONSENSUS ### 
+##  A. DESCARGAR EL GIT DE CONSENSUS 
 
 1.- Descargamos el git de consensus: 
 
@@ -32,7 +32,41 @@ sudo chmod g+rwx "/home/$USER/.docker" -R
 git clone https://github.com/devscola/consensus
 ~~~
 
-###  DOCKER ###
+## B. DESCARGAR EL DOCKER DE CONSENSUS 
+
+### B1. DESCARGA Y  EJECUCIÓN DEL DOCKER EN LINUX Y MACOS#####
+
+1.- Hay que ir a la web: hub.docker.com y buscar la imagen: elferrer/ruby , o puedes directamente descargarla:
+
+~~~
+docker pull elferrer/ruby
+~~~
+
+2.- Ponemos en marcha la imagen ejecutando el test:
+
+~~~
+docker run -it --name consensus -v  $(pwd):/opt/consensus elferrer/ruby bundle exec rspec
+~~~
+
+### B2. DESCARGA Y EJECUCIÓN DEL DOCKER PARA WINDOWS
+
+1.- Hay que ir a la web: hub.docker.com y buscar la imagen: elferrer/ruby , o puedes directamente descargarla: 
+
+~~~
+docker pull elferrer/ruby
+~~~
+
+2.- Debemos compartir el disco C: (el disco en el que tienes la imagen) configurando *settings* en la aplicacion Docker. En el caso de windows debemos indicar la ruta completa, por ello utilizaremos como muestra "c:/carpeta/compartida" que deberás cambiar por la situación real donde has descargado el git de consensus.
+
+3.- Ponemos en marcha la imagen:
+
+~~~
+docker run -it --name consensus -v  c:/carpeta/compartida:/opt/consensus elferrer/ruby /bin/sh
+~~~
+
+
+
+## C. RESUMEN RAPIDO DEL MANEJO DE DOCKER 
 
 Docker separa el concepto de la imagen física (archivos que la conforman y configuraciones), del contenedor que está ejecutandose en tu sistema. Podriamos hacer una comparación muy simplista entendiendo que la imagen física sería como una ISO y el contenedor sería casi como una máquina virtual sin interfaz.
 
@@ -89,7 +123,7 @@ docker run -it --name consensus -v  $(pwd):/opt/consensus elferrer/ruby bundle e
 
 Como último apunte indicar que los contenedores necesitan siempre que exista su imagen origen, por ello es habitual que tengas varios contenedores en marcha desde la misma imagen.
 
-####  A. PREPARACIÓN DEL DOCKER, SOLO CADA VEZ QUE ACTUALICEMOS LA IMAGEN #### 
+##  D. PREPARACIÓN DEL DOCKER, SOLO CADA VEZ QUE ACTUALICEMOS LA IMAGEN 
 
 1.- Nos situamos en la carpeta del git de consensus. 
 
@@ -145,38 +179,4 @@ docker login
 ~~~
 docker push usuario/imagen
 ~~~
-
-#### B. DESCARGAR EL DOCKER DE CONSENSUS ####
-
-##### B1. DESCARGA Y  EJECUCIÓN DEL DOCKER EN LINUX Y MACOS#####
-
-1.- Hay que ir a la web: hub.docker.com y buscar la imagen: elferrer/ruby , o puedes directamente descargarla:
-
-~~~
-docker pull elferrer/ruby
-~~~
-
-2.- Ponemos en marcha la imagen ejecutando el test:
-
-~~~
-docker run -it --name consensus -v  $(pwd):/opt/consensus elferrer/ruby bundle exec rspec
-~~~
-
-##### B2. DESCARGA Y EJECUCIÓN DEL DOCKER PARA WINDOWS #####
-
-1.- Hay que ir a la web: hub.docker.com y buscar la imagen: elferrer/ruby , o puedes directamente descargarla: 
-
-~~~
-docker pull elferrer/ruby
-~~~
-
-2.- Debemos compartir el disco C: (el disco en el que tienes la imagen) configurando *settings* en la aplicacion Docker. En el caso de windows debemos indicar la ruta completa, por ello utilizaremos como muestra "c:/carpeta/compartida" que deberás cambiar por la situación real donde has descargado el git de consensus.
-
-3.- Ponemos en marcha la imagen:
-
-~~~
-docker run -it --name consensus -v  c:/carpeta/compartida:/opt/consensus elferrer/ruby /bin/sh
-~~~
-
-
 
