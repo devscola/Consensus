@@ -1,7 +1,7 @@
 .eye-closed,
 .eye-opened {
     background-color: red;
-    background: url("../eye.png") no-repeat;
+    background: url("./images/eye.png") no-repeat;
     background-size: 100% auto;
     height: 30px;
     width: 30px;
