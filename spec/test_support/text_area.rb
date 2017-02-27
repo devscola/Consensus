@@ -1,24 +1,26 @@
-class TextArea
-  include Capybara::DSL
+module Page
+  class TextArea
+    include Capybara::DSL
 
-  def initialize
-    url = '/text-area.html'
-    visit(url)
-    validate!
-  end
+    def initialize
+      url = '/text-area.html'
+      visit(url)
+      validate!
+    end
 
-  def fill_text_area(text)
-    fill_in('text-area', with: text)
-  end
+    def fill_text_area(text)
+      fill_in('text-area', with: text)
+    end
 
-  def get_counter_value
-    find('#counter').text
-  end
+    def get_counter_value
+      find('#counter').text
+    end
 
-  private
+    private
 
-  def validate!
-    page.assert_selector('#text-area')
-    page.assert_selector('#counter')
+    def validate!
+      page.assert_selector('#text-area')
+      page.assert_selector('#counter')
+    end
   end
 end

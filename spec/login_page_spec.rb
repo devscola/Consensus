@@ -4,7 +4,7 @@ require_relative '../app'
 
 feature "Login" do
   let(:login_page) do
-    TestSupport::LoginPage.new
+    Page::LoginPage.new
   end
 
   scenario 'login success' do

@@ -1,4 +1,4 @@
-module TestSupport
+module Page
   class LoginPage
     include Capybara::DSL
 
