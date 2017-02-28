@@ -7,4 +7,4 @@ RUN apk update
 RUN apk add g++
 RUN apk add make
 RUN bundle install
-EXPOSE 5000
+EXPOSE 4567
