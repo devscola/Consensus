@@ -23,7 +23,7 @@
 * `class="block-name__part-name--modifier-name"`
 * `class="block__part--modifier"`
 * `class="person__hand--open"`
-* `class="person__hair--dark-red"
+* `class="person__hair--dark-red"`
 
 ### Nesting
 
