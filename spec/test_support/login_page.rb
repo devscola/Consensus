@@ -19,7 +19,7 @@ module Page
     end
 
     def toggle_password_visibility
-      find('#passwordToggler').click
+      find('#password-toggler').click
     end
 
     private
@@ -28,7 +28,7 @@ module Page
       page.assert_selector('#username')
       page.assert_selector('#password')
       page.assert_selector('#submit')
-      page.assert_selector('#passwordToggler')
+      page.assert_selector('#password-toggler')
     end
   end
 end

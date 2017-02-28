@@ -3,7 +3,7 @@ var LoginForm = function() {
   var submit = document.getElementById('submit');
   var username = document.getElementById('username');
   var password = document.getElementById('password');
-  var passwordToggler = document.getElementById('passwordToggler')
+  var passwordToggler = document.getElementById('password-toggler')
 
   var retrieveCredentials = function() {
       return {username: username.value, password: password.value};
@@ -29,12 +29,12 @@ var LoginForm = function() {
 
   var openEye = function() {
     password.type = 'text';
-    passwordToggler.className = 'eye-opened';
+    passwordToggler.className = 'password-eye password-eye--opened';
   }
 
   var closeEye = function() {
     password.type = 'password';
-    passwordToggler.className = 'eye-closed';
+    passwordToggler.className = 'password-eye password-eye--closed';
   }
 
   var doLogin = function() {
