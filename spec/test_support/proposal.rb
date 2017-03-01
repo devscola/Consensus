@@ -1,23 +1,32 @@
 module Page
-  class NewProposalPage
+  class Proposal
     include Capybara::DSL
 
     def initialize
-      url = '/new-proposal.html'
+      url = '/proposal'
       visit(url)
       validate!
     end
-    def fill_title(title)
-      fill_in('proposal-title', with: title)
-    end
+
     def fill_content(content)
       fill_in('proposal-content', with: content)
     end
-    def get_title_value
-   	  find('#proposal-title').value
+
+    def remove_content
+      fill_in('proposal-content', with: " ")
     end
-    def get_content_value
-     	find('#proposal-content').value
+
+    def submit_button_enabled?
+      button = find('#proposal-submit')
+      result = button[:disabled]
+
+      return true if result.nil? 
+
+      false
+    end
+
+    def content_length
+      find('#proposal-content').value.length
     end
  
     private
