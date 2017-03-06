@@ -27,6 +27,10 @@ post '/proposal' do
   redirect to('/discussion-board')
 end
 
+get '/list' do
+  erb :list
+end
+
 get '/discussion-board' do
   @title = 'Discussion Board'
   @proposal_title = reminder.title
