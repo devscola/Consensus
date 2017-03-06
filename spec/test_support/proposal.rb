@@ -25,6 +25,11 @@ module Page
       false
     end
 
+    def info_message_visible?
+      message = find('#info-message', visible: false)
+      message.visible?
+    end
+
     def content_length
       find('#proposal-content').value.length
     end

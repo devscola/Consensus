@@ -28,4 +28,19 @@ feature 'New proposal page' do
     expect(betta_result).to eq(true)
     expect(gamma_result).to eq(false)
   end
+
+  scenario 'a info message is shown or hide depending on content' do
+    proposal = Page::Proposal.new
+    some_content = '*' * 1000
+
+    alpha_result = proposal.info_message_visible?
+    proposal.fill_content(some_content)
+    betta_result = proposal.info_message_visible?
+    proposal.remove_content
+    gamma_result = proposal.info_message_visible?
+
+    expect(alpha_result).to eq(true)
+    expect(betta_result).to eq(false)
+    expect(gamma_result).to eq(true)
+  end
 end
