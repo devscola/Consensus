@@ -18,5 +18,5 @@ var TextArea = function(){
   };
 
   updateCounter();
-  textArea.addEventListener('keyup', updateCounter);
+  textArea.addEventListener('input', updateCounter);
 }
