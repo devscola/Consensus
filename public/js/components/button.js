@@ -1,14 +1,20 @@
 var Button = function() {
-  var button = document.getElementById('proposal-submit');
+    var button = document.getElementById('proposal-submit');
 
-  var activateButton = function() {
-    button.disabled = false;
-  };
+    var submitProposal = function() {
+        Bus.publish('submit proposal');
+    };
 
-  var deactivateButton = function() {
-    button.disabled = true;
-  };
+    button.addEventListener('click', submitProposal);
 
-  Bus.subscribe('enoughProposalContent', activateButton);
-  Bus.subscribe('notEnoughProposalContent', deactivateButton);
+    var activateButton = function() {
+        button.disabled = false;
+    };
+
+    var deactivateButton = function() {
+        button.disabled = true;
+    };
+
+    Bus.subscribe('enoughProposalContent', activateButton);
+    Bus.subscribe('notEnoughProposalContent', deactivateButton);
 };

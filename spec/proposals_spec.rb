@@ -7,22 +7,22 @@ feature 'Proposals' do
   scenario 'when there are no proposals the list is empty' do
     proposals = Page::Proposals.new
 
-    result = proposals.list
+    result = proposals.proposal_amount
 
-    expect(result).to be_empty
+    expect(result).to be 0
   end
 
-  xscenario 'when there are some proposals the list is not empty' do
+  scenario 'when there are some proposals the list is not empty' do
     proposals = Page::Proposals.new
 
     proposals.new_proposal('some title', some_enough_proposal_content)
-    page.visit('/proposals')
-    result = proposals.list
+    proposals.submit_proposal
+    result = proposals.proposal_amount
 
-    expect(result).to_not be_empty
+    expect(result).to be 1
   end
 
-  xscenario 'when creating a proposal a form to fill appears' do
+  scenario 'when creating a proposal a form to fill appears' do
     proposals = Page::Proposals.new
 
     alpha_result = proposals.form_is_visible?

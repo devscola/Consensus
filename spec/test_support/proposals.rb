@@ -8,8 +8,8 @@ module Page
       validate!
     end
 
-    def list
-      []
+    def proposal_amount
+      page.all('.proposal-entry').count
     end
 
     def form_is_visible?
@@ -19,9 +19,13 @@ module Page
 
     def new_proposal(title, content)
       click_on('create-proposal')
-      fill_in('proposal-title', with: proposal_content)
-      fill_in('proposal-content', with: proposal_content)
+      fill_in('proposal-title', with: title)
+      fill_in('proposal-content', with: content)
     end
+    
+    def submit_proposal
+      click_on('proposal-submit')
+    end  
 
     private
 
@@ -30,8 +34,5 @@ module Page
       page.assert_selector('#proposal-list', visible: false)
     end
 
-    def proposal_content
-      Fixtures.enough_proposal_content
-    end
   end
 end
