@@ -5,7 +5,7 @@
 Install Ruby and Ruby-dev:
 
 ~~~
-sudo apt-get install ruby ruby-dev
+sudo apt-get install ruby ruby-dev ruby-rack
 ~~~
 
 Visit nokogiri page ( http://www.nokogiri.org/tutorials/installing_nokogiri.html ) and install dependencies, in debian/ubuntu:
