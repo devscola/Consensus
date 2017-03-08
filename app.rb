@@ -1,39 +1,42 @@
 require 'json'
-require 'sinatra'
+require 'sinatra/base'
 require_relative 'authorization_service'
 
-class ProposalReminder
-  attr_accessor :title, :content
-end
+class App < Sinatra::Base
 
-reminder = ProposalReminder.new
+  class ProposalReminder
+    attr_accessor :title, :content
+  end
 
-set :static, true
-set :public_folder, './public/'
+  reminder = ProposalReminder.new
 
-get '/' do
-  File.read(File.join('public', 'index.html'))
-end
+  set :static, true
+  set :public_folder, './public/'
 
-get '/proposal' do
-  File.read(File.join('public', 'proposal.html'))
-end
+  get '/' do
+    File.read(File.join('public', 'index.html'))
+  end
 
-post '/proposal' do
-  reminder.title = params[:proposal_title]
-  reminder.content = params[:proposal_content]
-  redirect to('/discussion-board')
-end
+  get '/proposal' do
+    File.read(File.join('public', 'proposal.html'))
+  end
 
-get '/list' do
-  File.read(File.join('public', 'list.html'))
-end
+  post '/proposal' do
+    reminder.title = params[:proposal_title]
+    reminder.content = params[:proposal_content]
+    redirect to('/discussion-board')
+  end
 
-post '/login' do
-  payload = JSON.parse(request.body.read)
-  username = payload['username']
-  password = payload['password']
+  get '/list' do
+    File.read(File.join('public', 'list.html'))
+  end
 
-  verified = AuthorizationService.verify(username, password)
-  {valid: verified}.to_json
+  post '/login' do
+    payload = JSON.parse(request.body.read)
+    username = payload['username']
+    password = payload['password']
+
+    verified = AuthorizationService.verify(username, password)
+    {valid: verified}.to_json
+  end
 end
