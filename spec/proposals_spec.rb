@@ -22,14 +22,15 @@ feature 'Proposals' do
     expect(result).to_not be_empty
   end
 
-  scenario 'when a new proposal is created redirects to discussion' do
+  xscenario 'when creating a proposal a form to fill appears' do
     proposals = Page::Proposals.new
 
+    alpha_result = proposals.form_is_visible?
     proposals.new_proposal('some title', 'some content')
-    url = page.current_url
-    result = url.include?('new-proposal.html')
+    betta_result = proposals.form_is_visible?
 
-    expect(result).to be true
+    expect(alpha_result).to be :invisible
+    expect(betta_result).to be :visible
   end
 
   def some_enough_proposal_content
