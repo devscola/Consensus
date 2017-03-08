@@ -11,4 +11,4 @@ var InfoMessage = function() {
 
     Bus.subscribe('enoughProposalContent', hide);
     Bus.subscribe('notEnoughProposalContent', show);
-}
+};

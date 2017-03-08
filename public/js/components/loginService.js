@@ -2,14 +2,14 @@ var LoginService = function() {
 
   var hasSucceeded = function(result) {
     return result.valid;
-  }
+  };
 
   var login = function(credentials) {
     doRequest('/login', credentials, function(result) {
       var evaluated = hasSucceeded(result);
       Bus.publish('LoginResult', evaluated);
     });
-  }
+  };
 
   var doRequest = function(endpoint, credentials, callback) {
     var request = new XMLHttpRequest();
@@ -23,11 +23,11 @@ var LoginService = function() {
           callback (JSON.parse(request.responseText));
         }
       }
-    }
+    };
     request.send(JSON.stringify(credentials));
-  }
+  };
 
   Bus.subscribe('LoginAttempt', login);
 
   return {};
-}
+};

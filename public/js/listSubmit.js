@@ -1,9 +1,9 @@
 var ListSubmit = function(){
-  var listSubmit = document.getElementById('list-submit');
+    var listSubmit = document.getElementById('list-submit');
 
-  var buttonClicked = function(){
-    Bus.publish('button clicked');
-  };
+    var buttonClicked = function(){
+        Bus.publish('button clicked');
+    };
 
-  listSubmit.addEventListener('click', buttonClicked);  
-}
+    listSubmit.addEventListener('click', buttonClicked);  
+};

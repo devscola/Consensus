@@ -1,7 +1,7 @@
 main();
 
 function main() {
-  document.addEventListener('DOMContentLoaded', function() {
-    new LoginPage();
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+        new LoginPage();
+    });
 }

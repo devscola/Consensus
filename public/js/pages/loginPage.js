@@ -1,35 +1,35 @@
 var LoginPage = function() {
 
-  var wrongCredentials;
-  var loginForm;
-  var HOME = '/home.html';
+    var wrongCredentials;
+    var loginForm;
+    var HOME = '/home.html';
 
-  var goToHome = function() {
-    window.location = HOME;
-  }
+    var goToHome = function() {
+        window.location = HOME;
+    };
 
-  var showError = function() {
-    wrongCredentials.show();
-  }
+    var showError = function() {
+        wrongCredentials.show();
+    };
 
-  var doLogin = function() {
-    wrongCredentials.hide();
-    goToHome();
-  }
+    var doLogin = function() {
+        wrongCredentials.hide();
+        goToHome();
+    };
 
-  var checkLogin = function(result) {
-    if (!result) return showError();
+    var checkLogin = function(result) {
+        if (!result) return showError();
 
-    doLogin();
-  }
+        doLogin();
+    };
 
-  wrongCredentials = new WrongCredentials();
-  loginForm = new LoginForm();
-  
-  new LoginService();
+    wrongCredentials = new WrongCredentials();
+    loginForm = new LoginForm();
 
-  Bus.subscribe('dismissed', loginForm.empty);
-  Bus.subscribe('LoginResult', checkLogin);
+    new LoginService();
 
-  return {}
-}
+    Bus.subscribe('dismissed', loginForm.empty);
+    Bus.subscribe('LoginResult', checkLogin);
+
+    return {};
+};
