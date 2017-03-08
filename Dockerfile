@@ -1,10 +1,9 @@
-FROM ruby:2.4.0-alpine
+FROM ruby:2.4.0
 
-RUN mkdir -p /opt/consensus
-ADD . /opt/consensus
-WORKDIR /opt/consensus
-RUN apk update
-RUN apk add g++
-RUN apk add make
-RUN bundle install
-EXPOSE 4567
+ENV app /opt/consensus
+RUN mkdir -p $app
+RUN apt-get update
+RUN apt-get install g++
+RUN apt-get install make
+RUN gem install bundler
+WORKDIR $app
