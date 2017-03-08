@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'spec_helper_bdd'
 require_relative 'test_support/login_page'
 require_relative '../app'
 
