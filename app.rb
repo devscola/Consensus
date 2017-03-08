@@ -10,15 +10,13 @@ reminder = ProposalReminder.new
 
 set :static, true
 set :public_folder, './public/'
-set :views, './views/'
 
 get '/' do
   File.read(File.join('public', 'index.html'))
 end
 
 get '/proposal' do
-  @title = 'New Proposal'
-  erb :proposal
+  File.read(File.join('public', 'proposal.html'))
 end
 
 post '/proposal' do
@@ -28,14 +26,7 @@ post '/proposal' do
 end
 
 get '/list' do
-  erb :list
-end
-
-get '/discussion-board' do
-  @title = 'Discussion Board'
-  @proposal_title = reminder.title
-  @proposal_content = reminder.content
-  erb :discussion_board
+  File.read(File.join('public', 'list.html'))
 end
 
 post '/login' do
