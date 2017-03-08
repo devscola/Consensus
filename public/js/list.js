@@ -1,7 +1,7 @@
 main();
 
-function main(){
-    document.addEventListener('DOMContentLoaded', function(){
+function main() {
+    document.addEventListener('DOMContentLoaded', function() {
         new ListPage();
     });
 }
