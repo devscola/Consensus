@@ -3,12 +3,12 @@ services:
   web:
     build: .
     ports:
-     - "5000:5000"
-    links:
-     - redis
+     - "4567:4567"
     volumes:
      - .:/opt/consensus
-    command: [bundle, exec, rspec]
-  redis:
-    image: "redis:alpine"
+     - bundle:/usr/local/bundle
+    command: bash -c  "bundle install --jobs 3 && bundle exec rake"
 
+volumes:
+  bundle:
+    driver: local
