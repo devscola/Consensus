@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'spec_helper_tdd'
 require_relative './../../repository'
 require_relative './../../authorization_service'
 
