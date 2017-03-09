@@ -18,14 +18,44 @@ module Page
     end
 
     def new_proposal(title, content)
-      click_on('create-proposal')
+      show_form
       fill_in('proposal-title', with: title)
       fill_in('proposal-content', with: content)
     end
-    
+
+    def show_form
+      click_on('create-proposal')
+    end
+
     def submit_proposal
       click_on('proposal-submit')
-    end  
+    end
+
+    def info_message_visible?
+      message = find('#info-message', visible: false)
+      message.visible?
+    end
+
+    def submit_button_enabled?
+      button = find('#proposal-submit')
+      result = button[:disabled]
+
+      return true if result.nil?
+
+      false
+    end
+
+    def fill_content(content)
+      fill_in('proposal-content', with: content)
+    end
+
+    def remove_content
+      fill_in('proposal-content', with: " ")
+    end
+
+    def content_length
+      find('#proposal-content').value.length
+    end
 
     private
 
