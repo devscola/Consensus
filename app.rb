@@ -2,7 +2,7 @@ require 'json'
 require 'sinatra/base'
 require_relative 'authorization_service'
 
-# class App < Sinatra::Base
+class App < Sinatra::Base
 
   class ProposalReminder
     attr_accessor :title, :content
@@ -39,4 +39,4 @@ require_relative 'authorization_service'
     verified = AuthorizationService.verify(username, password)
     {valid: verified}.to_json
   end
-# end
+end
