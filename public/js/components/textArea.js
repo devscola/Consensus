@@ -1,7 +1,7 @@
 var TextArea = function(){
   var textArea = document.getElementById('proposal-content');
   var counter = document.getElementById('counter');
-  var MIN_PROPOSAL_CONTENT = 1000
+  var MIN_PROPOSAL_CONTENT = 10
 
   var updateCounter = function() {
     var characterAmount = textArea.textLength;

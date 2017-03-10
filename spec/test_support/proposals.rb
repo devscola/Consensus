@@ -23,6 +23,9 @@ module Page
       fill_in('proposal-content', with: content)
     end
 
+    def go_to_first
+    end
+
     def show_form
       click_on('create-proposal')
     end

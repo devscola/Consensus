@@ -34,29 +34,27 @@ feature 'Proposals' do
 end
 
 feature 'New proposal form' do
-  let(:proposal) { Page::Proposals.new }
-
-  before(:each) do
-    proposal.show_form
-  end
-
+  let(:proposals) { Page::Proposals.new }
+  
   scenario 'counter shows text area length' do
     some_text = 'some random text'
     character_amount = some_text.length
 
-    proposal.fill_content(some_text)
-    result = proposal.content_length
+    proposals.show_form
+    proposals.fill_content(some_text)
+    result = proposals.content_length
 
     expect(result.to_i).to eq(character_amount)
   end
 
   scenario 'submit button activates and deactivates depending on content' do
 
-    alpha_result = proposal.submit_button_enabled?
-    proposal.fill_content(some_enough_proposal_content)
-    betta_result = proposal.submit_button_enabled?
-    proposal.remove_content
-    gamma_result = proposal.submit_button_enabled?
+    proposals.show_form
+    alpha_result = proposals.submit_button_enabled?
+    proposals.fill_content(some_enough_proposal_content)
+    betta_result = proposals.submit_button_enabled?
+    proposals.remove_content
+    gamma_result = proposals.submit_button_enabled?
 
     expect(alpha_result).to eq(false)
     expect(betta_result).to eq(true)
@@ -65,18 +63,30 @@ feature 'New proposal form' do
 
   scenario 'a info message is shown or hide depending on content' do
 
-    alpha_result = proposal.info_message_visible?
-    proposal.fill_content(some_enough_proposal_content)
-    betta_result = proposal.info_message_visible?
-    proposal.remove_content
-    gamma_result = proposal.info_message_visible?
+    proposals.show_form
+    alpha_result = proposals.info_message_visible?
+    proposals.fill_content(some_enough_proposal_content)
+    betta_result = proposals.info_message_visible?
+    proposals.remove_content
+    gamma_result = proposals.info_message_visible?
 
     expect(alpha_result).to eq(true)
     expect(betta_result).to eq(false)
     expect(gamma_result).to eq(true)
   end
+
+  xscenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
+    proposals.new_proposal('some ramdon title', some_enough_proposal_content)
+
+    proposals.go_to_first
+    proposal = page
+    result = proposal.current_path
+
+    expect(result).to eq('/proposals/som')
+  end
 end
 
 def some_enough_proposal_content
   Fixtures.enough_proposal_content
+  'mira paoyo que lo he roto'
 end
