@@ -1,6 +1,6 @@
 require 'spec_helper_bdd'
 require_relative 'test_support/list'
-require_relative '../app'
+require_relative '../../app'
 
 feature 'List' do 
 

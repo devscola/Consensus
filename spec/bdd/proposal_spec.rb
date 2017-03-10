@@ -1,6 +1,6 @@
 require 'spec_helper_bdd'
 require_relative 'test_support/proposal'
-require_relative '../app'
+require_relative '../../app'
 
 feature 'New proposal page' do
   scenario 'counter shows text area length' do

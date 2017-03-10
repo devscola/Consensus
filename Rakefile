@@ -5,11 +5,11 @@ task :start do
 end
 
 task :tdd do
-  sh 'rspec spec/unit'
+  sh 'rspec spec/tdd'
 end
 
 task :bdd do
-  sh 'rspec'
+  sh 'rspec spec/bdd'
 end
 
 task :test => [:tdd, :bdd] do
