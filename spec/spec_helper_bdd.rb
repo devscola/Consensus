@@ -3,7 +3,14 @@ require 'capybara'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
-if (ENV['CONSENSUS_MODE'])
+
+begin
+  consensus_environment = ENV.fetch('CONSENSUS_MODE')
+rescue
+  consensus_environment = nil
+end
+
+if (consensus_environment == 'development')
   Capybara.register_driver :chrome do |app|
     Capybara::Selenium::Driver.new(app, {
       browser: :remote,
@@ -14,7 +21,8 @@ if (ENV['CONSENSUS_MODE'])
   Capybara.default_driver = :chrome
   
   ip = %x(/sbin/ip route|awk '/default/ { print $3 }').strip
-  Capybara.app_host = "http://#{ip}:4567"
+  port = '4567'
+  Capybara.app_host = "http://#{ip}:#{port}"
 
 
 else
@@ -31,9 +39,3 @@ else
   Capybara.server_host = "localhost"
   Capybara.server_port = "4567"
 end
-
-
-
-  
-
-
