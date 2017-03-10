@@ -2,6 +2,8 @@ version: '2'
 services:
   web:
     build: .
+    links:
+      -  selenium
     ports:
      - "4567:4567"
     volumes:
@@ -9,6 +11,15 @@ services:
      - bundle:/usr/local/bundle
     command: bash -c  "bundle install --jobs 3 && bundle exec rake"
 
+  selenium:
+    image: selenium/standalone-chrome
+    ports:
+        - "4444:4444"
+    container_name: chrome-browser
+    logging:
+      driver: none
+
 volumes:
   bundle:
     driver: local
+
