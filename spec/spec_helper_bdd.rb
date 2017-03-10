@@ -3,39 +3,46 @@ require 'capybara'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
+SINATRA_DEFAULT_PORT = '4567'
 
-begin
-  consensus_environment = ENV.fetch('CONSENSUS_MODE')
-rescue
-  consensus_environment = nil
+def retrieve_mode
+  begin
+    consensus_environment = ENV.fetch('CONSENSUS_MODE')
+  rescue
+    consensus_environment = nil
+  end
+  return consensus_environment
 end
 
-if (consensus_environment == 'development')
+def host_ip
+  routes = `/sbin/ip route`
+  routes.match(/[\d\.]+/)
+end
+
+def use_selenium
   Capybara.register_driver :chrome do |app|
     Capybara::Selenium::Driver.new(app, {
       browser: :remote,
-      url: "http://chrome-browser:4444/wd/hub",
+      url: 'http://chrome-browser:4444/wd/hub',
       desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome
     })
   end
   Capybara.default_driver = :chrome
-  
-  ip = %x(/sbin/ip route|awk '/default/ { print $3 }').strip
-  port = '4567'
-  Capybara.app_host = "http://#{ip}:#{port}"
+  Capybara.app_host = "http://#{host_ip}:#{SINATRA_DEFAULT_PORT}"
+end
 
-
-else
-
-  Sinatra::Application.environment = :test
-
+def use_chrome
   Capybara.register_driver :chrome do |app|
     Capybara::Selenium::Driver.new(app, :browser => :chrome)
   end
-
   Capybara.default_driver = :chrome
+  Capybara.app_host = "http://localhost:#{SINATRA_DEFAULT_PORT}"
+end
 
-  Capybara.app_host = "http://localhost:4567"
-  Capybara.server_host = "localhost"
-  Capybara.server_port = "4567"
+mode = retrieve_mode
+
+if (mode == 'development')
+  use_selenium
+else
+  use_chrome
 end
