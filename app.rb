@@ -1,6 +1,7 @@
 require 'json'
 require 'sinatra/base'
-require_relative 'authorization_service'
+require_relative './services/authorization_service'
+require_relative './services/proposal_service'
 
 class App < Sinatra::Base
 
@@ -19,6 +20,15 @@ class App < Sinatra::Base
 
   get '/proposals' do
     File.read(File.join('public', 'proposals.html'))
+  end
+
+  post '/proposals/add' do
+    payload = JSON.parse(request.body.read)
+    title = payload['title']
+    content = payload['content']
+
+    result = ProposalService.add(title, content)
+    result.to_json
   end
 
   get '/proposal' do

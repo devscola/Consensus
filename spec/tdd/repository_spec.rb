@@ -1,5 +1,5 @@
 require 'spec_helper_tdd'
-require_relative './../../repository'
+require_relative './../../services/repository'
 
 describe Repository do
   it 'stores an item associated to a unique key' do
