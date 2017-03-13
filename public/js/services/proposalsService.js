@@ -21,7 +21,13 @@ var ProposalsService = function() {
         };
         request.send(JSON.stringify(proposalData));
     };
+    var listProposals = function (){
+        doRequest('/proposals/list', '', function(result) {
+            Bus.publish('proposal.listed',result);
+        });
+    }
 
     Bus.subscribe('proposal.add', addProposal);
+    Bus.subscribe('proposal.list', listProposals);
 
 };

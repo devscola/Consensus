@@ -31,6 +31,11 @@ class App < Sinatra::Base
     result.to_json
   end
 
+  post '/proposals/list' do
+    result = ProposalService.list()
+    result.to_json    
+  end  
+
   get '/proposal' do
     File.read(File.join('public', 'proposal.html'))
   end

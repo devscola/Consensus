@@ -3,4 +3,6 @@ var ProposalsPage = function() {
     new ProposalList();
     new ProposalForm();
     new ProposalsService();
+
+    Bus.publish('proposal.list');
 };

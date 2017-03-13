@@ -8,5 +8,12 @@ var ProposalList = function() {
         proposalList.append(element);
     };
 
+    var showList = function(list){
+        list.forEach(function(proposal){
+            this.add(proposal.title);
+        });
+    }
+
     Bus.subscribe('proposal ready', add);
+    Bus.subscribe('proposal.listed', showList);
 };
