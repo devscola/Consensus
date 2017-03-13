@@ -12,5 +12,5 @@ var ProposalTitle = function() {
         Bus.publish('proposal ready', content);
     };
 
-    Bus.subscribe('submit proposal', send);
+    Bus.subscribe('proposal.submit', send);
 };

@@ -2,7 +2,7 @@ var Button = function() {
     var button = document.getElementById('proposal-submit');
 
     var submitProposal = function() {
-        Bus.publish('submit proposal');
+        Bus.publish('proposal.submit');
     };
 
     button.addEventListener('click', submitProposal);

@@ -20,7 +20,12 @@ var ProposalForm = function() {
         proposalData.content = content;
     };
 
+    var addProposal = function() {
+        Bus.publish('proposal.add', proposalData);
+    };
+
+    Bus.subscribe('proposal.new', show);
     Bus.subscribe('proposal.title.change', titleChange);
     Bus.subscribe('proposal.content.ready', contentChange);
-    Bus.subscribe('proposal.new', show);
+    Bus.subscribe('proposal.submit', addProposal);
 };
