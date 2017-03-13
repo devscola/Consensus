@@ -9,6 +9,6 @@ var InfoMessage = function() {
         infoMessage.style.visibility = 'visible';
     };
 
-    Bus.subscribe('enoughProposalContent', hide);
-    Bus.subscribe('notEnoughProposalContent', show);
+    Bus.subscribe('proposal.content.ready', hide);
+    Bus.subscribe('proposal.content.not.ready', show);
 };

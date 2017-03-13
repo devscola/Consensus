@@ -9,11 +9,11 @@ var TextArea = function(){
         counter.innerHTML = characterAmount;
 
         if (characterAmount >= MIN_PROPOSAL_CONTENT) {
-            Bus.publish('enoughProposalContent');
+            Bus.publish('proposal.content.ready', textArea.value);
         }
 
         if (characterAmount < MIN_PROPOSAL_CONTENT) {
-            Bus.publish('notEnoughProposalContent');
+            Bus.publish('proposal.content.not.ready');
         }
     };
 

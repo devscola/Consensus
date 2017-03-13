@@ -15,6 +15,6 @@ var Button = function() {
         button.disabled = true;
     };
 
-    Bus.subscribe('enoughProposalContent', activateButton);
-    Bus.subscribe('notEnoughProposalContent', deactivateButton);
+    Bus.subscribe('proposal.content.ready', activateButton);
+    Bus.subscribe('proposal.content.not.ready', deactivateButton);
 };
