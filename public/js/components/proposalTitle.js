@@ -7,10 +7,4 @@ var ProposalTitle = function() {
 
     proposalTitle.addEventListener('input', publishContent);
 
-    var send = function() {
-        var content = proposalTitle.value;
-        Bus.publish('proposal ready', content);
-    };
-
-    Bus.subscribe('proposal.submit', send);
 };

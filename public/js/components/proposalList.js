@@ -1,19 +1,19 @@
 var ProposalList = function() {
     var proposalList = document.getElementById('proposal-list');
 
-    var add = function(title) {
-        var element = document.createElement('div');
-        element.className = 'proposal-entry';
-        element.innerHTML = title;
-        proposalList.append(element);
-    };
-
     var showList = function(list){
-        list.forEach(function(proposal){
-            this.add(proposal.title);
+        proposalList.innerHTML="";
+        list.result.forEach(function(proposal){
+            var element= document.createElement('div');
+            element.className='proposal-entry';
+            element.innerHTML = proposal.title;
+            proposalList.append(element);
         });
     }
 
-    Bus.subscribe('proposal ready', add);
+    var retrieveList = function(){
+        Bus.publish('proposal.list');
+    }
     Bus.subscribe('proposal.listed', showList);
+    Bus.subscribe('proposal.added', retrieveList);
 };

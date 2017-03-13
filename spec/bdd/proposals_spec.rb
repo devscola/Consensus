@@ -4,6 +4,9 @@ require_relative 'fixtures'
 require_relative '../../app'
 
 feature 'Proposals' do
+  before(:each) do 
+    visit('/proposals/empty')
+  end
   let(:proposals) { Page::Proposals.new }
 
   scenario 'when there are no proposals the list is empty' do
@@ -18,6 +21,7 @@ feature 'Proposals' do
     proposals.show_form
     proposals.new_proposal('some title', some_enough_proposal_content)
     proposals.submit_proposal
+    sleep 1
     result = proposals.proposal_amount
 
     expect(result).to be 1
