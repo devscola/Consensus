@@ -39,6 +39,14 @@ class App < Sinatra::Base
   get '/proposals/empty' do
     ProposalsService.empty
   end
+
+  post '/proposals/search' do
+    body = JSON.parse(request.body.read)
+    id = body['proposal-id'] # TODO link with true name of the front end
+
+    result = ProposalsService.search(id)
+    result.to_json
+  end
   
   get '/discussion-board/*' do
     File.read(File.join('public', 'discussion-board.html'))

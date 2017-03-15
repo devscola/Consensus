@@ -36,6 +36,20 @@ feature 'Proposals' do
     expect(alpha_result).to be :invisible
     expect(betta_result).to be :visible
   end
+
+  scenario 'each item inside the proposal list has an identifier' do
+    proposals.new_proposal('some title', some_enough_proposal_content)
+    proposals.submit_proposal
+    proposals.new_proposal('some another title', some_enough_proposal_content)
+    proposals.submit_proposal
+    sleep 0.5
+
+    alpha_result = proposals.entries[0]
+    betta_result = proposals.entries[1]
+
+    expect(alpha_result[:identifier]).to eq('0')
+    expect(betta_result[:identifier]).to eq('1')
+  end
 end
 
 feature 'New proposal form' do
@@ -80,6 +94,17 @@ feature 'New proposal form' do
     expect(gamma_result).to eq(true)
   end
 
+  scenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
+    proposals.new_proposal('some-random-title', some_enough_proposal_content)
+    proposals.submit_proposal
+     
+    sleep 1
+    proposals.visit_first_proposal
+    result = page.current_url
+     
+    expect(result.include?('/discussion-board/an_id')).to be true
+  end
+
   xscenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
     proposals.new_proposal('some ramdon title', some_enough_proposal_content)
 
@@ -89,6 +114,7 @@ feature 'New proposal form' do
 
     expect(result).to eq('/proposals/som')
   end
+
 end
 
 def some_enough_proposal_content

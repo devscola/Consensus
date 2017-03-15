@@ -23,6 +23,23 @@ module Page
       fill_in('proposal-content', with: content)
     end
 
+    def visit_first_proposal
+      proposal = page.all('.proposal-entry').first
+      proposal.click
+    end
+
+    def entries
+      all_entries = []
+      wadus = page.all('.proposal-entry')
+
+      wadus.each do |node|
+        entry = {identifier: node.text[0]}
+        all_entries << entry
+      end
+
+      all_entries
+    end
+
     def go_to_first
     end
 
