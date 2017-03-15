@@ -94,6 +94,17 @@ feature 'New proposal form' do
     expect(gamma_result).to eq(true)
   end
 
+  scenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
+    proposals.new_proposal('some-random-title', some_enough_proposal_content)
+    proposals.submit_proposal
+     
+    sleep 1
+    proposals.visit_first_proposal
+    result = page.current_url
+     
+    expect(result.include?('/proposals/some-random-title')).to be true
+  end
+
   xscenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
     proposals.new_proposal('some ramdon title', some_enough_proposal_content)
 
