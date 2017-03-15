@@ -85,7 +85,7 @@ rake bdd
 	   
     
 
-## Prepare docker environment for run test:
+## Prepare docker environment to run test:
 
 Be sure that you have the last docker version & docker-compose version 
 
@@ -102,8 +102,7 @@ Then make the docker compose up, to run the app:
 docker-compose up
 ~~~
 
-
-## And after the docker-compose up, in other terminal run the tests:
+And after the docker-compose up, in other terminal run the tests:
 
 All the tests:
 	 
