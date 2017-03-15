@@ -23,9 +23,8 @@ module Page
       fill_in('proposal-content', with: content)
     end
 
-    def visit_first_proposal
-      proposal = page.all('.proposal-entry').first
-      proposal.click
+    def visit_proposal(name)
+      click_link(name)
     end
 
     def entries
@@ -38,9 +37,6 @@ module Page
       end
 
       all_entries
-    end
-
-    def go_to_first
     end
 
     def show_form

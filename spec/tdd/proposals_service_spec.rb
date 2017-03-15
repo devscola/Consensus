@@ -1,4 +1,5 @@
 require 'spec_helper_tdd'
+require 'digest/md5'
 require_relative './../../services/proposals_service'
 
 describe ProposalsService do
@@ -37,5 +38,22 @@ describe ProposalsService do
     expect(result.to_h[:id]).to eq id
     expect(result.to_h[:title]).to eq 'title_sample'
     expect(result.to_h[:content]).to eq 'content_sample'
+  end
+
+  it 'retrieves proposals with its identifiers' do
+    some_proposal_title = 'some title'
+    some_proposal_content = 'some content'
+    ProposalsService.add(some_proposal_title, some_proposal_content)
+
+    retrieval_code = calculate_proposal_signature(some_proposal_title, some_proposal_content)
+    result = ProposalsService.retrieve(retrieval_code)
+
+    expect(result.title).to eq('some title')
+    expect(result.content).to eq('some content')
+  end
+
+  def calculate_proposal_signature(title, content)
+    proposal_signature = title + content
+    retrieval_code = Digest::MD5.hexdigest(proposal_signature)
   end
 end

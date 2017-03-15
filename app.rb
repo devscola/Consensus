@@ -33,8 +33,8 @@ class App < Sinatra::Base
 
   post '/proposals/list' do
     result = ProposalsService.list()
-    {result: result}.to_json    
-  end  
+    {result: result}.to_json
+  end
 
   get '/proposals/empty' do
     ProposalsService.empty
@@ -44,10 +44,10 @@ class App < Sinatra::Base
     body = JSON.parse(request.body.read)
     id = body['proposal-id'] # TODO link with true name of the front end
 
-    result = ProposalsService.search(id)
+    result = ProposalsService.retrieve(id)
     result.to_json
   end
-  
+
   get '/discussion-board/*' do
     File.read(File.join('public', 'discussion-board.html'))
   end

@@ -9,7 +9,7 @@ class ProposalsService
 
   def self.list()
   	@proposals ||= retrieve_data
-    serialized=@proposals.map do |proposal| 
+    serialized = @proposals.map do |proposal|
     	proposal.to_h
     end
     serialized
@@ -18,28 +18,25 @@ class ProposalsService
   def self.retrieve_data
     @proposals = []
   end
-  
+
   def self.empty
-    @proposals=[]
+    @proposals = []
   end
 
   def self.retrieve(id)
-    result = {}
-    @proposals.each do |item|
-      if(item.to_h[:id] == id)
-        result = item
-      end
-    end
-    result
+    result = @proposals.find { |proposal| proposal.id == id }
   end
 
   class Proposal
+    attr_reader :id, :title, :content
+
   	def initialize(title, content, id)
   	  @title = title
   	  @content = content
       @id = id
   	end
-  	def to_h 
+
+  	def to_h
   		{"title": @title, "content": @content, "id": @id }
   	end
   end
