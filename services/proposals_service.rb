@@ -1,10 +1,10 @@
+require 'digest/md5'
 class ProposalsService
   def self.add(title, content)
-    prng = Random.new
-    fake_hash = prng.rand()
+    md5_hash = Digest::MD5.hexdigest(title.to_s + content.to_s)
 		@proposals ||= retrieve_data
-    @proposals << Proposal.new(title, content, fake_hash)
-    fake_hash
+    @proposals << Proposal.new(title, content, md5_hash)
+    md5_hash
   end
 
   def self.list()
