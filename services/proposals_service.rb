@@ -1,10 +1,10 @@
 require 'digest/md5'
 class ProposalsService
   def self.add(title, content)
-    md5_hash = Digest::MD5.hexdigest(title.to_s + content.to_s)
+    generated_id = self.generate_id(title.to_s, content.to_s)
 		@proposals ||= retrieve_data
-    @proposals << Proposal.new(title, content, md5_hash)
-    md5_hash
+    @proposals << Proposal.new(title, content, generated_id)
+    generated_id
   end
 
   def self.list()
@@ -42,5 +42,10 @@ class ProposalsService
   	def to_h 
   		{"title": @title, "content": @content, "id": @id }
   	end
+  end
+
+  private
+  def self.generate_id(*identifiers)
+    Digest::MD5.hexdigest( identifiers.join.to_s )
   end
 end
