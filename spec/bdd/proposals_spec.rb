@@ -102,7 +102,7 @@ feature 'New proposal form' do
     proposals.visit_first_proposal
     result = page.current_url
      
-    expect(result.include?('/proposals/some-random-title')).to be true
+    expect(result.include?('/discussion-board/some-random-title')).to be true
   end
 
   xscenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do

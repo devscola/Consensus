@@ -7,7 +7,7 @@ var ProposalList = function() {
         list.result.forEach(function(proposal){
             var element= document.createElement('a');
             element.className='proposal-entry';
-            element.href='proposals/some-random-title';
+            element.href='discussion-board/some-random-title';
             element.innerHTML = accumulator + " " + proposal.title;
             accumulator++;
             proposalList.append(element);
