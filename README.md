@@ -2,7 +2,7 @@
 
 ## Preconfiguration of linux systems
 
-Install Ruby and Ruby-dev:
+Install Ruby, Ruby-dev and Ruby-rack:
 
 ~~~
 sudo apt-get install ruby ruby-dev ruby-rack
@@ -48,39 +48,77 @@ bundle install --path vendor/bundle
 If bundle install fail, use *sudo*
 
 
+## Install and download Docker and Docker-compose:
 
-## Run tests
-
-to run _all_ tests use:
-~~~
-bundle exec rake test_all
-~~~
+See the DOCKER.md for installation.
 
 
-to run _only_ unitarian specs use:
-~~~
-bundle exec rake test
-~~~
+## Prepare local environment for run test:
 
-
-## Launch the app
+First run Rake:
 
 ~~~
-bundle exec rake
-~~~
-The app will be served on *http://localhost:4567/index.html*
-
-
-# Download the docker of Consensus
-
-~~~
-docker pull elferrer/ruby
+rake
 ~~~
 
-2.- Run the container:
+That will raise the Consensus web in your localhost:4567
+
+To run the test you must have the Consensus app up, then in other terminal you can run the tests with:
+
+All the tests:
+	 
+~~~
+rake test
+~~~
+	
+The unitarian spec tests:
+	
+~~~
+rake tdd
+~~~
+	
+The behauvior spec tests:
+	
+~~~
+rake bdd
+~~~
+	   
+    
+
+## Prepare docker environment for run test:
+
+Be sure that you have the last docker version & docker-compose version 
+
+
+Make the build for the docker-compose:
 
 ~~~
-docker run -it --name consensus -v  $(pwd):/opt/consensus elferrer/ruby bundle exec rspec
+docker-compose build
+~~~
+
+Then make the docker compose up, to run the app:
+
+~~~
+docker-compose up
 ~~~
 
 
+## And after the docker-compose up, in other terminal run the tests:
+
+All the tests:
+	 
+~~~
+docker-compose run web rake test
+~~~
+	
+The unitarian spec tests:
+	
+~~~
+docker-compose run web rake tdd
+~~~
+	
+The behauvior spec tests:
+	
+~~~
+docker-compose run web rake bdd
+~~~
