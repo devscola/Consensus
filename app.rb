@@ -40,6 +40,10 @@ class App < Sinatra::Base
     ProposalsService.empty
   end
   
+  get '/discussion-board/*' do
+    File.read(File.join('public', 'discussion-board.html'))
+  end
+
   get '/proposal' do
     File.read(File.join('public', 'proposal.html'))
   end
