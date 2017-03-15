@@ -5,8 +5,9 @@ var ProposalList = function() {
         proposalList.innerHTML="";
         var accumulator = 0;
         list.result.forEach(function(proposal){
-            var element= document.createElement('div');
+            var element= document.createElement('a');
             element.className='proposal-entry';
+            element.href='proposals/some-random-title';
             element.innerHTML = accumulator + " " + proposal.title;
             accumulator++;
             proposalList.append(element);

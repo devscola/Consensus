@@ -23,6 +23,11 @@ module Page
       fill_in('proposal-content', with: content)
     end
 
+    def visit_first_proposal
+      proposal = page.all('.proposal-entry').first
+      proposal.click
+    end
+
     def entries
       all_entries = []
       wadus = page.all('.proposal-entry')
