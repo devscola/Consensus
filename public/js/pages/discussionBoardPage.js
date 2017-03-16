@@ -6,5 +6,6 @@ var DiscussionBoardPage = function() {
     };
 
     id = retrieveId();
+    new ProposalsService();
     new Proposal(id);
 };

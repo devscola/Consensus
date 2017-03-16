@@ -4,7 +4,7 @@ require_relative '../../app'
 
 feature 'Discussion board page' do
 
-  xscenario 'it receives an url and shows a proposal' do
+  scenario 'it receives an url and shows a proposal' do
     proposal_id = 'an_id'
     expected_title = 'an_expected_title'
     discussion_board_page = Test::DiscussionBoardPage.new(proposal_id)
