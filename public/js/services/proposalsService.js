@@ -28,10 +28,11 @@ var ProposalsService = function() {
         });
     };
 
-    var retrieve = function (){
-        result={'title': 'an_expected_title',
-                'content': 'some pretty content'}
-        Bus.publish('proposal.retrieved', result);
+    var retrieve = function (id){
+        data={'proposal_id': id};
+        doRequest('/proposals/retrieve', data, function(result) {
+            Bus.publish('proposal.retrieved', result);
+        });
     };
 
     Bus.subscribe('proposal.add', add);

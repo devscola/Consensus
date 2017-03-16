@@ -25,13 +25,14 @@ module Page
 
     def visit_proposal(name)
       click_link(name)
+      return DiscussionBoard.new
     end
 
     def entries
       all_entries = []
-      wadus = page.all('.proposal-entry')
+      entries= page.all('.proposal-entry')
 
-      wadus.each do |node|
+      entries.each do |node|
         entry = {identifier: node.text[0]}
         all_entries << entry
       end

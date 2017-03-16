@@ -25,6 +25,7 @@ class ProposalsService
 
   def self.retrieve(id)
     result = @proposals.find { |proposal| proposal.id == id }
+    result.to_h
   end
 
   class Proposal

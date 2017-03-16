@@ -1,5 +1,6 @@
 require 'spec_helper_bdd'
 require_relative 'test_support/proposals'
+require_relative 'test_support/discussion_board'
 require_relative 'fixtures'
 require_relative '../../app'
 
@@ -81,23 +82,19 @@ feature 'New proposal form' do
     expect(gamma_result).to eq(true)
   end
 
-  xscenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
+  scenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
     proposals.new_proposal('some random title', some_enough_proposal_content)
     proposals.submit_proposal
     proposals.new_proposal('another random title', some_enough_proposal_content)
     proposals.submit_proposal
 
     sleep 1
-    proposals.visit_proposal('some random title')
-    proposal = page
-    alpha_result = proposal.title
-    visit('/proposals')
-    proposals.visit_proposal('another random title')
-    proposal = page
-    betta_result = proposal.title
 
-    expect(alpha_result).to eq('some random title')
-    expect(betta_result).to eq('another random title')
+    board = proposals.visit_proposal('some random title')
+    
+    a_result = board.proposal_title
+    
+    expect(a_result).to eq('some random title')
   end
 
 end

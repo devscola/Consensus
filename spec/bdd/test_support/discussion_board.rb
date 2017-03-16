@@ -1,17 +1,16 @@
-module Test
+module Page
 
-  class DiscussionBoardPage
+  class DiscussionBoard
     include Capybara::DSL
 
-    def initialize(id)
-      url = '/discussion-board'
-      visit(url + '/' + id)
+    def initialize
       validate!
     end
 
     def proposal_title
       find('#title').text
     end
+
 
     def validate!
       page.assert_selector('#title', visible: false)

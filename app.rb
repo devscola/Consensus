@@ -5,12 +5,6 @@ require_relative './services/proposals_service'
 
 class App < Sinatra::Base
 
-  class ProposalReminder
-    attr_accessor :title, :content
-  end
-
-  reminder = ProposalReminder.new
-
   set :static, true
   set :public_folder, './public/'
 
@@ -40,9 +34,9 @@ class App < Sinatra::Base
     ProposalsService.empty
   end
 
-  post '/proposals/search' do
+  post '/proposals/retrieve' do
     body = JSON.parse(request.body.read)
-    id = body['proposal-id'] # TODO link with true name of the front end
+    id = body['proposal_id']
 
     result = ProposalsService.retrieve(id)
     result.to_json
@@ -50,16 +44,6 @@ class App < Sinatra::Base
 
   get '/discussion-board/*' do
     File.read(File.join('public', 'discussion-board.html'))
-  end
-
-  get '/proposal' do
-    File.read(File.join('public', 'proposal.html'))
-  end
-
-  post '/proposal' do
-    reminder.title = params[:proposal_title]
-    reminder.content = params[:proposal_content]
-    redirect to('/discussion-board')
   end
 
   get '/list' do

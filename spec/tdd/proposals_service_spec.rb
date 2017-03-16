@@ -48,8 +48,8 @@ describe ProposalsService do
     retrieval_code = calculate_proposal_signature(some_proposal_title, some_proposal_content)
     result = ProposalsService.retrieve(retrieval_code)
 
-    expect(result.title).to eq('some title')
-    expect(result.content).to eq('some content')
+    expect(result.to_h[:title]).to eq('some title')
+    expect(result.to_h[:content]).to eq('some content')
   end
 
   def calculate_proposal_signature(title, content)
