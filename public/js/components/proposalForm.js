@@ -12,6 +12,10 @@ var ProposalForm = function() {
         proposalForm.style.visibility = 'visible';
     };
 
+    var hide = function() {
+        proposalForm.style.visibility = 'hidden';
+    };
+
     var titleChange = function(title) {
         proposalData.title = title;
     };
@@ -28,4 +32,5 @@ var ProposalForm = function() {
     Bus.subscribe('proposal.title.change', titleChange);
     Bus.subscribe('proposal.content.ready', contentChange);
     Bus.subscribe('proposal.submit', addProposal);
+    Bus.subscribe('proposal.submit', hide);
 };
