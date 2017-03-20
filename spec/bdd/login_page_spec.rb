@@ -13,7 +13,7 @@ feature "Login" do
 
     login_page.sign_in(username, password)
 
-    expect(page).to have_title('Consensus home')
+    expect(page).to have_title('Proposals')
   end
 
   scenario 'login with empty credentials' do

@@ -2,7 +2,7 @@ var LoginPage = function() {
 
     var wrongCredentials;
     var loginForm;
-    var HOME = '/home.html';
+    var HOME = '/';
 
     var goToHome = function() {
         window.location = HOME;

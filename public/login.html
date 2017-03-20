@@ -1,26 +1,25 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Consensus</title>
-    <link rel="stylesheet" href="./styles/style.css">
-  </head>
-  <body>
-    <div>
-      <input id="username" type="text" placeholder="Insert username here">
-      <input id="password" type="password" placeholder="Insert password here">
-      <div id="password-toggler" class="password-eye password-eye--closed"></div>
-      <button id="submit">Sign in</button>
-    </div>
-    <div id="error">
-      <p>It seems you have typed in an incorrect username or password. Please try again.</p>
-      <button id="dismiss-error">Dismiss error</button>
-    </div>
-    <script src="./js/infrastructure/bus.js"></script>
-    <script src="./js/pages/loginPage.js"></script>
-    <script src="./js/components/loginForm.js"></script>
-    <script src="./js/services/loginService.js"></script>
-    <script src="./js/components/wrongCredentials.js"></script>
-    <script src="./js/login.js"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Consensus</title>
+        <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+        <div>
+            <input id="username" type="text" placeholder="Insert username here">
+            <input id="password" type="password" placeholder="Insert password here">
+            <div id="password-toggler" class="password-eye password-eye--closed"></div>
+            <button id="submit">Sign in</button>
+        </div>
+        <div id="error">
+            <p>It seems you have typed in an incorrect username or password. Please try again.</p>
+            <button id="dismiss-error">Dismiss error</button>
+        </div>
+        <script src="./js/infrastructure/bus.js"></script>
+        <script src="./js/pages/loginPage.js"></script>
+        <script src="./js/components/loginForm.js"></script>
+        <script src="./js/services/loginService.js"></script>
+        <script src="./js/components/wrongCredentials.js"></script>
+        <script src="./js/login.js"></script>
+    </body>
 </html>
