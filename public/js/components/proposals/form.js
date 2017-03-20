@@ -16,6 +16,12 @@ var Form = function() {
         form.style.visibility = 'hidden';
     };
 
+    var empty = function() {
+        Bus.publish('proposal.title.empty');
+        Bus.publish('proposal.content.empty');
+        Bus.publish('proposal.counter.empty');
+    };
+
     var titleChange = function(title) {
         proposalData.title = title;
     };
@@ -28,6 +34,7 @@ var Form = function() {
         Bus.publish('proposal.add', proposalData);
     };
 
+    Bus.subscribe('proposal.empty', empty);
     Bus.subscribe('proposal.new', show);
     Bus.subscribe('proposal.title.change', titleChange);
     Bus.subscribe('proposal.content.ready', contentChange);
