@@ -5,9 +5,6 @@ require_relative './services/proposals_service'
 
 class App < Sinatra::Base
 
-  set :static, true
-  set :public_folder, './public/'
-
   get '/' do
     File.read(File.join('public', 'proposals.html'))
   end
@@ -44,10 +41,6 @@ class App < Sinatra::Base
 
   get '/discussion-board/*' do
     File.read(File.join('public', 'discussion-board.html'))
-  end
-
-  get '/list' do
-    File.read(File.join('public', 'list.html'))
   end
 
   get '/login' do
