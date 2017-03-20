@@ -29,5 +29,4 @@ var LoginService = function() {
 
     Bus.subscribe('LoginAttempt', login);
 
-    return {};
 };

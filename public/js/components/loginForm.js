@@ -46,10 +46,4 @@ var LoginForm = function() {
     submit.addEventListener('click', doLogin);
     passwordToggler.addEventListener('click', togglePasswordVisibility);
 
-    return {
-        submit: submit,
-        username: username,
-        password: password,
-        empty: empty
-    };
 };

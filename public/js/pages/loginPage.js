@@ -31,5 +31,4 @@ var LoginPage = function() {
     Bus.subscribe('dismissed', loginForm.empty);
     Bus.subscribe('LoginResult', checkLogin);
 
-    return {};
 };
