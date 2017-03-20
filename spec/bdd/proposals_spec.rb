@@ -1,7 +1,7 @@
 require 'spec_helper_bdd'
 require_relative 'test_support/proposals'
 require_relative 'test_support/discussion_board'
-require_relative 'fixtures'
+require_relative 'test_support/fixtures'
 require_relative '../../app'
 
 feature 'Proposals' do
@@ -91,9 +91,9 @@ feature 'New proposal form' do
     sleep 1
 
     board = proposals.visit_proposal('some random title')
-    
+
     a_result = board.proposal_title
-    
+
     expect(a_result).to eq('some random title')
   end
 
