@@ -18,7 +18,7 @@ module Page
     end
 
     def new_proposal(title, content)
-      show_form
+      do_show_form
       fill_in('proposal-title', with: title)
       fill_in('proposal-content', with: content)
     end
@@ -41,7 +41,7 @@ module Page
     end
 
     def show_form
-      click_on('create-proposal')
+      do_show_form
     end
 
     def submit_proposal
@@ -75,6 +75,10 @@ module Page
     end
 
     private
+
+    def do_show_form
+      click_on('create-proposal')
+    end
 
     def validate!
       page.assert_selector('#create-proposal')
