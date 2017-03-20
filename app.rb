@@ -9,7 +9,7 @@ class App < Sinatra::Base
   set :public_folder, './public/'
 
   get '/' do
-    File.read(File.join('public', 'index.html'))
+    File.read(File.join('public', 'proposals.html'))
   end
 
   get '/proposals' do
@@ -48,6 +48,10 @@ class App < Sinatra::Base
 
   get '/list' do
     File.read(File.join('public', 'list.html'))
+  end
+
+  get '/login' do
+    File.read(File.join('public', 'login.html'))
   end
 
   post '/login' do
