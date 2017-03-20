@@ -2,21 +2,17 @@ require 'digest/md5'
 class ProposalsService
   def self.add(title, content)
     generated_id = self.generate_id(title.to_s, content.to_s)
-		@proposals ||= retrieve_data
+		@proposals ||= []
     @proposals << Proposal.new(title, content, generated_id)
     generated_id
   end
 
   def self.list()
-  	@proposals ||= retrieve_data
+  	@proposals ||= []
     serialized = @proposals.map do |proposal|
     	proposal.to_h
     end
     serialized
-  end
-
-  def self.retrieve_data
-    @proposals = []
   end
 
   def self.empty
