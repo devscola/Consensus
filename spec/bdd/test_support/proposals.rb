@@ -13,8 +13,8 @@ module Page
     end
 
     def form_is_visible?
-      return :visible if page.has_css?('#proposal-form', visible: true)
-      :invisible
+      form = find('#proposal-form', visible: false)
+      form.visible?
     end
 
     def new_proposal(title, content)

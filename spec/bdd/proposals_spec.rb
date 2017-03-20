@@ -34,8 +34,16 @@ feature 'Proposals' do
     proposals.new_proposal('some title', 'some content')
     betta_result = proposals.form_is_visible?
 
-    expect(alpha_result).to be :invisible
-    expect(betta_result).to be :visible
+    expect(alpha_result).to be false
+    expect(betta_result).to be true
+  end
+
+  scenario 'when a proposal is created the form disappears' do
+    proposals.show_form
+    proposals.new_proposal('some title', some_enough_proposal_content)
+    result = proposals.form_is_visible?
+
+    expect(result).to be true
   end
 
 end

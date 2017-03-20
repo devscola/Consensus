@@ -1,18 +1,18 @@
-var Button = function() {
-    var button = document.getElementById('proposal-submit');
+var Submit = function() {
+    var submit = document.getElementById('proposal-submit');
 
     var submitProposal = function() {
         Bus.publish('proposal.submit');
     };
 
-    button.addEventListener('click', submitProposal);
+    submit.addEventListener('click', submitProposal);
 
     var activateButton = function() {
-        button.disabled = false;
+        submit.disabled = false;
     };
 
     var deactivateButton = function() {
-        button.disabled = true;
+        submit.disabled = true;
     };
 
     Bus.subscribe('proposal.content.ready', activateButton);

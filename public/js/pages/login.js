@@ -1,7 +1,7 @@
 var LoginPage = function() {
 
-    var wrongCredentials;
-    var loginForm;
+    var warning;
+    var form;
     var HOME = '/';
 
     var goToHome = function() {
@@ -9,11 +9,11 @@ var LoginPage = function() {
     };
 
     var showError = function() {
-        wrongCredentials.show();
+        warning.show();
     };
 
     var doLogin = function() {
-        wrongCredentials.hide();
+        warning.hide();
         goToHome();
     };
 
@@ -23,12 +23,12 @@ var LoginPage = function() {
         doLogin();
     };
 
-    wrongCredentials = new WrongCredentials();
-    loginForm = new LoginForm();
+    warning = new Warning();
+    form = new Form();
 
     new LoginService();
 
-    Bus.subscribe('dismissed', loginForm.empty);
+    Bus.subscribe('dismissed', form.empty);
     Bus.subscribe('LoginResult', checkLogin);
 
 };

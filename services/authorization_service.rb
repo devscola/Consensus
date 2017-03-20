@@ -8,3 +8,4 @@ class AuthorizationService
     return credential.is_secured_by?(password)
   end
 end
+

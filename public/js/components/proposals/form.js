@@ -1,15 +1,19 @@
-var ProposalForm = function() {
-    new Button();
-    new ProposalTitle();
-    new TextArea();
+var Form = function() {
+    new Submit();
+    new Title();
+    new Content();
     new InfoMessage();
 
     var proposalData = {};
-    var proposalForm = document.getElementById('proposal-form');
-    proposalForm.style.visibility = 'hidden';
+    var form = document.getElementById('proposal-form');
+    form.style.visibility = 'hidden';
 
     var show = function() {
-        proposalForm.style.visibility = 'visible';
+        form.style.visibility = 'visible';
+    };
+
+    var hide = function() {
+        form.style.visibility = 'hidden';
     };
 
     var empty = function() {
@@ -35,4 +39,5 @@ var ProposalForm = function() {
     Bus.subscribe('proposal.title.change', titleChange);
     Bus.subscribe('proposal.content.ready', contentChange);
     Bus.subscribe('proposal.submit', addProposal);
+    Bus.subscribe('proposal.submit', hide);
 };
