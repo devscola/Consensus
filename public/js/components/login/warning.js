@@ -1,5 +1,4 @@
-var WrongCredentials = function() {
-
+var Warning = function() {
     var element = document.getElementById('error');
     var dismiss = document.getElementById('dismiss-error');
 

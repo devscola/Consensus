@@ -1,13 +1,13 @@
-var ProposalList = function() {
+var List = function() {
     var proposalList = document.getElementById('proposal-list');
 
-    var showList = function(list){
-        proposalList.innerHTML="";
-        list.result.forEach(function(proposal){
-            var element= document.createElement('div');
-            element.className='proposal-entry';
+    var showList = function(list) {
+        proposalList.innerHTML = '';
+        list.result.forEach(function(proposal) {
+            var element = document.createElement('div');
+            element.className = 'proposal-entry';
             var link = document.createElement('a');
-            link.href=  'discussion-board/' + proposal.id;
+            link.href = 'discussion-board/' + proposal.id;
 
             link.innerHTML = proposal.title;
             element.append(link);
@@ -15,7 +15,7 @@ var ProposalList = function() {
         });
     };
 
-    var retrieveList = function(){
+    var retrieveList = function() {
         Bus.publish('proposal.list');
     };
 

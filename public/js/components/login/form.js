@@ -1,4 +1,4 @@
-var LoginForm = function() {
+var Form = function() {
 
     var submit = document.getElementById('submit');
     var username = document.getElementById('username');

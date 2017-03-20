@@ -1,7 +1,7 @@
 var ProposalsPage = function() {
-    new CreateProposalButton();
-    new ProposalList();
-    new ProposalForm();
+    new CreateProposal();
+    new List();
+    new Form();
     new ProposalsService();
 
     Bus.publish('proposal.list');
