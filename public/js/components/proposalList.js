@@ -4,10 +4,13 @@ var ProposalList = function() {
     var showList = function(list){
         proposalList.innerHTML="";
         list.result.forEach(function(proposal){
-            var element= document.createElement('a');
+            var element= document.createElement('div');
             element.className='proposal-entry';
-            href='discussion-board/' + proposal.id;
-            element.innerHTML = '<div><a href="' + href + '">' + proposal.title + '</a></div>';
+            var link = document.createElement('a');
+            link.href=  'discussion-board/' + proposal.id;
+
+            link.innerHTML = proposal.title;
+            element.append(link);
             proposalList.append(element);
         });
     };
