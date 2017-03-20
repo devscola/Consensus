@@ -1,182 +1,137 @@
-## INSTALACIÓN DE DOCKER, SUGERENCIAS INICIALES.
+## A. DOCKER INSTALATION:
 
-1.-  Instalar Docker según tus sistemas e instrucciones de la web:
+1.- You must install Docker following the web instructions:
+    
 
-ENLACES: www.docker.com
+Link: www.docker.com
 
-2.-  Para familiarizarte se aconseja ejecutar el ejemplo de *docker/whalesay*, tal como veréis en las instrucciones de instalación de Docker.
+2.- You must follow the steps in the docker web to be familiar with.
 
-3.- Te aconsejamos que sigas también los pasos de post-instalación (busca la página 'Post-installation steps for Linux') de Docker porque aprenderás a darle permisos root a docker para no estar continuamente introduciendo la contraseña... muy a mi pesar (Raul dixit).
+3.- Also follow the instructions 'Post-installation steps for Linux'.
 
-No obstante, si decides no seguir los pasos de la post-instalación te mostramos como ejemplo un típico error de la instalación de Docker en un Ubuntu. Cuando ejecutamos  el comando Docker recibiremos este error además de otros mensajes:
+4.- It's important to clean your docker images and containers when you are goin to start with docker.
 
-*"WARNING: Error loading config file:/home/user/.docker/config.json - stat /home/user/.docker/config.json: permission denied"*
+5. Install docker-compose.
 
-Esto quiere decir que te faltan permisos de usuario para poder ejecutar las acciones.
+Link: www.https://docs.docker.com/compose/install/
 
-Para ello cambia los permisos ejecutando en consola:
-
-~~~
-sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
-sudo chmod g+rwx "/home/$USER/.docker" -R
-~~~
-
-4.- Una vez familiarizado con el manejo de docker sería conveniente que borrases los imágenes de ejemplo.
+6. If you are user Windows remember share your C: drive in docker settings.
 
 
-##  A. DESCARGAR EL GIT DE CONSENSUS 
+##  B. RUN DOCKER
 
-1.- Descargamos el git de consensus: 
+1.- Download git:
 
 ~~~
 git clone https://github.com/devscola/consensus
 ~~~
 
-## B. DESCARGAR EL DOCKER DE CONSENSUS 
-
-### B1. DESCARGA Y  EJECUCIÓN DEL DOCKER EN LINUX Y MACOS#####
-
-1.- Hay que ir a la web: hub.docker.com y buscar la imagen: elferrer/ruby , o puedes directamente descargarla:
+Start the docker-compose service to be able to run the test:
 
 ~~~
-docker pull elferrer/ruby
+docker build
+docker-compose build
 ~~~
 
-2.- Ponemos en marcha la imagen ejecutando el test:
+In one console, up the docker container, in other console run the tests:
 
+Console A:
 ~~~
-docker run -it --name consensus -v  $(pwd):/opt/consensus elferrer/ruby bundle exec rspec
-~~~
-
-### B2. DESCARGA Y EJECUCIÓN DEL DOCKER PARA WINDOWS
-
-1.- Hay que ir a la web: hub.docker.com y buscar la imagen: elferrer/ruby , o puedes directamente descargarla: 
-
-~~~
-docker pull elferrer/ruby
+docker-compose up
 ~~~
 
-2.- Debemos compartir el disco C: (el disco en el que tienes la imagen) configurando *settings* en la aplicacion Docker. En el caso de windows debemos indicar la ruta completa, por ello utilizaremos como muestra "c:/carpeta/compartida" que deberás cambiar por la situación real donde has descargado el git de consensus.
+Console B:
+    
+All test:
+    
+~~~
+docker-compose run web rake test
+~~~
 
-3.- Ponemos en marcha la imagen:
+The unitarian spec tests:
+
 
 ~~~
-docker run -it --name consensus -v  c:/carpeta/compartida:/opt/consensus elferrer/ruby /bin/sh
+docker-compose run web rake tdd
 ~~~
 
 
+The behauvior spec tests:
 
-## C. RESUMEN RAPIDO DEL MANEJO DE DOCKER 
-
-Docker separa el concepto de la imagen física (archivos que la conforman y configuraciones), del contenedor que está ejecutandose en tu sistema. Podriamos hacer una comparación muy simplista entendiendo que la imagen física sería como una ISO y el contenedor sería casi como una máquina virtual sin interfaz.
-
-Vamos a tener imágenes físicas y contenedores ejecutándose. Los comandos que utilizarás habitualmente en Docker son:
-
-Listar las imágenes:
 
 ~~~
-docker images
+docker-compose run web rake bdd
 ~~~
 
-Poner en marcha un contendor:
-~~~
-docker run [opciones]
-~~~
-(más adelante explicamos el comando que usaremos para poner en marcha nuestro docker)
+To run specific test you can do it like this:
 
-Borrar imágenes que ya no nos sirven:
+docker-compose run web rspec -e  'any word of the test title' 
 
-~~~
-docker rmi docker/whalesay
-~~~
 
-Otro posible inconveniente para borrar una imagen es que no tenga asignado un tag, por lo que deberás mirar su IMAGE ID y ponerla como nombre de la imagen, ejemplo:
+##C. QUICK SUMMARY OF DOCKER CHEAT SHEET
+
+We are going to have docker images and docker containers, they are different.
+
+For list images:
 
 ~~~
-docker rmi 54e3454d8dd6
+docker <image>
 ~~~
 
-Si no nos deja borrar la imagen es porque esta utilizándose, deberás averiguar porqué y si puedes borrarla, si pese a todo quieres borrarla sí o sí, entonces ejecuta:
+To run a container:
 
 ~~~
-docker rmi docker/whalesay --force
+docker run [options]
 ~~~
 
-Revisar los contenedores que hay corriendo:
+Delete a image:
+
+~~~
+docker rmi <image>
+~~~
+
+If you can't delete a image is because it has not a tag. You should look your IMAGE ID to write it:
+
+~~~
+docker rmi <image_tag>
+~~~
+
+If de system don't allow you to delete it, is because you have to stop the container:
+
+~~~
+docker rmi <image> --force
+~~~
+
+View the containers:
 
 ~~~
 docker ps -a
 ~~~
 
-Borrar el contenedor:
+Delete a container:
 
 ~~~
-docker rm whalesay
+docker rm <whalesay>
 ~~~
 
-Cada vez que hagamos exit en nuestro docker, tendremos que borrar el contenedor y volverlo a poner en marcha.
+Delete all containers:
 
 ~~~
-docker rm nombre_del_contenedor
-docker run -it --name consensus -v  $(pwd):/opt/consensus elferrer/ruby bundle exec rspec
+docker rm $(docker ps -a -q)
 ~~~
 
-Como último apunte indicar que los contenedores necesitan siempre que exista su imagen origen, por ello es habitual que tengas varios contenedores en marcha desde la misma imagen.
+If it doesn't work, we can add -f (force):
+    
+~~~
+docker rm -f $(docker ps -a -q)
+~~~
+    
+Delete all images:
 
-##  D. PREPARACIÓN DEL DOCKER, SOLO CADA VEZ QUE ACTUALICEMOS LA IMAGEN 
-
-1.- Nos situamos en la carpeta del git de consensus. 
-
-2.- Crear el docker file:
+docker rmi -f $(docker images -q)
+    
+Every time that we make exit in our docker, we have to delete the container and we have to run again. 
 
 ~~~
-nano Dockerfile
+docker rm <container_name>
 ~~~
-
-En él deberemos escribir las reglas de ejecución del Docker. En nuestro caso, hemos escrito el siguiente contenido:
-
-~~~
-FROM ruby:2.4.0-alpine
-
-RUN mkdir -p /opt/consensus
-WORKDIR /opt/consensus
-COPY Gemfile Gemfile
-RUN apk update
-RUN apk add g++
-RUN apk add make
-RUN bundle install
-~~~
-
-Explicación básica del contenido:
-
-"FROM": imagen de docker que utilizamos como base para crear nuestro docker, esta imagen es la base de nuestro docker. Al poner una versión concreta y no utilizar "latest" nos evitamos que nuestra imagen se esté actualizando constantemente con las novedades de la imagen origen, salvo que esta misma versión tenga una actualización (parches de seguridad, etc.).
-"RUN": Comando que se ejecuta desde la consola.
-"WORKDIR": Directorio de trabajo.
-"COPY": Indicamos al Docker que coja un archivo de nuestra máquina local y lo copie al contenedor que inicializaremos.
-
-3.- Revisar que existe el archivo Gemfile. 
-
-4.- Generamos la imagen de Docker: 
-
-~~~
-docker build -t elferrer/ruby .
-~~~
-
-5.- Hay que crear el tag de la imagen, pero ¿qué es el tag?: El tag es el identificativo de la imagen que hemos creado para no tener que estar continuamente escribiendo el *image id*:
-
-~~~
-docker tag image_id elferrer/ruby
-~~~
-
-6.- Nos identificamos en la plataforma docker (hub.docker.com):
-
-~~~
-docker login
-~~~
-
-7.- Subimos la imagen:
-
-~~~
-docker push usuario/imagen
-~~~
-
