@@ -1,5 +1,5 @@
 module Page
-  class LoginPage
+  class Login
     include Capybara::DSL
 
     def initialize

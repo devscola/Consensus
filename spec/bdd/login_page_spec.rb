@@ -1,10 +1,10 @@
 require 'spec_helper_bdd'
-require_relative 'test_support/login_page'
+require_relative 'test_support/login'
 require_relative '../../app'
 
 feature "Login" do
   let(:login_page) do
-    Page::LoginPage.new
+    Page::Login.new
   end
 
   scenario 'login success' do
