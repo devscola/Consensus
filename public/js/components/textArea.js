@@ -17,6 +17,20 @@ var TextArea = function(){
         }
     };
 
+    var emptyContent = function() {
+        textArea.value = '';
+        Bus.publish('proposal.content.not.ready');
+    };
+
+    var emptyCounter = function(){
+        counter.innerHTML = 0;
+    };
+
+    Bus.subscribe('proposal.counter.empty', emptyCounter);
+    Bus.subscribe('proposal.content.empty', emptyContent);
+
     updateCounter();
     textArea.addEventListener('input', updateCounter);
 };
+
+
