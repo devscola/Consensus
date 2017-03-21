@@ -2,26 +2,28 @@
     <head>
         <meta charset="UTF-8">
         <title>Consensus</title>
+        <link rel="stylesheet" href="/styles/bootsketch.css">
         <link rel="stylesheet" href="/styles/style.css">
     </head>
     <body>
-        <div>
-            <input id="username" type="text" placeholder="Insert username here">
-            <input id="password" type="password" placeholder="Insert password here">
-            <div id="password-toggler" class="password-eye password-eye--closed"></div>
-            <button id="submit">Sign in</button>
+        <div class="panel col-sm-offset-4 col-sm-4">
+            <div class="panel-body">
+                <input id="username" class="form-group" type="text" placeholder="Insert username here">
+                <input id="password" class="form-group" type="password" placeholder="Insert password here">
+                <div id="password-toggler" class="password-eye password-eye--closed"></div>
+                <button id="submit" class="btn btn-default">Sign in</button>
+                <div id="error">
+                    <p class="text-danger">It seems you have typed in an incorrect username or password. Please try again.</p>
+                    <button id="dismiss-error" class="btn btn-default">Dismiss error</button>
+                </div>
+            </div>
         </div>
-        <div id="error">
-            <p>It seems you have typed in an incorrect username or password. Please try again.</p>
-            <button id="dismiss-error">Dismiss error</button>
-        </div>
-
         <script src="/js/infrastructure/bus.js"></script>
         <script src="/js/pages/login.js"></script>
         <script src="/js/components/login/form.js"></script>
         <script src="/js/components/login/warning.js"></script>
         <script src="/js/services/login.js"></script>
         <script src="/js/login.js"></script>
-
+    
     </body>
 </html>

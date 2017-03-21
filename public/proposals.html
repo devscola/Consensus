@@ -3,18 +3,22 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Proposals</title>
+        <link rel="stylesheet" href="/styles/bootsketch.css">
     </head>
     <body>
-        <div id="proposal-form">
-            <input id="proposal-title" name="proposal_title" placeholder="Type your title here. Remember, keep it short and clear">
-            <textarea id="proposal-content" name="proposal_content" placeholder="Type your proposal text here. Remember, explain your proposal thoroughly"></textarea>
-            <div id="counter"></div>
-            <div id="info-message">You will be able to submit your proposal when you reach a minimum of 1.000 characters.</div>
-            <button id="proposal-submit" disabled>Submit</button>
+        <div class="panel col-sm-offset-1 col-sm-10">
+            <div id="proposal-form" class="panel-body">
+                <input id="proposal-title" class="form-control" name="proposal_title" type="text" placeholder="Type your title here. Remember, keep it short and clear">
+                <textarea id="proposal-content" class="form-control" name="proposal_content" placeholder="Type your proposal text here. Remember, explain your proposal thoroughly"></textarea>
+                <div id="counter"></div>
+                <div id="info-message" class="text-primary">You will be able to submit your proposal when you reach a minimum of 1.000 characters.</div>
+                <button id="proposal-submit" class="btn btn-default" disabled>Submit</button>
+            </div>
         </div>
-        <button id="create-proposal">New Proposal</button>
-        <div id="proposal-list"></div>
-
+        <div class="col-sm-offset-1 col-sm-10">
+                <button id="create-proposal" class="btn btn-default">New Proposal</button>
+                <div id="proposal-list"></div>
+        </div>
         <script src="/js/infrastructure/bus.js"></script>
         <script src="/js/pages/proposals.js"></script>
         <script src="/js/components/proposals/createProposal.js"></script>
