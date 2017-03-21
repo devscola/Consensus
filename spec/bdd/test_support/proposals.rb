@@ -13,8 +13,11 @@ module Page
     end
 
     def form_is_visible?
-      form = find('#proposal-form', visible: false)
-      form.visible?
+      has_css?('#proposal-form')
+    end
+
+    def user_selection_is_visible?
+      has_css?('#user-selection')
     end
 
     def new_proposal(title, content)

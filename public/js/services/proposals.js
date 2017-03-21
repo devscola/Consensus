@@ -1,8 +1,8 @@
 var ProposalsService = function() {
 
     var add = function(proposalData) {
-        doRequest('/proposals/add', proposalData, function() {
-            Bus.publish('proposal.added');
+        doRequest('/proposals/add', proposalData, function(result) {
+            Bus.publish('proposal.added', result);
         });
     };
 
