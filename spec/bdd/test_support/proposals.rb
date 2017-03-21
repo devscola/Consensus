@@ -17,6 +17,10 @@ module Page
       form.visible?
     end
 
+    def user_amount
+      page.all('.user').count
+    end
+
     def new_proposal(title, content)
       do_show_form
       fill_in('proposal-title', with: title)

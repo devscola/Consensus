@@ -105,6 +105,18 @@ feature 'New proposal form' do
     expect(a_result).to eq('some random title')
   end
 
+  feature 'User Circle' do
+
+    scenario 'retrieves user list' do
+      proposals.show_form
+      proposals.new_proposal('some random title', some_enough_proposal_content)
+      proposals.submit_proposal
+
+      result = proposals.user_amount
+
+      expect(result).to be > 0
+    end
+  end
 end
 
 def some_enough_proposal_content

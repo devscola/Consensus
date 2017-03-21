@@ -35,8 +35,15 @@ var ProposalsService = function() {
         });
     };
 
+    var users = function() {
+        result = JSON.parse('["Juan","Antonio","Pepe"]');
+            Bus.publish('users.retrieved', result);
+    };
+
+
     Bus.subscribe('proposal.add', add);
     Bus.subscribe('proposal.list', list);
     Bus.subscribe('proposal.retrieve', retrieve);
+    Bus.subscribe('proposal.submit', users);
 
 };

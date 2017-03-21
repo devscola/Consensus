@@ -71,7 +71,7 @@ module Authorization
         NullCredential.new(nil, nil)
       end
 
-      def initialize(login, passphrase)
+      def initialize(login, passphrase = nil)
         @username = login
         @password = passphrase
       end
