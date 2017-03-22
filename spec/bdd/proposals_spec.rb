@@ -46,6 +46,18 @@ feature 'Proposals' do
     expect(result).to be true
   end
 
+  scenario 'when a proposal is created appears the user selection' do
+    proposals.show_form
+
+    previous_result = proposals.user_selection_is_visible?
+    proposals.new_proposal('some title', some_enough_proposal_content)
+    proposals.submit_proposal
+    actual_result = proposals.user_selection_is_visible?
+
+    expect(previous_result).to be false
+    expect(actual_result).to be true
+  end
+
 end
 
 feature 'New proposal form' do
@@ -105,9 +117,9 @@ feature 'New proposal form' do
     expect(a_result).to eq('some random title')
   end
 
-  feature 'User Circle' do
+  feature 'User List' do
 
-    scenario 'retrieves user list' do
+    scenario 'retrieves users' do
       proposals.show_form
       proposals.new_proposal('some random title', some_enough_proposal_content)
       proposals.submit_proposal
@@ -115,6 +127,17 @@ feature 'New proposal form' do
       result = proposals.user_amount
 
       expect(result).to be > 0
+    end
+
+    scenario 'changes user button to symbol' do
+      proposals.show_form
+      proposals.new_proposal('some random title', some_enough_proposal_content)
+      proposals.submit_proposal
+      proposals.click_user_button('Cersei')
+
+      result = proposals.symbol_exists?('Cersei') 
+
+      expect(result).to be true
     end
   end
 end

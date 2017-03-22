@@ -3,7 +3,8 @@ var ProposalsPage = function() {
     new List();
     new Form();
     new ProposalsService();
-    new Circle();
+    new UserList();
+    new UserListService();
 
     Bus.publish('proposal.list');
 };

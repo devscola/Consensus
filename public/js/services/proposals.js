@@ -1,8 +1,8 @@
 var ProposalsService = function() {
 
     var add = function(proposalData) {
-        doRequest('/proposals/add', proposalData, function() {
-            Bus.publish('proposal.added');
+        doRequest('/proposals/add', proposalData, function(result) {
+            Bus.publish('proposal.added', result);
         });
     };
 
@@ -35,15 +35,8 @@ var ProposalsService = function() {
         });
     };
 
-    var users = function() {
-        result = JSON.parse('["Juan","Antonio","Pepe"]');
-            Bus.publish('users.retrieved', result);
-    };
-
-
     Bus.subscribe('proposal.add', add);
     Bus.subscribe('proposal.list', list);
     Bus.subscribe('proposal.retrieve', retrieve);
-    Bus.subscribe('proposal.submit', users);
 
 };
