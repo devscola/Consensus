@@ -8,7 +8,7 @@ var Title = function() {
     var emptyTitle = function () {
         title.value = '';
         Bus.publish('proposal.title.change', '');
-    }
+    };
 
     Bus.subscribe('proposal.title.empty', emptyTitle);
 

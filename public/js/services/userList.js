@@ -17,8 +17,9 @@ var UserListService = function() {
     };
 
     var list = function() {
-        result = JSON.parse('["KingRobert","Cersei","Khaleesi"]');
-            Bus.publish('users.retrieved', result);
+        doRequest('/proposal/circle', '', function(result){
+            Bus.publish('users.retrieved', result);    
+        });      
     };
 
     var add = function(circleData) {

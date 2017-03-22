@@ -1,6 +1,6 @@
 var Form = function() {
     new Submit();
-    new Finish_Circle();
+    new FinishCircle();
     new Title();
     new Content();
     new InfoMessage();

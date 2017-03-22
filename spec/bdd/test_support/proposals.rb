@@ -93,6 +93,23 @@ module Page
       has_css?('#proposal-finish')     
     end
 
+    def user_list_is_visible?
+      has_css?('#user-selection')
+    end
+
+    def button_finish_activate?
+      button = find('#proposal-finish')
+      result = button[:disabled]
+
+      return true if result.nil?
+
+      false  
+    end
+
+    def click_add_user
+      click_on('mock-add-user') 
+    end
+
     private
 
     def do_show_form

@@ -50,6 +50,16 @@ module Authorization
         result
       end
 
+      def retrieve_list_users
+        list_users = []
+
+        LOGIN_CREDENTIALS.each do |user|
+          list_users << user[:username]
+        end
+
+        list_users
+      end
+
       private
 
       def retrieve_data

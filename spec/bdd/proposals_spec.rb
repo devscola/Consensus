@@ -48,7 +48,7 @@ feature 'Proposals' do
 
   scenario 'when a proposal is created appears the user selection' do
     proposals.show_form
-
+  
     previous_result = proposals.user_selection_is_visible?
     proposals.new_proposal('some title', some_enough_proposal_content)
     proposals.submit_proposal
@@ -56,6 +56,17 @@ feature 'Proposals' do
 
     expect(previous_result).to be false
     expect(actual_result).to be true
+  end
+
+  scenario 'when proposal is created display list alphabetical users' do
+    proposals.show_form
+
+    proposals.new_proposal('some title', some_enough_proposal_content)
+    proposals.submit_proposal
+    sleep 1
+    list_users = proposals.user_list_is_visible?
+
+    expect(list_users).to be true
   end
 
 end
@@ -103,18 +114,18 @@ feature 'New proposal form' do
   end
 
   scenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
-    proposals.new_proposal('some random title', some_enough_proposal_content)
+    proposals.new_proposal('first random title', some_enough_proposal_content)
     proposals.submit_proposal
     proposals.new_proposal('another random title', some_enough_proposal_content)
     proposals.submit_proposal
 
     sleep 1
 
-    board = proposals.visit_proposal('some random title')
+    board = proposals.visit_proposal('first random title')
 
     a_result = board.proposal_title
 
-    expect(a_result).to eq('some random title')
+    expect(a_result).to eq('first random title')
   end
 end
 
@@ -135,7 +146,7 @@ feature 'Create circle' do
 
   scenario 'retrieves users' do
     proposals.show_form
-    proposals.new_proposal('some random title', some_enough_proposal_content)
+    proposals.new_proposal('second random title', some_enough_proposal_content)
     proposals.submit_proposal
 
     result = proposals.user_amount
@@ -145,11 +156,33 @@ feature 'Create circle' do
 
   scenario 'changes user button to symbol' do
     proposals.show_form
-    proposals.new_proposal('some random title', some_enough_proposal_content)
+    proposals.new_proposal('third random title', some_enough_proposal_content)
     proposals.submit_proposal
     proposals.click_user_button('Cersei')
 
     result = proposals.symbol_exists?('Cersei') 
+
+    expect(result).to be true
+  end
+
+  scenario 'button finish proposal is disabled when list has not changes' do
+    proposals.show_form
+
+    proposals.new_proposal('some random test circle title', some_enough_proposal_content)
+    proposals.submit_proposal
+    result = proposals.button_finish_activate?
+
+    expect(result).to be false
+  end
+
+  scenario 'button finish proposal is enabled when list has changes' do
+    proposals.show_form
+
+    proposals.new_proposal('some random test circle title', some_enough_proposal_content)
+    proposals.submit_proposal
+    proposals.click_user_button('Cersei')
+    sleep 1
+    result = proposals.button_finish_activate?
 
     expect(result).to be true
   end

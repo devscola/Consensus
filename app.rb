@@ -54,6 +54,11 @@ class App < Sinatra::Base
     result.to_json
   end
 
+  post '/proposal/circle' do
+    result = Authorization::Service.users
+    result.to_json
+  end
+
   get '/discussion-board/*' do
     File.read(File.join('public', 'discussion-board.html'))
   end

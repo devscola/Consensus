@@ -66,6 +66,7 @@ var UserList = function() {
     };
 
     var show = function() {
+        Bus.publish('circle.users');
         list.style.visibility = 'visible';
     };
 
@@ -84,6 +85,5 @@ var UserList = function() {
     Bus.subscribe('users.retrieved', showUsers);
     Bus.subscribe('proposal.user.added', retrieveCircle);
     Bus.subscribe('proposal.circle.retrieved', fillCircle);
+
 };
-
-
