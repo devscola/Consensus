@@ -46,6 +46,18 @@ feature 'Proposals' do
     expect(result).to be true
   end
 
+  scenario 'when a proposal is created appears the user selection' do
+    proposals.show_form
+
+    previous_result = proposals.user_selection_is_visible?
+    proposals.new_proposal('some title', some_enough_proposal_content)
+    proposals.submit_proposal
+    actual_result = proposals.user_selection_is_visible?
+
+    expect(previous_result).to be false
+    expect(actual_result).to be true
+  end
+
 end
 
 feature 'New proposal form' do
