@@ -116,29 +116,42 @@ feature 'New proposal form' do
 
     expect(a_result).to eq('some random title')
   end
+end
 
-  feature 'User List' do
+feature 'Create circle' do
+  let(:proposals) { Page::Proposals.new }
 
-    scenario 'retrieves users' do
-      proposals.show_form
-      proposals.new_proposal('some random title', some_enough_proposal_content)
-      proposals.submit_proposal
+  scenario 'button finish proposal toggle' do
+    proposals.show_form
 
-      result = proposals.user_amount
+    previous_result = proposals.button_finish_visible?
+    proposals.new_proposal('some random test circle title', some_enough_proposal_content)
+    proposals.submit_proposal
+    actual_result = proposals.button_finish_visible?
 
-      expect(result).to be > 0
-    end
+     expect(previous_result).to be false
+    expect(actual_result).to be true
+  end
 
-    scenario 'changes user button to symbol' do
-      proposals.show_form
-      proposals.new_proposal('some random title', some_enough_proposal_content)
-      proposals.submit_proposal
-      proposals.click_user_button('Cersei')
+  scenario 'retrieves users' do
+    proposals.show_form
+    proposals.new_proposal('some random title', some_enough_proposal_content)
+    proposals.submit_proposal
 
-      result = proposals.symbol_exists?('Cersei') 
+    result = proposals.user_amount
 
-      expect(result).to be true
-    end
+    expect(result).to be > 0
+  end
+
+  scenario 'changes user button to symbol' do
+    proposals.show_form
+    proposals.new_proposal('some random title', some_enough_proposal_content)
+    proposals.submit_proposal
+    proposals.click_user_button('Cersei')
+
+    result = proposals.symbol_exists?('Cersei') 
+
+    expect(result).to be true
   end
 end
 

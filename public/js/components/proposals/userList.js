@@ -22,11 +22,28 @@ var UserList = function() {
         });
     };
 
+    var fillCircle = function(circleFilled){
+        circle = circleFilled;
+        Bus.publish('user.clicked');
+
+    };
+    
     var addUserToCircle = function(username) {
-        circle.push(username);
-        console.log(circle);
+        var circleData = {
+            username: username,
+            id: proposal
+        };
+
+        Bus.publish('proposal.user.add', circleData);
     };
 
+    var retrieveCircle = function(){
+        var proposalId = {
+            id: proposal
+        };
+
+        Bus.publish('proposal.circle.retrieve', proposalId);
+    };
 
     var addButton = function(username){
         var button = document.createElement('button');
@@ -65,6 +82,8 @@ var UserList = function() {
 
     Bus.subscribe('proposal.added', start);
     Bus.subscribe('users.retrieved', showUsers);
+    Bus.subscribe('proposal.user.added', retrieveCircle);
+    Bus.subscribe('proposal.circle.retrieved', fillCircle);
 };
 
 

@@ -39,6 +39,21 @@ class App < Sinatra::Base
     result.to_json
   end
 
+  post '/proposal/user/add' do
+    body = JSON.parse(request.body.read)
+    id = body['id']
+    username = body['username']
+    result = Proposals::Service.involve(id, username)
+    result.to_json
+  end
+
+  post '/proposal/users/retrieve' do
+    body = JSON.parse(request.body.read)
+    id = body['id']
+    result = Proposals::Service.involved(id)
+    result.to_json
+  end
+
   get '/discussion-board/*' do
     File.read(File.join('public', 'discussion-board.html'))
   end

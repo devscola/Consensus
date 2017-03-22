@@ -11,16 +11,21 @@
                 <input id="proposal-title" class="form-control" name="proposal_title" type="text" placeholder="Type your title here. Remember, keep it short and clear">
                 <textarea id="proposal-content" class="form-control" name="proposal_content" placeholder="Type your proposal text here. Remember, explain your proposal thoroughly"></textarea>
                 <div id="counter"></div>
-                <div id="info-message" class="text-primary">You will be able to submit your proposal when you reach a minimum of 1.000 characters.</div>
-                <button id="proposal-submit" class="btn btn-default" disabled>Submit</button>
-            </div> 
+                <div id="info-message" class="text-primary">
+                    You will be able to submit your proposal when you reach a minimum of 1.000 characters.
+                </div>
+                <button id="proposal-submit" class="btn btn-default" disabled>
+                    Submit
+                </button>
+                <button id="proposal-finish" class="btn btn-default">Finish</button>
+            </div>
         </div>
         <div class="col-6">
             <button id="create-proposal" class="btn btn-default">New Proposal</button>
             <div id="proposal-list"></div>
         </div>
          <div class="col-6">
-             <div id="user-selection" class="panel-body"></div>
+             <div id="user-selection" class="panel-body">create your circle</div>
          </div>
         <script src="/js/infrastructure/bus.js"></script>
         <script src="/js/components/proposals/createProposal.js"></script>
@@ -28,6 +33,7 @@
         <script src="/js/components/proposals/list.js"></script>
         <script src="/js/components/proposals/userList.js"></script>
         <script src="/js/components/proposal/submit.js"></script>
+        <script src="/js/components/proposal/finish_circle.js"></script>
         <script src="/js/components/proposal/title.js"></script>
         <script src="/js/components/proposal/content.js"></script>
         <script src="/js/components/proposal/infoMessage.js"></script>

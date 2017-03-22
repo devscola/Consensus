@@ -22,17 +22,29 @@ module Proposals
     end
 
     def self.retrieve(id)
-      result = @proposals.find { |proposal| proposal.id == id }
+      result = find_proposal(id)
       result.to_h
     end
 
-    class Proposal
-      attr_reader :id, :title, :content
+    def self.involve(id, username)
+      proposal = find_proposal(id)
+      proposal.circle << username
+      ''
+    end
 
-    	def initialize(title, content, id)
+    def self.involved(id)
+      proposal = find_proposal(id)
+      {'circle': proposal.circle}
+    end
+
+    class Proposal
+      attr_reader :id, :title, :content, :circle
+
+    	def initialize(title, content, id, circle = [])
     	  @title = title
     	  @content = content
         @id = id
+        @circle = circle
     	end
 
     	def to_h
@@ -44,5 +56,10 @@ module Proposals
     def self.generate_id(*identifiers)
       Digest::MD5.hexdigest( identifiers.join.to_s )
     end
+
+    def self.find_proposal(id)
+      @proposals.find { |proposal| proposal.id == id }
+    end
+
   end
 end

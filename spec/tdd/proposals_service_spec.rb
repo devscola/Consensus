@@ -52,6 +52,19 @@ describe Proposals::Service do
     expect(result.to_h[:content]).to eq('some content')
   end
 
+  it 'adds users to a proposal circle' do
+    some_proposal_title = 'some title'
+    some_proposal_content = 'some content'
+    username = 'KingRobert'
+    Proposals::Service.add(some_proposal_title, some_proposal_content)
+    retrieval_code = calculate_proposal_signature(some_proposal_title, some_proposal_content)
+    Proposals::Service.involve(retrieval_code, username)
+
+    result = Proposals::Service.involved(retrieval_code)
+
+    expect(result[:circle]).to eq(['KingRobert'])
+  end
+
   def calculate_proposal_signature(title, content)
     proposal_signature = title + content
     retrieval_code = Digest::MD5.hexdigest(proposal_signature)
