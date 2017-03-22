@@ -10,7 +10,7 @@ var UserList = function() {
     var start = function(data) {
         proposal = data;
         show();
-    }
+    };
 
     var hide = function() {
         list.style.visibility = 'hidden';
@@ -21,9 +21,10 @@ var UserList = function() {
  
     var displayUsers = function(users) {
         var ulList = document.createElement('ul');
-        ulList.className = 'circle-list';
+        ulList.className = 'circle-list list-group';
         users.forEach(function(user) {
             var element = document.createElement('li');
+            element.className = 'list-group-item';
             element.textContent = user;
             ulList.append(element);
 
