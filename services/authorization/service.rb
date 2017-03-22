@@ -9,7 +9,7 @@ module Authorization
 	    return credential.is_secured_by?(password)
 	  end
 
-    def self.list_alphabetical_user
+    def self.users
       list_users = Repository.retrieve_list_users
       list_users.sort
     end

@@ -30,11 +30,15 @@ describe Authorization::Service do
   end
 
   it 'when the user list appears its show in alphabetical order' do
-    firts_user = 'Arya'
+    first_user = 'Arya'
+    last_user = 'Varys'
+    list_size = 7
 
-    user = Authorization::Service.list_alphabetical_user.first
+    user = Authorization::Service.users
 
-    expect(user).to eq(firts_user)
+    expect(user.size).to eq(list_size)
+    expect(user.last).to eq(last_user)
+    expect(user.first).to eq(first_user)
   end
 
   def register_some_user

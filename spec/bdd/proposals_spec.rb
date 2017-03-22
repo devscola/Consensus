@@ -58,6 +58,17 @@ feature 'Proposals' do
     expect(actual_result).to be true
   end
 
+  scenario 'when proposal is created display list alphabetical users' do
+    proposals.show_form
+
+    proposals.new_proposal('some title', some_enough_proposal_content)
+    proposals.submit_proposal
+    sleep 1
+    list_users = proposals.user_list_is_visible?
+
+    expect(list_users).to be true
+  end
+
 end
 
 feature 'New proposal form' do

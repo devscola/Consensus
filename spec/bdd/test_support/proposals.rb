@@ -81,6 +81,11 @@ module Page
       has_css?('#proposal-finish')     
     end
 
+    def user_list_is_visible?
+      has_css?('.circle-list')
+    end
+
+
     private
 
     def do_show_form
