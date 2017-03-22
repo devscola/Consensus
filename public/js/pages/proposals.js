@@ -4,6 +4,8 @@ var ProposalsPage = function() {
     new Form();
     new ProposalsService();
     new UserList();
+    new Finish_Circle();
+    new mockButtonAddUser();
 
     Bus.publish('proposal.list');
 };
