@@ -132,6 +132,27 @@ feature 'Create circle' do
       expect(previous_result).to be false
       expect(actual_result).to be true
     end
+
+    scenario 'button finish proposal is disabled when list has not changes' do
+      proposals.show_form
+
+      proposals.new_proposal('some random test circle title', some_enough_proposal_content)
+      proposals.submit_proposal
+      result = proposals.button_finish_activate?
+
+      expect(result).to be false
+    end
+
+    scenario 'button finish proposal is enabled when list has changes' do
+      proposals.show_form
+
+      proposals.new_proposal('some random test circle title', some_enough_proposal_content)
+      proposals.submit_proposal
+      proposals.click_add_user
+      result = proposals.button_finish_activate?
+
+      expect(result).to be true
+    end
 end
 
 def some_enough_proposal_content
