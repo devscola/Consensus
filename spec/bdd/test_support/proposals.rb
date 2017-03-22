@@ -77,6 +77,10 @@ module Page
       find('#proposal-content').value.length
     end
 
+    def button_finish_visible?
+      has_css?('#proposal-finish')     
+    end
+
     private
 
     def do_show_form
@@ -86,6 +90,7 @@ module Page
     def validate!
       page.assert_selector('#create-proposal')
       page.assert_selector('#proposal-list', visible: false)
+      page.assert_selector('#proposal-finish', visible: false)
     end
 
   end
