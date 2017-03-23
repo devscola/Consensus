@@ -1,23 +1,24 @@
 var UserList = function() {
-    var list = document.getElementById('user-selection');
-    
+    var container = document.getElementById('user-selection');
+    var list = document.getElementById('users');
+
     var proposal = null;
     var circle = [];
 
     var showUsers = function (result) {
         list.innerHTML = '';
         result.forEach(function(username) {
-            var element = document.createElement('div');
-            element.className = 'user';
+            var element = document.createElement('li');
+            element.className = 'user list-group-item';
             element.innerHTML = username;
             list.append(element); 
 
             if (circle.includes(username)) {
                 checkSymbol = addCheckSymbol(username);
-                list.append(checkSymbol); 
+                element.append(checkSymbol); 
             } else {
                 button = addButton(username);
-                list.append(button); 
+                element.append(button); 
             }; 
         });
     };
@@ -67,7 +68,7 @@ var UserList = function() {
 
     var show = function() {
         Bus.publish('circle.users');
-        list.style.display = 'block';
+        container.style.display = 'block';
     };
 
     var start = function(data) {
@@ -76,7 +77,7 @@ var UserList = function() {
     };
 
     var hide = function() {
-        list.style.display = 'none';
+        container.style.display = 'none';
     };
 
     hide();
