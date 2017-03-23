@@ -3,8 +3,6 @@ require 'capybara'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
-SINATRA_DEFAULT_PORT = '4567'
-
 def retrieve_mode
   begin
     consensus_environment = ENV.fetch('CONSENSUS_MODE')

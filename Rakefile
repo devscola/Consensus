@@ -1,7 +1,18 @@
+def retrieve_port
+  begin
+    capybara_default_port =  eval File.open('.env').read
+  rescue
+    capybara_default_port = '4567'
+  end
+  return capybara_default_port
+end
+
+SINATRA_DEFAULT_PORT = retrieve_port
+
 task :default => :start
 
 task :start do
-  sh 'rerun --background -- rackup --port 4567 -o 0.0.0.0'
+  sh "rerun --background -- rackup --port #{SINATRA_DEFAULT_PORT} -o 0.0.0.0"
 end
 
 task :tdd do

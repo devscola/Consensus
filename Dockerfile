@@ -1,5 +1,9 @@
 FROM ruby:2.4.0
 
+CMD . /opt/consensus
+ENV .env /opt/consensus
+CMD /bin/bash env .env
+
 ENV app /opt/consensus
 ENV CONSENSUS_MODE development
 RUN mkdir -p $app
