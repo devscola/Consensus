@@ -2,8 +2,7 @@ var UserList = function() {
     var container = document.getElementById('user-selection');
     var list = document.getElementById('users');
 
-    var proposal = null;
-    var circle = [];
+    var proposal,circle;
 
     var showUsers = function (result) {
         list.innerHTML = '';
@@ -80,12 +79,19 @@ var UserList = function() {
         container.style.display = 'none';
     };
 
-    hide();
+    var empty = function() {
+        hide();
+        proposal = null;
+        circle = [];
+    };
+
+    empty();
 
     Bus.subscribe('proposal.added', start);
     Bus.subscribe('users.retrieved', showUsers);
     Bus.subscribe('proposal.user.added', retrieveCircle);
     Bus.subscribe('proposal.circle.retrieved', fillCircle);
+    Bus.subscribe('proposal.empty', empty);
     Bus.subscribe('userlist.close', hide);
 
 };
