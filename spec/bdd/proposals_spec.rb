@@ -132,17 +132,6 @@ end
 feature 'Create circle' do
   let(:proposals) { Page::Proposals.new }
 
-  scenario 'button finish proposal toggle' do
-    proposals.show_form
-
-    previous_result = proposals.button_finish_visible?
-    proposals.new_proposal('some random test circle title', some_enough_proposal_content)
-    proposals.submit_proposal
-    actual_result = proposals.button_finish_visible?
-
-     expect(previous_result).to be false
-    expect(actual_result).to be true
-  end
 
   scenario 'retrieves users' do
     proposals.show_form

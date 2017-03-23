@@ -67,7 +67,7 @@ var UserList = function() {
 
     var show = function() {
         Bus.publish('circle.users');
-        list.style.visibility = 'visible';
+        list.style.display = 'block';
     };
 
     var start = function(data) {
@@ -76,7 +76,7 @@ var UserList = function() {
     };
 
     var hide = function() {
-        list.style.visibility = 'hidden';
+        list.style.display = 'none';
     };
 
     hide();

@@ -7,14 +7,13 @@ var Form = function() {
 
     var proposalData = {};
     var form = document.getElementById('proposal-form');
-    form.style.visibility = 'hidden';
 
     var show = function() {
-        form.style.visibility = 'visible';
+        form.style.display = 'block';
     };
 
     var hide = function() {
-        form.style.visibility = 'hidden';
+        form.style.display = 'none';
     };
 
     var empty = function() {
@@ -34,6 +33,8 @@ var Form = function() {
     var addProposal = function() {
         Bus.publish('proposal.add', proposalData);
     };
+    
+    hide();
 
     Bus.subscribe('proposal.empty', empty);
     Bus.subscribe('proposal.new', show);
