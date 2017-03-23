@@ -86,5 +86,6 @@ var UserList = function() {
     Bus.subscribe('users.retrieved', showUsers);
     Bus.subscribe('proposal.user.added', retrieveCircle);
     Bus.subscribe('proposal.circle.retrieved', fillCircle);
+    Bus.subscribe('userlist.close', hide);
 
 };

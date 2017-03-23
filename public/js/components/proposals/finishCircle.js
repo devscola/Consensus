@@ -17,6 +17,10 @@ var FinishCircle = function() {
     var enabled = function() {
         button.disabled = false;
     }
+    
+    button.addEventListener('click', function(){
+        Bus.publish('userlist.close');
+    });
 
     Bus.subscribe('proposal.submit', show);
     Bus.subscribe('proposal.new', hide);
