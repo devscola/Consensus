@@ -3,6 +3,17 @@ require 'capybara'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
+def retrieve_port
+  begin
+    capybara_default_port =  eval File.open('.env').read
+  rescue
+    capybara_default_port = '4567'
+  end
+  return capybara_default_port
+end
+
+SINATRA_DEFAULT_PORT = retrieve_port
+
 def retrieve_mode
   begin
     consensus_environment = ENV.fetch('CONSENSUS_MODE')
