@@ -26,7 +26,7 @@ module Page
 
     def click_user_button(username)
       click_on(username)
-    end  
+    end
 
     def symbol_exists?(username)
       has_css?('#' + username + '-checked')
@@ -100,7 +100,7 @@ module Page
     end
 
     def click_add_user
-      click_on('mock-add-user') 
+      click_on('mock-add-user')
     end
 
     private
