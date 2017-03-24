@@ -13,7 +13,7 @@ Link: www.docker.com
 
 5. Install docker-compose.
 
-Link: www.https://docs.docker.com/compose/install/
+Link: https://docs.docker.com/compose/install/
 
 6. If you are user Windows remember share your C: drive in docker settings.
 
@@ -29,7 +29,7 @@ git clone https://github.com/devscola/consensus
 Start the docker-compose service to be able to run the test:
 
 ~~~
-docker build
+docker build -t devscola/consensus .
 docker-compose build
 ~~~
 
@@ -56,7 +56,7 @@ docker-compose run web rake tdd
 ~~~
 
 
-The behauvior spec tests:
+The behavior spec tests:
 
 
 ~~~
