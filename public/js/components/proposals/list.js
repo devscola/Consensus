@@ -5,7 +5,7 @@ var List = function() {
         proposalList.innerHTML = '';
         list.result.forEach(function(proposal) {
             var element = document.createElement('div');
-            element.className = 'proposal-entry';
+            element.className = 'proposal-entry list-group-item';
             var link = document.createElement('a');
             link.href = 'discussion-board/' + proposal.id;
 
