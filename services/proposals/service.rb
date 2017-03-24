@@ -40,19 +40,20 @@ module Proposals
     class Proposal
       attr_reader :id, :title, :content, :circle
 
-    	def initialize(title, content, id, circle = [])
-    	  @title = title
-    	  @content = content
+      def initialize(title, content, id, circle = [])
+        @title = title
+        @content = content
         @id = id
         @circle = circle
-    	end
+      end
 
-    	def to_h
-    		{"title": @title, "content": @content, "id": @id }
-    	end
+      def to_h
+        { title: @title, content: @content, id: @id, circle: @circle }
+      end
     end
 
     private
+
     def self.generate_id(*identifiers)
       Digest::MD5.hexdigest( identifiers.join.to_s )
     end

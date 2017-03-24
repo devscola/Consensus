@@ -3,9 +3,9 @@ require 'digest/md5'
 require_relative './../../services/proposals/service'
 
 describe Proposals::Service do
-	before(:each) do
-		Proposals::Service.empty
-	end
+  before(:each) do
+    Proposals::Service.empty
+  end
 
   it 'return empty when no proposals' do
     result = Proposals::Service.list()
@@ -63,6 +63,22 @@ describe Proposals::Service do
     result = Proposals::Service.involved(retrieval_code)
 
     expect(result[:circle]).to eq(['KingRobert'])
+  end
+
+  it 'retrieves proposal with its circle' do
+    some_proposal_title = 'some title'
+    some_proposal_content = 'some content'
+    first_user = 'KingRobert'
+    second_user = 'Cersei'
+    Proposals::Service.add(some_proposal_title, some_proposal_content)
+    retrieval_code = calculate_proposal_signature(some_proposal_title,
+                                                  some_proposal_content)
+    Proposals::Service.involve(retrieval_code, first_user)
+    Proposals::Service.involve(retrieval_code, second_user)
+
+    result = Proposals::Service.retrieve(retrieval_code)
+
+    expect(result.to_h[:circle]).to eq(['KingRobert', 'Cersei'])
   end
 
   def calculate_proposal_signature(title, content)
