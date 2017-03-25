@@ -7,12 +7,12 @@ def retrieve_port
   return capybara_default_port
 end
 
-SINATRA_DEFAULT_PORT = retrieve_port
+SINATRA_PORT = retrieve_port
 
 task :default => :start
 
 task :start do
-  sh "rerun --background -- rackup --port #{SINATRA_DEFAULT_PORT} -o 0.0.0.0"
+  sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0"
 end
 
 task :tdd do

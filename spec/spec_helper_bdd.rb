@@ -12,7 +12,7 @@ def retrieve_port
   return capybara_default_port
 end
 
-SINATRA_DEFAULT_PORT = retrieve_port
+SINATRA_PORT = retrieve_port
 
 def retrieve_mode
   begin
@@ -37,7 +37,7 @@ def use_selenium
     })
   end
   Capybara.default_driver = :chrome
-  Capybara.app_host = "http://#{host_ip}:#{SINATRA_DEFAULT_PORT}"
+  Capybara.app_host = "http://#{host_ip}:#{SINATRA_PORT}"
 end
 
 def use_chrome
@@ -45,7 +45,7 @@ def use_chrome
     Capybara::Selenium::Driver.new(app, :browser => :chrome)
   end
   Capybara.default_driver = :chrome
-  Capybara.app_host = "http://localhost:#{SINATRA_DEFAULT_PORT}"
+  Capybara.app_host = "http://localhost:#{SINATRA_PORT}"
 end
 
 mode = retrieve_mode
