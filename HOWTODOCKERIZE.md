@@ -1,56 +1,56 @@
 #HOW TO DOCKERIZE SYSTEM
 
-##Preámbulo
+##Preamble
 
-Para crear un entorno unificado en todos los puestos de trabajo utilizaremos Docker. Docker nos permite tener en nuestro sistema las mismas versiones y dependencias que necesitamos para el proyecto independientemente de la configuración y sistema operativo de cada equipo.
+To create a unified environment in all computers, we use Docker. Docker allows us to have in our system the same versions and dependencies that we need for the project regardless of the configuration and operating system of each team.
 
-Para tener un entorno Docker flexible necesitaremos configurar el archivo 'Dockerfile' donde especificaremos un directorio donde anclar los ficheros y unas especificaciones mínimas de los componentes necesarios (programas, directorios compartidos, gemas, ...).
+In order to have a Flexible Docker environment we will need to configure the 'Dockerfile' file where we will specify a directory to anchor the files and a minimum specification of the necessary components (programs, shared directories, gems, ...).
 
-Para mejorar la utilidad de Docker utilizaremos Docker-compose que nos permite unir diferentes imágenes Docker y relacionarlas para que trabajen en conjunto. Para ello deberemos configurarlas a través del archivo 'docker-compose.yml'.
+To improve the utility of Docker we will use Docker-compose that allows us to join different Docker images and link them to work together. For this we must configure them through the file 'docker-compose.yml'.
 
-##Las variables de entorno
+##Environment variables
 
-El uso de variables en un entorno Docker tiene sus peculiaridades.
+The use of variables in a Docker environment has its peculiarities.
 
-Si realmente queremos que el uso de variables nos permita tener un entorno sano deberemos configurarltas a través de un archivo que nos permita reunirlas y configurarlas una sola vez y en un solo sitio.
+If we really want that the use of variables allows us to have a healthy environment we must configure them through a file that allows us to gather them and configure them once and in one place.
 
-Sin embargo el sistema Docker no fue diseñado para trasladar el sistema anfitrión a la imagen Docker, sino todo lo contrario.
+However the Docker system was not designed to move the host system to the Docker image, quite the opposite.
 
-Para lidiar con esta peculiaridad deberemos crear un archivo de configuración para las variables de entorno.
+To deal with this peculiarity we must create a configuration file for the environment variables.
 
-Si las variables de entorno no están definidas en mayúsculas no serán interpretadas correctamente por a través de 'Rakefile', 'docker-compose.yml' y 'spec_helper_bdd.rb'.
+If the environment variables are not defined in uppercase they will not be interpreted correctly through 'Rakefile', 'docker-compose.yml' and 'spec_helper_bdd.rb'.
 
-La variable de entorno bash ocasiona un mensaje de aviso si se utiliza tanto en el entorno local como a través de 'Rakefile' y 'spec_helper_bdd.rb'.
+The environment variable causes a warning message if it is used in the local environment and through 'Rakefile' and 'spec_helper_bdd.rb'.
 
-Ello nos obliga a no utilizar el mismo nombre cuando leemos la variable de entorno y la aplicamos a través de los archivos de configuración 'Rakefile' y 'spec_helper_bdd.rb'.
+This forces us not to use the same name when we read the environment variable and apply it through the configuration files 'Rakefile' and 'spec_helper_bdd.rb'.
 
-El archivo donde debemos guardar las variables de entorno debe ser '.env' (archivo oculto), el cual no puede cambiar de nombre para que pueda ser leído para la configuración de 'docker-compose.yml'.
+The file where we should save the environment variables must be '.env' (hidden file), which can not be renamed because in that case it could be read for the 'docker-compose.yml' configuration.
 
-Como último requisito debemos mantener la configuración de test para aquellos ordenadores o sistemas operativos que no puedan instalar Docker. Esto nos obligará a saber si estamos arrancando los test desde un entorno Docker o un entorno local.
+As a last requirement, we must maintain the test configuration for those computers or operating systems that can not be installed by Docker. This will force us to know if we are starting the tests from a Docker environment or a local environment.
 
-Si todo esto parecía poco, por defecto tenemos en el '.gitignore' el archivo '.env', por lo que deberemos eliminarlo para poder subirlo al repositorio o forzar su inclusión.
+If all this seemed little, by default we have the '.gitignore' file '.env', so we must remove it to be able to upload it to the repository or force its inclusion.
 
 
-##Preparación del archivo de variables de entorno '.env'
+##Preparing the environment variables file '.env'
 
-Debemos crear el archivo '.env' con el siguiente contenido:
+We must create the file '.env' with the following content:
 
 ~~~
-SINATRA_DEFAULT_PORT=4567
+SINATRA_DEFAULT_PORT = 4567
 ~~~
 
-Después, si no queremos eliminarlo del '.gitignore' deberemos forzar su inclusión:
+Then, if we do not want to eliminate it from '.gitignore' we should force its inclusion:
 
 ~~~
 git add .env -f
 ~~~
 
-Utilizaremos mayúsculas no solo por claridad y convención de Bash, sino porque de otra forma en ciertos puntos la variable no será reconocida.
+We use capitalization not only for clarity and convention of Bash, also because in certain points the variable will not be recognized.
 
 
-##Preparación del Docker
+##Preparing the Docker
 
-Creamos el archivo 'Dockerfile':
+Create the file 'Dockerfile':
 
 ~~~
 FROM ruby:2.4.0
@@ -69,16 +69,16 @@ RUN gem install bundler
 WORKDIR $app
 ~~~
 
-Las líneas 4 y 5 son las encargadas de recoger las variables de entorno y aplicarlas al entorno Docker.
+Lines 4 and 5 are responsible for collecting environment variables and applying them to the Docker environment.
 
-La línea 8 establece la variable de entorno 'CONSENSUS_MODE' en el entorno Docker. Al crear esta variable en el entorno Docker nos aseguramos que no existe en el entorno local y podemos dirimir si 'rake' se está ejecutando sobre un entorno Docker o un entorno local.
+Line 8 sets the environment variable 'CONSENSUS_MODE' in the Docker environment. When creating this variable in the Docker environment we make sure that it does not exist in the local environment and we can decide if 'rake' is running on a Docker environment or a local environment.
 
-La línea 13 instala 'bundler' para ser utilizado en el entorno Docker. Sería conveniente revisar que la configuración de Gemfile es la correcta.
+Line 13 installs 'bundler' to be used by the Docker environment. It would be wise to check that the Gemfile configuration is correct.
 
 
-##Preparación de Docker-compose
+##Preparation of Docker-compose
 
-Creamos el archiov 'docker-compose.yml' con el siguiente contenido:
+We create the file 'docker-compose.yml' with the following content:
 
 ~~~
 version: '2'
@@ -107,24 +107,23 @@ volumes:
     driver: local
 ~~~
 
-En la línea 6 se realiza la lectura de la variable de entorno para el puerto que utilizará el contenedor.
+In line 6, the environment variable is read for the port that the container will use.
 
-El primer parámetro se refiere a la entrada (expuesto por Sinatra) y el segundo parámetro se refiere al puerto de salida del contenedor para dicho servicio.
+The first parameter refers to the input (exposed by Sinatra) and the second parameter refers to the output port of the container for that service.
 
-En la línea 11 obligamos a poner en funcionamiento el entorno Selenium que se encargará de dar el servicio web que necesitamos.
+In line 11 we are forced to put into the Selenium environment that will be in charge of giving the web service that we need.
 
-En la línea 12 le indicamos a nuestro contenedor que deberá arrancar el 'bundle' indicado al iniciar el entorno.
+On line 12, we tell our container to start the indicated 'bundle' at the start of the environment.
 
+## Preparing the application for booting with 'rake'
 
-##Preparación de la aplicación para arrancar con 'rake'
+We need the 'rake' to pick up the application both locally and in the Docker environment.
 
-Necesitamos que el 'rake' pueda levantar la aplicación tanto en local como en el entorno Docker.
+To do this we must adapt our application so that 'rake' can handle it.
 
-Para ello debemos adaptar nuestra aplicación para que 'rake' pueda manejarla.
+In the app.rb we change the 'require sinatra' to 'require sinatra/base'.
 
-En la app.rb cambiamos el 'require sinatra' por 'require sinatra/base'.
-
-A continuación creamos una clase App:
+Next we create an App class:
 
 ~~~
 class App < Sinatra::base
@@ -134,9 +133,9 @@ class App < Sinatra::base
 end
 ~~~
 
-Esta clase define los métodos de clase (get, post, before, configure, set, etc.) permitiendo el funcionamiento del Sinatra en background.
+This class defines the class methods (get, post, before, configure, set, etc.) allowing the Sinatra to work in the background.
 
-Creamos el archivo 'config.ru' necesario para que 'rake' localice y ejecute nuestra aplicación:
+We create the file 'config.ru' necessary for 'rake' to locate and run our application:
 
 ~~~
 require_relative "app.rb"
@@ -144,7 +143,7 @@ require_relative "app.rb"
 run App.new
 ~~~
 
-Como punto final actualizamos el 'Rakefile' con el siguiente contenido:
+At last we update the 'Rakefile' with the following content:
 
 ~~~
 def retrieve_port
@@ -176,20 +175,29 @@ task :test => [:tdd, :bdd] do
 end
 ~~~
 
-En él leemos la variable del archivo '.env' y la guardamos como constante (necesario) para lanzar el rake (línea 15).
+In it we read the variable of the file '.env' and keep it as constant (necessary) to launch the rake (line 15).
 
-'Rerun' permite que la web se actualice con cada cambio sin la necesidad de parar y volver a arrancar sinatra.
+'Rerun' allows the web to be updated with every change without the need to stop and restart sinatra.
 
-'Background' permite que el navegador se ejecute en segundo plano para evitar que al cargar los test se abra el chrome.
+'Background' allows the browser to run in the background to prevent the chrome being opened when loading the tests.
 
-'Rackup' es la orden de ejecución, 'port' es el puerto del Sinatra y '-o' define el origen, en este caso 0.0.0.0 (localhost).
+'Rackup' is the execution order, 'port' is the Sinatra port and '-o' defines the origin, in this case 0.0.0.0 (localhost).
 
-Esta línea levanta el archivo de configuración rackup. Su archivo de configuración es config.ru.
+This line raises the rackup configuration file. Your configuration file is config.ru.
 
+Ruby's who interprets this file and after having read the variable file '.env' we must have the following in mind:
 
-##Preparación de la configuración de los test
+A. We can not read the environment variable if it is in lower case.
 
-Debemos actualizar el archivo 'spec_helper_bdd.rb' con el siguiente contenido:
+B. We can not directly apply the function that reads the variable because it is lowercase
+
+C. The environment variable that is read from '.env' must be in upper case, this implies that it is interpreted as a constant in Ruby.
+
+D. When reading it as a constant we can not reuse its name, so we must give it another name before we can use it.
+
+##Preparation of test configuration
+
+We need to update the file 'spec_helper_bdd.rb' with the following content:
 
 ~~~
 require 'sinatra'
@@ -251,14 +259,24 @@ else
 end
 ~~~
 
-Con la función 'retrieve_port' leemos la variable del archivo '.env' y posteriormente la guardamos como constante (necesario).
+With the function 'retrieve_port' we read the variable of the file '.env' and then it is interpretated as constant (necessary).
 
-Con la función 'retrieve_mode' leemos la constante creada en el contenedor y la guardamos como 'CONSENSUS_MODE'.
+Ruby's who interprets this file and after having read the variable file '.env' we must have the following in mind:
 
-Con la función 'host_ip' localizamos la IP que nos ha sido asignada, la cual es variable y depende del entorno.
+A. We can not read the environment variable if it is in lower case.
 
-Con la función 'use_selenium' configuramos las características del servidor selenium para poder ser utilizado en el entorno docker.
+B. We can not directly apply the function that reads the variable because it is lowercase
 
-Con la función 'use_chrome' configuramos las características para utilizar el chrome local.
+C. The environment variable that is read from '.env' must be in upper case, this implies that it is interpreted as a constant in Ruby.
 
-Finalmente con el 'if', y gracias a tener la variable 'CONSENSUS_MODE' definida solo en el entorno docker, podemos decidir si nuestro entorno utiliza selenium o chrome.
+D. When reading it as a constant we can not reuse its name, so we must give it another name before we can use it.
+
+With the 'retrieve_mode' function, we read the constant created in the container and save it as 'CONSENSUS_MODE'.
+
+With the function 'host_ip' we locate the IP that has been assigned to us, which is variable and depends on the environment.
+
+With the 'use_selenium' function we configure the features of the selenium server to be used in the docker environment.
+
+With the 'use_chrome' function we configure the features to use the local chrome.
+
+Finally with 'if', and thanks to having the variable 'CONSENSUS_MODE' defined only in the docker environment, we can decide if our environment uses selenium or chrome.
