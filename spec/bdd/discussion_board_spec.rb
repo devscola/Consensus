@@ -1,6 +1,5 @@
 require 'spec_helper_bdd'
 require_relative 'test_support/proposals'
-require_relative 'test_support/discussion_board'
 require_relative 'test_support/fixtures'
 require_relative '../../app'
 
