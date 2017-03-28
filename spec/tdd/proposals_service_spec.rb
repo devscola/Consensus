@@ -71,6 +71,6 @@ describe Proposals::Service do
 
   def calculate_proposal_signature(title, content)
     proposal_signature = title + content
-    retrieval_code = Digest::MD5.hexdigest(proposal_signature)
+    Digest::MD5.hexdigest(proposal_signature)
   end
 end
