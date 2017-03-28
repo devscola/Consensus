@@ -40,18 +40,6 @@ describe Proposals::Service do
     expect(result.to_h[:content]).to eq 'content_sample'
   end
 
-  it 'retrieves proposals with its identifiers' do
-    some_proposal_title = 'some title'
-    some_proposal_content = 'some content'
-    Proposals::Service.add(some_proposal_title, some_proposal_content)
-
-    retrieval_code = calculate_proposal_signature(some_proposal_title, some_proposal_content)
-    result = Proposals::Service.retrieve(retrieval_code)
-
-    expect(result.to_h[:title]).to eq('some title')
-    expect(result.to_h[:content]).to eq('some content')
-  end
-
   it 'adds users to a proposal circle' do
     some_proposal_title = 'some title'
     some_proposal_content = 'some content'
