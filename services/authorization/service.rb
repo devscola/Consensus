@@ -1,6 +1,6 @@
 require_relative './repository'
 
-module Authorization 
+module Authorization
 	class Service
 	  def self.verify(username, password)
 	    return false if (username.nil? || password.nil?)
