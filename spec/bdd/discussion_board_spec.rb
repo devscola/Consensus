@@ -8,7 +8,6 @@ feature 'Discussion board' do
     visit('/proposals/empty')
     proposals = Page::Proposals.new
     proposals.new_proposal('strange title', some_enough_proposal_content)
-    proposals.submit_proposal
     proposals.click_user_button('Cersei')
     board = proposals.visit_proposal('strange title')
 
