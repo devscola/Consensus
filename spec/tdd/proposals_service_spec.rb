@@ -14,8 +14,8 @@ describe Proposals::Service do
   end
 
   it 'returns proposals added' do
-		Proposals::Service.add(:title, :content)
-  	Proposals::Service.add(:title, :content)
+    Proposals::Service.add(:title, :content)
+    Proposals::Service.add(:title, :content)
 
     result = Proposals::Service.list()
 
@@ -23,7 +23,7 @@ describe Proposals::Service do
   end
 
   it 'returns proposal added contents' do
-  	Proposals::Service.add(:a_title, :content)
+    Proposals::Service.add(:a_title, :content)
 
     result = Proposals::Service.list()
     the_proposal = result.last
@@ -60,7 +60,7 @@ describe Proposals::Service do
     second_user = 'Cersei'
     Proposals::Service.add(some_proposal_title, some_proposal_content)
     retrieval_code = calculate_proposal_signature(some_proposal_title,
-                                                  some_proposal_content)
+      some_proposal_content)
     Proposals::Service.involve(retrieval_code, first_user)
     Proposals::Service.involve(retrieval_code, second_user)
 
