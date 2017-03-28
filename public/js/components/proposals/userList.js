@@ -10,15 +10,15 @@ var UserList = function() {
             var element = document.createElement('li');
             element.className = 'user list-group-item';
             element.innerHTML = username;
-            list.append(element); 
+            list.append(element);
 
             if (circle.includes(username)) {
                 checkSymbol = addCheckSymbol(username);
-                element.append(checkSymbol); 
+                element.append(checkSymbol);
             } else {
                 button = addButton(username);
-                element.append(button); 
-            }; 
+                element.append(button);
+            }
         });
     };
 
@@ -27,7 +27,7 @@ var UserList = function() {
         Bus.publish('user.clicked');
 
     };
-    
+
     var addUserToCircle = function(username) {
         var circleData = {
             username: username,
@@ -50,7 +50,7 @@ var UserList = function() {
         var buttonText = document.createTextNode ('Add');
         button.appendChild(buttonText);
         button.className = 'add-button';
-        button.id = username; 
+        button.id = username;
         button.addEventListener('click', function(){
             addUserToCircle(this.id);
             Bus.publish('user.clicked');
@@ -61,7 +61,7 @@ var UserList = function() {
     var addCheckSymbol = function(username){
         var checkSymbol = document.createElement('span');
         checkSymbol.innerHTML = '\u2714';
-        checkSymbol.id = username + '-checked'; 
+        checkSymbol.id = username + '-checked';
         return checkSymbol;
     };
 

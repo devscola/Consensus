@@ -12,17 +12,17 @@ var FinishCircle = function() {
 
     var disabled = function() {
         button.disabled = true;
-    }
-  
+    };
+
     var enabled = function() {
         button.disabled = false;
-    }
-    
+    };
+
     button.addEventListener('click', function(){
         Bus.publish('userlist.close');
     });
 
     Bus.subscribe('proposal.submit', show);
     Bus.subscribe('proposal.new', hide);
-    Bus.subscribe('proposal.user.added', enabled)
-}
+    Bus.subscribe('proposal.user.added', enabled);
+};
