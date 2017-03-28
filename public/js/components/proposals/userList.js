@@ -66,7 +66,6 @@ var UserList = function() {
     };
 
     var show = function() {
-        Bus.publish('circle.users');
         container.style.display = 'block';
     };
 
