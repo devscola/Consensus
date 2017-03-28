@@ -96,10 +96,6 @@ module Page
       !disabled
     end
 
-    def click_add_user
-      click_on('mock-add-user')
-    end
-
     private
 
     def do_show_form
