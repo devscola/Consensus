@@ -18,11 +18,6 @@ feature 'Discussion board' do
     expect(result).to be true
   end
 
-  def calculate_proposal_signature(title, content)
-    proposal_signature = title + content
-    Digest::MD5.hexdigest(proposal_signature)
-  end
-
   def some_enough_proposal_content
     Fixtures.enough_proposal_content
   end
