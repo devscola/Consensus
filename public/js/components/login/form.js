@@ -28,17 +28,17 @@ var Form = function() {
     };
 
     var eyeWillBe = function(eyeTypeWanted) {
-        return 'password-eye password-eye--' + eyeTypeWanted;
+        return 'glyphicon glyphicon-eye-' + eyeTypeWanted;
     };
 
     var openEye = function() {
         password.type = 'text';
-        passwordToggler.className = eyeWillBe('opened');
+        passwordToggler.className = eyeWillBe('open');
     };
 
     var closeEye = function() {
         password.type = 'password';
-        passwordToggler.className = eyeWillBe('closed');
+        passwordToggler.className = eyeWillBe('close');
     };
 
     var doLogin = function() {

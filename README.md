@@ -99,6 +99,10 @@ To run specific test you can do it like this:
 ~~~
 rspec -e 'any word of the test title' 
 ~~~
+
+## Bootstrap
+
+Link: http://getbootstrap.com
     
 
 ## Prepare docker environment for run test:

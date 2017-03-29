@@ -9,9 +9,6 @@ var UserList = function() {
         result.forEach(function(username) {
             var element = document.createElement('li');
             element.className = 'user list-group-item';
-            element.innerHTML = username;
-            list.append(element);
-
             if (circle.includes(username)) {
                 checkSymbol = addCheckSymbol(username);
                 element.append(checkSymbol);
@@ -19,6 +16,9 @@ var UserList = function() {
                 button = addButton(username);
                 element.append(button);
             }
+
+            element.append(document.createTextNode(' ' + username));
+            list.append(element);
         });
     };
 
@@ -46,9 +46,12 @@ var UserList = function() {
     };
 
     var addButton = function(username){
+        var iconButton = document.createElement('span');
+        iconButton.className = 'glyphicon glyphicon-unchecked';
+        iconButton.ariaHidden = 'true';
+        
         var button = document.createElement('button');
-        var buttonText = document.createTextNode ('Add');
-        button.appendChild(buttonText);
+        button.appendChild(iconButton);
         button.className = 'add-button';
         button.id = username;
         button.addEventListener('click', function(){
@@ -60,7 +63,8 @@ var UserList = function() {
 
     var addCheckSymbol = function(username){
         var checkSymbol = document.createElement('span');
-        checkSymbol.innerHTML = '\u2714';
+        checkSymbol.className = 'glyphicon glyphicon-check';
+        checkSymbol.ariaHidden = 'true';
         checkSymbol.id = username + '-checked';
         return checkSymbol;
     };
