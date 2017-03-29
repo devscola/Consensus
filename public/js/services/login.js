@@ -9,7 +9,7 @@ var LoginService = function() {
     var login = function(credentials) {
         doRequest(baseUrl, credentials, function(result) {
             var evaluated = hasSucceeded(result);
-            Bus.publish('LoginResult', evaluated);
+            Bus.publish('login.result', evaluated);
         });
     };
 

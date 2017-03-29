@@ -15,8 +15,8 @@ module Page
       click_on('proposal-submit')
     end
 
-    def proposal_amount
-      page.all('.proposal-entry').count
+    def exist_proposal
+      has_css?('.proposal-entry')
     end
 
     def form_visible?

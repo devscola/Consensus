@@ -7,15 +7,23 @@ var Warning = function() {
     };
 
     var hide = function() {
+        _doHide();
+        Bus.publish('dismissed');
+    };
+
+    var _doHide = function() {
         element.style.display = 'none';
     };
 
-    dismiss.addEventListener('click', function() {
-        hide();
-        Bus.publish('dismissed');
-    });
+    var _start = function() {
+        dismiss.addEventListener('click', hide);
+        _doHide();
+    };
 
-    hide();
+    _start();
+
+    Bus.subscribe('warning.show', show);
+    Bus.subscribe('warning.hide', hide);
 
     return {
         element: element,
