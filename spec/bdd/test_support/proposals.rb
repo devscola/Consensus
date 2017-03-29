@@ -90,18 +90,22 @@ module Page
       find('#proposal-content').value.length
     end
 
+    def button_finish_click
+      click_on('proposal-finish')
+    end
+
     def button_finish_activate?
       button = find('#proposal-finish', visible: false)
       disabled = button[:disabled]
       !disabled
     end
 
-    private
-
     def do_show_form
       click_on('create-proposal')
     end
 
+    private
+    
     def validate!
       page.assert_selector('#create-proposal')
       page.assert_selector('#proposal-list', visible: false)
