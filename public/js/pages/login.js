@@ -13,7 +13,6 @@ var LoginPage = function() {
     };
 
     var doLogin = function() {
-        warning.hide();
         goToHome();
     };
 
