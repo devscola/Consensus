@@ -10,7 +10,6 @@ var LoginPage = function() {
     };
 
     var doLogin = function() {
-        Bus.publish('warning.hide');
         goToHome();
     };
 
