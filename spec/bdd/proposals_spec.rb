@@ -11,18 +11,18 @@ feature 'Proposals' do
   let(:proposals) { Page::Proposals.new }
 
   scenario 'when there are no proposals the list is empty' do
-    result = proposals.proposal_amount
+    result = proposals.exist_proposal
 
-    expect(result).to be 0
+    expect(result).to be false
   end
 
   scenario 'when there are some proposals the list is not empty' do
     proposals.show_form
     proposals.new_proposal('some title', some_enough_proposal_content)
-    sleep 1
-    result = proposals.proposal_amount
 
-    expect(result).to be 1
+    result = proposals.exist_proposal
+
+    expect(result).to be true
   end
 
   scenario 'when creating a proposal a form to fill appears' do
@@ -58,7 +58,6 @@ feature 'Proposals' do
     proposals.show_form
 
     proposals.new_proposal('some title', some_enough_proposal_content)
-    sleep 1
     list_users = proposals.user_list_is_visible?
 
     expect(list_users).to be true
@@ -66,6 +65,9 @@ feature 'Proposals' do
 end
 
 feature 'New proposal form' do
+  before(:each) do
+    visit('/proposals/empty')
+  end
   let(:proposals) { Page::Proposals.new }
 
   scenario 'counter shows text area length' do
@@ -109,8 +111,6 @@ feature 'New proposal form' do
     proposals.new_proposal('first random title', some_enough_proposal_content)
     proposals.new_proposal('another random title', some_enough_proposal_content)
 
-    sleep 1
-
     board = proposals.visit_proposal('first random title')
 
     a_result = board.proposal_title
@@ -120,6 +120,9 @@ feature 'New proposal form' do
 end
 
 feature 'Create circle' do
+  before(:each) do
+    visit('/proposals/empty')
+  end
   let(:proposals) { Page::Proposals.new }
 
   scenario 'retrieves users' do
@@ -155,7 +158,6 @@ feature 'Create circle' do
 
     proposals.new_proposal('some random test circle title', some_enough_proposal_content)
     proposals.click_user_button('Cersei')
-    sleep 1
     result = proposals.button_finish_activate?
 
     expect(result).to be true

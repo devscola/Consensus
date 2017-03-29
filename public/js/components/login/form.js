@@ -1,5 +1,4 @@
 var Form = function() {
-
     var submit = document.getElementById('submit');
     var username = document.getElementById('username');
     var password = document.getElementById('password');
@@ -49,5 +48,4 @@ var Form = function() {
 
     submit.addEventListener('click', doLogin);
     passwordToggler.addEventListener('click', togglePasswordVisibility);
-
 };
