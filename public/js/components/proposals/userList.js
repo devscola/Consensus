@@ -64,15 +64,11 @@ var UserList = function() {
 
     var createAddToCircleButton = function(username) {
         var iconButton = document.createElement('span');
-        iconButton.className = 'glyphicon glyphicon-unchecked';
-        iconButton.ariaHidden = 'true';
+        iconButton.className = 'add-button glyphicon glyphicon-unchecked';
+        iconButton.setAttribute('style','cursor: pointer');
+        iconButton.id = username;
 
-        var button = document.createElement('button');
-        button.appendChild(iconButton);
-        button.className = 'add-button';
-        button.id = username;
-
-        return button;
+       return iconButton;
     };
 
     var addUserEvent = function(button) {
