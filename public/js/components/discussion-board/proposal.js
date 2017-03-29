@@ -1,4 +1,5 @@
 var Proposal = function(id) {
+
     var my_id = id;
     var title = document.getElementById('title');
     var content = document.getElementById('content');
@@ -8,17 +9,25 @@ var Proposal = function(id) {
         title.innerHTML = data.title;
         content.innerHTML = data.content;
         circleContent = populateCircle(data.circle);
-        circle.innerHTML = circleContent;
+        circle.append(circleContent);
+    };
+
+    var createListItem = function(username) {
+        listItem = document.createElement('li');
+        listItem.className = 'user-involved list-group-item';
+        listItem.innerHTML = username;
+        return listItem;
     };
 
     var populateCircle = function(circle) {
-        var list = '';
+        var listItems = document.createDocumentFragment();
         circle.forEach(function(username) {
-            list += '<li class="user-involved list-group-item">' + username + '</li>';
+            listItems.append(createListItem(username));
         });
-        return list;
+        return listItems;
     };
 
     Bus.subscribe('proposal.retrieved', render);
     Bus.publish('proposal.retrieve', my_id);
+
 };
