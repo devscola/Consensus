@@ -9,18 +9,22 @@ var UserList = function() {
         result.forEach(function(username) {
             var element = document.createElement('li');
             element.className = 'user list-group-item';
-            element.innerHTML = username;
+            element.textContent = username;
             list.append(element);
-
-            if (circle.includes(username)) {
-                checkSymbol = addCheckSymbol(username);
-                element.append(checkSymbol);
-            } else {
-                button = addButton(username);
-                element.append(button);
-            }
+            selectUser(username, element);
         });
     };
+
+    var selectUser = function(username, element) {
+        if (circle.includes(username)) {
+            checkSymbol = addCheckSymbol(username);
+            element.append(checkSymbol);
+        } else {
+            button = addButton(username);
+            element.append(button);
+        }
+    };
+
 
     var fillCircle = function(circleFilled){
         circle = circleFilled;
@@ -46,17 +50,27 @@ var UserList = function() {
     };
 
     var addButton = function(username){
+        button = createAddToCircleButton(username);
+        addUserEvent(button);
+        return button;
+    };
+
+    var createAddToCircleButton = function(username) {
         var button = document.createElement('button');
         var buttonText = document.createTextNode ('Add');
         button.appendChild(buttonText);
         button.className = 'add-button';
         button.id = username;
+        return button;
+    };
+
+    var addUserEvent = function(button) {
         button.addEventListener('click', function(){
             addUserToCircle(this.id);
             Bus.publish('user.clicked');
         });
-        return button;
     };
+     
 
     var addCheckSymbol = function(username){
         var checkSymbol = document.createElement('span');

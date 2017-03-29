@@ -4,15 +4,25 @@ var List = function() {
     var showList = function(list) {
         proposalList.innerHTML = '';
         list.result.forEach(function(proposal) {
-            var element = document.createElement('div');
-            element.className = 'proposal-entry list-group-item';
-            var link = document.createElement('a');
-            link.href = 'discussion-board/' + proposal.id;
+            var container = ProposalsContainer();
+            var link = linkToProposal(proposal);
 
-            link.innerHTML = proposal.title;
-            element.append(link);
-            proposalList.append(element);
+            link.textContent = proposal.title;
+            container.append(link);
+            proposalList.append(container);
         });
+    };
+
+    var ProposalsContainer = function(){
+        var container = document.createElement('div');
+        container.className = 'proposal-entry list-group-item';
+        return container;
+    };
+
+    var linkToProposal = function(proposal){
+        var link = document.createElement('a');
+        link.href = 'discussion-board/' + proposal.id;
+        return link;
     };
 
     var retrieveList = function() {
