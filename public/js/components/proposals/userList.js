@@ -64,11 +64,15 @@ var UserList = function() {
 
     var createAddToCircleButton = function(username) {
         var iconButton = document.createElement('span');
-        iconButton.className = 'add-button glyphicon glyphicon-unchecked';
-        iconButton.setAttribute('style','cursor: pointer');
-        iconButton.id = username;
+        iconButton.className = 'glyphicon glyphicon-unchecked';
+        iconButton.ariaHidden = 'true';
 
-       return iconButton;
+        var button = document.createElement('button');
+        button.appendChild(iconButton);
+        button.className = 'add-button';
+        button.id = username;
+
+        return button;
     };
 
     var addUserEvent = function(button) {
@@ -77,7 +81,7 @@ var UserList = function() {
             Bus.publish('user.clicked');
         });
     };
-     
+
 
     var addCheckSymbol = function(username){
         var checkSymbol = document.createElement('span');
