@@ -160,6 +160,30 @@ feature 'Create circle' do
 
     expect(result).to be true
   end
+
+  scenario 'button finish closes userList' do
+    proposals.show_form
+
+    proposals.new_proposal('some random test circle title', some_enough_proposal_content)
+    proposals.click_user_button('Cersei')
+    proposals.button_finish_click
+
+    result = proposals.user_selection_is_visible?
+
+    expect(result). to be false
+  end
+
+  scenario 'button New Proposal closes userList' do
+    proposals.show_form
+
+    proposals.new_proposal('some random test new proposal button', some_enough_proposal_content)
+    proposals.do_show_form
+
+    result = proposals.user_selection_is_visible?
+
+    expect(result). to be false
+  end
+
 end
 
 def some_enough_proposal_content
