@@ -65,8 +65,15 @@ docker-compose run web rake bdd
 
 To run specific test you can do it like this:
 
-docker-compose run web rspec -e  'any word of the test title' 
+docker-compose run web rspec -e  'any word of the test title'
 
+
+To run a specific test with a tag, you can do it this way:
+
+~~~
+docker-compose run web rake tag[example]
+~~~
+In this case,  _example_ is the tag that we are using. If you want to know how to tag a test you can look up the README file.
 
 ##C. QUICK SUMMARY OF DOCKER CHEAT SHEET
 

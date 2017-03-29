@@ -100,6 +100,26 @@ To run specific test you can do it like this:
 rspec -e 'any word of the test title' 
 ~~~
 
+## To tag a test and run it in Consensus
+
+**1º.-** To tag a specific test, we have to write after the test name the tag that we want to use, with a comma and the _:tag_name_ as follows:
+
+~~~
+it 'test_name', :example do
+   _Arrange_
+   _Add_
+   _Assert_
+ end
+~~~
+ 
+In this case,  _example_ is the tag that we are using.
+
+**2º.-** To run the specific test with this tag, you can do it this way:
+
+~~~
+rake tag[example]
+~~~
+	
 ## Bootstrap
 
 Link: http://getbootstrap.com
