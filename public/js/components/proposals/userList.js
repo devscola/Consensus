@@ -10,14 +10,10 @@ var UserList = function() {
             var element = document.createElement('li');
             element.className = 'user list-group-item';
 
-
             selectUser(username, element);
 
             element.append(document.createTextNode(' ' + username));
             list.append(element);
-
-            //element.textContent = username;
-            //list.append(element);
 
         });
     };
@@ -118,5 +114,4 @@ var UserList = function() {
     Bus.subscribe('proposal.circle.retrieved', fillCircle);
     Bus.subscribe('proposal.empty', empty);
     Bus.subscribe('userlist.close', hide);
-
 };
