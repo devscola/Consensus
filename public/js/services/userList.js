@@ -1,5 +1,7 @@
 var UserListService = function() {
 
+    var baseUrl = '/proposal';
+
     var doRequest = function(endpoint, circleData, callback) {
         var request = new XMLHttpRequest();
         var OK = 200;
@@ -17,20 +19,20 @@ var UserListService = function() {
     };
 
     var list = function() {
-        doRequest('/proposal/circle', '', function(result){
-            Bus.publish('users.retrieved', result);    
-        });      
+        doRequest(baseUrl + '/circle', '', function(result) {
+            Bus.publish('users.retrieved', result);
+        });
     };
 
     var add = function(circleData) {
-        doRequest('/proposal/user/add', circleData, function(result){
+        doRequest(baseUrl + '/user/add', circleData, function(result) {
             Bus.publish('proposal.user.added');
         });
     };
 
     var retrieve = function(id) {
-        doRequest('/proposal/users/retrieve', id, function(result){
-            Bus.publish('proposal.circle.retrieved', result.circle);    
+        doRequest(baseUrl + '/users/retrieve', id, function(result) {
+            Bus.publish('proposal.circle.retrieved', result.circle);
         });
     };
 
@@ -38,4 +40,5 @@ var UserListService = function() {
     Bus.subscribe('user.clicked', list);
     Bus.subscribe('proposal.user.add', add);
     Bus.subscribe('proposal.circle.retrieve', retrieve);
+
 };

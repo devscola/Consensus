@@ -1,11 +1,13 @@
 var LoginService = function() {
 
+    var baseUrl = '/login';
+
     var hasSucceeded = function(result) {
         return result.valid;
     };
 
     var login = function(credentials) {
-        doRequest('/login', credentials, function(result) {
+        doRequest(baseUrl, credentials, function(result) {
             var evaluated = hasSucceeded(result);
             Bus.publish('LoginResult', evaluated);
         });

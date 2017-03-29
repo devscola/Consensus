@@ -1,7 +1,9 @@
 var ProposalsService = function() {
 
+    var baseUrl = '/proposals';
+
     var add = function(proposalData) {
-        doRequest('/proposals/add', proposalData, function(result) {
+        doRequest(baseUrl + '/add', proposalData, function(result) {
             Bus.publish('proposal.added', result);
         });
     };
@@ -23,14 +25,14 @@ var ProposalsService = function() {
     };
 
     var list = function (){
-        doRequest('/proposals/list', '', function(result) {
+        doRequest(baseUrl + '/list', '', function(result) {
             Bus.publish('proposal.listed', result);
         });
     };
 
     var retrieve = function (id){
-        data={'proposal_id': id};
-        doRequest('/proposals/retrieve', data, function(result) {
+        data = {'proposal_id': id};
+        doRequest(baseUrl + '/retrieve', data, function(result) {
             Bus.publish('proposal.retrieved', result);
         });
     };
