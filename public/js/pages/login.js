@@ -1,15 +1,12 @@
 var LoginPage = function() {
+    new LoginService();
+    new Form();
+    new Warning();
 
-    var warning;
-    var form;
     var HOME = '/';
 
     var goToHome = function() {
         window.location = HOME;
-    };
-
-    var showError = function() {
-        warning.show();
     };
 
     var doLogin = function() {
@@ -17,17 +14,12 @@ var LoginPage = function() {
     };
 
     var checkLogin = function(result) {
-        if (!result) return showError();
-
+        if (!result) {
+            Bus.publish('warning.show');
+            return;
+        }
         doLogin();
     };
 
-    warning = new Warning();
-    form = new Form();
-
-    new LoginService();
-
-    Bus.subscribe('dismissed', form.empty);
-    Bus.subscribe('LoginResult', checkLogin);
-
+    Bus.subscribe('login.result', checkLogin);
 };

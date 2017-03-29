@@ -22,6 +22,9 @@ var Warning = function() {
 
     _start();
 
+    Bus.subscribe('warning.show', show);
+    Bus.subscribe('warning.hide', hide);
+
     return {
         element: element,
         show: show,
