@@ -33,7 +33,7 @@ var Form = function() {
     var addProposal = function() {
         Bus.publish('proposal.add', proposalData);
     };
-    
+
     hide();
 
     Bus.subscribe('proposal.empty', empty);
@@ -41,5 +41,5 @@ var Form = function() {
     Bus.subscribe('proposal.title.change', titleChange);
     Bus.subscribe('proposal.content.ready', contentChange);
     Bus.subscribe('proposal.submit', addProposal);
-    Bus.subscribe('proposal.submit', hide);
+    Bus.subscribe('proposal.added', hide);
 };
