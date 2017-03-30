@@ -1,5 +1,5 @@
 var LoginPage = function() {
-    new LoginService();
+    new Services.Login();
     new Form();
     new Warning();
 
