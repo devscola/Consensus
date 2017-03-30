@@ -4,7 +4,6 @@ Class('Services.Login', {
 
     initialize: function() {
         Services.Login.Super.call(this, '/login');
-        Bus.subscribe('LoginAttempt', this.login.bind(this));
     },
 
     hasSucceeded: function(result) {
@@ -17,6 +16,10 @@ Class('Services.Login', {
         };
 
         this.doRequest(this.baseUrl, credentials, callback.bind(this));
+    },
+
+    subscribe: function() {
+        Bus.subscribe('LoginAttempt', this.login.bind(this));
     }
 
 });

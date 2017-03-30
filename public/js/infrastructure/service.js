@@ -2,6 +2,7 @@ Class('Service', {
 
     initialize: function(baseUrl) {
         this.baseUrl = baseUrl;
+        this.subscribe();
     },
 
     doRequest: function(endpoint, data, callback) {
@@ -18,6 +19,10 @@ Class('Service', {
             }
         };
         request.send(JSON.stringify(data));
+    },
+
+    subscribe: function() {
+        console.error('Not subscribed!, implement subscribe method');
     }
 
 });
