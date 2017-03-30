@@ -1,16 +1,23 @@
-var Title = function() {
-    var title = document.getElementById('proposal-title');
+Class('Proposal.Title', {
 
-    var publishContent = function () {
-        Bus.publish('proposal.title.change', title.value);
-    };
+    Extends: Component,
 
-    var emptyTitle = function () {
-        title.value = '';
+    initialize: function() {
+        Proposal.Title.Super.call(this, 'proposal-title');
+        this.element.addEventListener('input', this.publishContent.bind(this));
+    },
+
+    publishContent: function() {
+        Bus.publish('proposal.title.change', this.element.value);
+    },
+
+    empty: function() {
+        this.element.value = '';
         Bus.publish('proposal.title.change', '');
-    };
+    },
 
-    Bus.subscribe('proposal.title.empty', emptyTitle);
+    subscribe: function() {
+        Bus.subscribe('proposal.title.empty', this.empty.bind(this));
+    }
 
-    title.addEventListener('input', publishContent);
-};
+});

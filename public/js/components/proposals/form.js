@@ -1,8 +1,9 @@
 var Form = function() {
     new Submit();
     new FinishCircle();
-    new Title();
-    new Content();
+    new Proposal.Title();
+    new Proposal.Content();
+    new Proposal.Counter();
     new InfoMessage();
 
     var proposalData = {};
