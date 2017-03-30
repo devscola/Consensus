@@ -3,7 +3,7 @@ var ProposalsPage = function() {
     new List();
     new Form();
     new UserList();
-    new UserListService();
+    new Services.UserList();
     new Services.Proposals();
 
     Bus.publish('proposal.list');
