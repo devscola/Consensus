@@ -29,7 +29,7 @@ In the fourth one, we make a method to use the _tag_ tag. (we can use any word t
 ~~~
 it 'test_name', :example do
    Arrange
-   Add
+   Act
    Assert
  end
 ~~~
