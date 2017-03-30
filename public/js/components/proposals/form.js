@@ -1,10 +1,10 @@
 var Form = function() {
-    new Submit();
     new FinishCircle();
     new Proposal.Title();
     new Proposal.Content();
     new Proposal.Counter();
-    new InfoMessage();
+    new Proposal.Submit();
+    new Proposal.InfoMessage();
 
     var proposalData = {};
     var form = document.getElementById('proposal-form');

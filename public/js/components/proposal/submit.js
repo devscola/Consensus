@@ -1,20 +1,27 @@
-var Submit = function() {
-    var submit = document.getElementById('proposal-submit');
+Class('Proposal.Submit', {
 
-    var submitProposal = function() {
+    Extends: Component,
+
+    initialize: function() {
+        Proposal.Submit.Super.call(this, 'proposal-submit');
+        this.element.addEventListener('click', this.submitProposal.bind(this));
+    },
+
+    submitProposal: function() {
         Bus.publish('proposal.submit');
-    };
+    },
 
-    submit.addEventListener('click', submitProposal);
+    activate: function() {
+        this.element.disabled = false;
+    },
 
-    var activateButton = function() {
-        submit.disabled = false;
-    };
+    deactivate: function() {
+        this.element.disabled = true;
+    },
 
-    var deactivateButton = function() {
-        submit.disabled = true;
-    };
+    subscribe: function() {
+        Bus.subscribe('proposal.content.ready', this.activate.bind(this));
+        Bus.subscribe('proposal.content.not.ready', this.deactivate.bind(this));
+    }
 
-    Bus.subscribe('proposal.content.ready', activateButton);
-    Bus.subscribe('proposal.content.not.ready', deactivateButton);
-};
+});

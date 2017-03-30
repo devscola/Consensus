@@ -1,14 +1,22 @@
-var InfoMessage = function() {
-    var infoMessage = document.getElementById('info-message');
+Class('Proposal.InfoMessage', {
 
-    var hide = function() {
-        infoMessage.style.visibility = 'hidden';
-    };
+    Extends: Component,
 
-    var show = function() {
-        infoMessage.style.visibility = 'visible';
-    };
+    initialize: function() {
+        Proposal.InfoMessage.Super.call(this, 'info-message');
+    },
 
-    Bus.subscribe('proposal.content.ready', hide);
-    Bus.subscribe('proposal.content.not.ready', show);
-};
+    hide: function() {
+        this.element.style.display = 'none';
+    },
+
+    show: function() {
+        this.element.style.display = 'block';
+    },
+
+    subscribe: function() {
+        Bus.subscribe('proposal.content.ready', this.hide.bind(this));
+        Bus.subscribe('proposal.content.not.ready', this.show.bind(this));
+    }
+
+});
