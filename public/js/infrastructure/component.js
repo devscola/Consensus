@@ -6,7 +6,7 @@ Class('Component', {
     },
 
     subscribe: function() {
-        console.error('Not subscribed!, implement subscribe method');
+        console.error(this.toString() + ' not subscribed!, implement subscribe method');
     }
 
 });

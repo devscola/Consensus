@@ -3,13 +3,17 @@ var Warning = function() {
     var dismiss = document.getElementById('dismiss-error');
 
     var show = function() {
-        element.style.display = 'block';
+        _doShow();   
     };
 
     var hide = function() {
         _doHide();
         Bus.publish('dismissed');
     };
+
+    var _doShow = function() {
+        element.style.display = 'block';
+    }
 
     var _doHide = function() {
         element.style.display = 'none';

@@ -1,43 +1,13 @@
 var Form = function() {
-    var submit = document.getElementById('submit');
-    var username = document.getElementById('username');
-    var password = document.getElementById('password');
-    var passwordToggler = document.getElementById('password-toggler');
+    new Login.Submit();
+    new Login.Username();
+    new Login.Password();
+    new Login.PasswordToggler();
+    var username;
+    var password;
 
     var retrieveCredentials = function() {
-        return {username: username.value, password: password.value};
-    };
-
-    var focusOnUsername = function() {
-        username.focus();
-    };
-
-    var empty = function() {
-        username.value = '';
-        password.value = '';
-        focusOnUsername();
-    };
-
-    var togglePasswordVisibility = function() {
-        if (password.type === 'password') {
-            openEye();
-        } else {
-            closeEye();
-        }
-    };
-
-    var eyeWillBe = function(eyeTypeWanted) {
-        return 'glyphicon glyphicon-eye-' + eyeTypeWanted;
-    };
-
-    var openEye = function() {
-        password.type = 'text';
-        passwordToggler.className = eyeWillBe('open');
-    };
-
-    var closeEye = function() {
-        password.type = 'password';
-        passwordToggler.className = eyeWillBe('close');
+        return {username: username, password: password};
     };
 
     var doLogin = function() {
@@ -46,6 +16,15 @@ var Form = function() {
         Bus.publish('LoginAttempt', credentials);
     };
 
-    submit.addEventListener('click', doLogin);
-    passwordToggler.addEventListener('click', togglePasswordVisibility);
+    var fillUsername = function(value) {
+        username = value;
+    };
+
+    var fillPassword = function(value) {
+        password = value;
+    };
+
+    Bus.subscribe('login.submit.clicked', doLogin);
+    Bus.subscribe('login.username.sent', fillUsername);
+    Bus.subscribe('login.password.sent', fillPassword);
 };
