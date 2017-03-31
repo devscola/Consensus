@@ -15,7 +15,7 @@ module Page
     end
 
     def dismiss_wrong_credentials_warning
-      click_button('dismiss-error')
+      click_button('dismiss-warning')
     end
 
     def toggle_password_visibility

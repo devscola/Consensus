@@ -1,37 +1,33 @@
-var Warning = function() {
-    var element = document.getElementById('error');
-    var dismiss = document.getElementById('dismiss-error');
+Class('Login.Warning', {
 
-    var show = function() {
-        _doShow();   
-    };
+    Extends: Component,
 
-    var hide = function() {
-        _doHide();
+    initialize: function() {
+        Login.Warning.Super.call(this, 'warning');
+        this._doHide();
+    },
+
+    show: function() {
+        this._doShow();
+    },
+
+    hide: function() {
+        this._doHide();
         Bus.publish('dismissed');
-    };
+    },
 
-    var _doShow = function() {
-        element.style.display = 'block';
+    _doShow: function() {
+        this.element.style.display = 'block';
+    },
+
+    _doHide: function() {
+        this.element.style.display = 'none';
+    },
+
+    subscribe: function() {
+        Bus.subscribe('warning.show', this.show.bind(this));
+        Bus.subscribe('warning.hide', this.hide.bind(this));
+        Bus.subscribe('login.warning.dismiss', this.hide.bind(this));
     }
 
-    var _doHide = function() {
-        element.style.display = 'none';
-    };
-
-    var _start = function() {
-        dismiss.addEventListener('click', hide);
-        _doHide();
-    };
-
-    _start();
-
-    Bus.subscribe('warning.show', show);
-    Bus.subscribe('warning.hide', hide);
-
-    return {
-        element: element,
-        show: show,
-        hide: hide
-    };
-};
+});

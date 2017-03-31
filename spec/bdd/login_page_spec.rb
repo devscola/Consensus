@@ -59,11 +59,11 @@ feature "Login" do
   end
 
   def expect_warning_has_appeared
-    expect(page).to have_css('#error')
+    expect(page).to have_css('#warning')
   end
 
   def expect_warning_has_disappeared
-    expect(page).to have_no_css('#error')
+    expect(page).to have_no_css('#warning')
   end
 
   def expect_password_to_be_visible
