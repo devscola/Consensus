@@ -8,16 +8,12 @@ Class('Login.Warning', {
     },
 
     show: function() {
-        this._doShow();
+        this.element.style.display = 'block';
     },
 
     hide: function() {
         this._doHide();
         Bus.publish('dismissed');
-    },
-
-    _doShow: function() {
-        this.element.style.display = 'block';
     },
 
     _doHide: function() {

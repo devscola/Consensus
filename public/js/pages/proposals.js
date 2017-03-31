@@ -1,8 +1,7 @@
 var ProposalsPage = function() {
-    new CreateProposal();
-    new List();
-    new Form();
-    new UserList();
+    new Proposals.ProposalCreator();
+    new Proposals.List();
+    new Proposals.Form();
     new Services.UserList();
     new Services.Proposals();
 

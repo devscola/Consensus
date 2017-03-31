@@ -1,46 +1,52 @@
-var Form = function() {
-    new FinishCircle();
-    new Proposal.Title();
-    new Proposal.Content();
-    new Proposal.Counter();
-    new Proposal.Submit();
-    new Proposal.InfoMessage();
+Class('Proposals.Form', {
 
-    var proposalData = {};
-    var form = document.getElementById('proposal-form');
+    Extends: Component,
 
-    var show = function() {
-        form.style.display = 'block';
-    };
+    initialize: function() {
+        this.proposalData = {};
+        Proposals.Form.Super.call(this, 'proposal-form');
+        new Proposal.CircleFinisher();
+        new Proposal.Title();
+        new Proposal.Content();
+        new Proposal.Counter();
+        new Proposal.Submit();
+        new Proposal.InfoMessage();
+        new UserList();
+        this.hide();
+    },
 
-    var hide = function() {
-        form.style.display = 'none';
-    };
+    hide: function() {
+        this.element.style.display = 'none';
+    },
 
-    var empty = function() {
+    show: function() {
+        this.element.style.display = 'block';
+    },
+
+    empty: function() {
         Bus.publish('proposal.title.empty');
         Bus.publish('proposal.content.empty');
         Bus.publish('proposal.counter.empty');
-    };
+    },
 
-    var titleChange = function(title) {
-        proposalData.title = title;
-    };
+    changeTitle: function(title) {
+        this.proposalData.title = title;
+    },
 
-    var contentChange = function(content) {
-        proposalData.content = content;
-    };
+    changeContent: function(content) {
+        this.proposalData.content = content;
+    },
 
-    var addProposal = function() {
-        Bus.publish('proposal.add', proposalData);
-    };
+    addProposal: function() {
+        Bus.publish('proposal.add', this.proposalData);
+    },
 
-    hide();
-
-    Bus.subscribe('proposal.empty', empty);
-    Bus.subscribe('proposal.new', show);
-    Bus.subscribe('proposal.title.change', titleChange);
-    Bus.subscribe('proposal.content.ready', contentChange);
-    Bus.subscribe('proposal.submit', addProposal);
-    Bus.subscribe('proposal.added', hide);
-};
+    subscribe: function() {
+        Bus.subscribe('proposal.empty', this.empty.bind(this));
+        Bus.subscribe('proposal.new', this.show.bind(this));
+        Bus.subscribe('proposal.title.change', this.changeTitle.bind(this));
+        Bus.subscribe('proposal.content.ready', this.changeContent.bind(this));
+        Bus.subscribe('proposal.submit', this.addProposal.bind(this));
+        Bus.subscribe('proposal.added', this.hide.bind(this));
+    }
+});

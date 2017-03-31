@@ -28,11 +28,9 @@ var UserList = function() {
         }
     };
 
-
     var fillCircle = function(circleFilled){
         circle = circleFilled;
         Bus.publish('user.clicked');
-
     };
 
     var addUserToCircle = function(username) {
@@ -113,5 +111,5 @@ var UserList = function() {
     Bus.subscribe('proposal.user.added', retrieveCircle);
     Bus.subscribe('proposal.circle.retrieved', fillCircle);
     Bus.subscribe('proposal.empty', empty);
-    Bus.subscribe('userlist.close', hide);
+    Bus.subscribe('proposal.circle.finished', hide);
 };

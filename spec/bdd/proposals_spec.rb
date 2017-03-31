@@ -172,7 +172,7 @@ feature 'Create circle' do
 
     result = proposals.user_selection_is_visible?
 
-    expect(result). to be false
+    expect(result).to be false
   end
 
   scenario 'button New Proposal closes userList' do

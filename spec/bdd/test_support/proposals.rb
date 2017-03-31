@@ -105,10 +105,10 @@ module Page
     end
 
     private
-    
+
     def validate!
       page.assert_selector('#create-proposal')
-      page.assert_selector('#proposal-list', visible: false)
+      page.assert_selector('#proposals-list', visible: false)
       page.assert_selector('#proposal-finish', visible: false)
     end
   end
