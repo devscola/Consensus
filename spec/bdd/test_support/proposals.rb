@@ -12,7 +12,7 @@ module Page
       do_show_form
       fill_in('proposal-title', with: title)
       fill_in('proposal-content', with: content)
-      click_on('proposal-submit')
+      find('#proposal-submit').click
     end
 
     def any_proposal?
@@ -32,15 +32,15 @@ module Page
       message.visible?
     end
 
-    def user_amount
-      page.all('.user').count
+    def users_shown?
+      has_content?('KingRobert') && has_content?('LyanaMormont')
     end
 
     def click_user_button(username)
-      click_on(username)
+      find('#' + username).click
     end
 
-    def symbol_exists?(username)
+    def is_added?(username)
       has_css?('#' + username + '-checked')
     end
 
@@ -83,17 +83,15 @@ module Page
     end
 
     def content_length
-      find('#proposal-content').value.length
+      find('#proposal-content').value.length.to_i
     end
 
     def button_finish_click
-      click_on('proposal-finish')
+      find('#proposal-finish').click
     end
 
-    def button_finish_activate?
-      button = find('#proposal-finish', visible: false)
-      disabled = button[:disabled]
-      !disabled
+    def button_finish_deactivated?
+      has_css?('#proposal-finish[disabled]', visible: false)
     end
 
     def do_show_form
@@ -107,6 +105,7 @@ module Page
       page.assert_selector('#proposals-list', visible: false)
       page.assert_selector('#proposal-finish', visible: false)
       page.assert_selector('#user-selection', visible: false)
+      page.assert_selector('#proposal-submit[disabled]', visible: false)
     end
   end
 end

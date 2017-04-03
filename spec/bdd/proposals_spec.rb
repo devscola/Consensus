@@ -4,7 +4,7 @@ require_relative 'test_support/discussion_board'
 require_relative 'test_support/fixtures'
 require_relative '../../app'
 
-feature 'Proposals', :wip do
+feature 'Proposals' do
   let(:proposals) { Page::Proposals.new }
   
   scenario 'List is empty before adding proposals' do
@@ -45,125 +45,95 @@ feature 'Proposals', :wip do
 end
 
 feature 'New proposal form' do
-  before(:each) do
-    visit('/proposals/empty')
-  end
+  
   let(:proposals) { Page::Proposals.new }
 
-  scenario 'counter shows text area length' do
+  scenario 'Counts number of characters' do
     some_text = 'some random text'
     character_amount = some_text.length
 
     proposals.show_form
     proposals.fill_content(some_text)
-    result = proposals.content_length
-
-    expect(result.to_i).to eq(character_amount)
+  
+    expect(proposals.content_length).to eq(character_amount)
   end
 
-  scenario 'submit button activates and deactivates depending on content' do
+  scenario 'Toggles button on content length' do
     proposals.show_form
-    alpha_result = proposals.submit_button_enabled?
     proposals.fill_content(some_enough_proposal_content)
-    betta_result = proposals.submit_button_enabled?
+    
+    enough = proposals.submit_button_enabled?
     proposals.remove_content
-    gamma_result = proposals.submit_button_enabled?
-
-    expect(alpha_result).to eq(false)
-    expect(betta_result).to eq(true)
-    expect(gamma_result).to eq(false)
+    
+    expect(enough).to eq(true)
+    expect(proposals.submit_button_enabled?).to eq(false)
   end
 
-  scenario 'a info message is shown or hide depending on content' do
+  scenario 'Toggles message on content length' do
     proposals.show_form
-    alpha_result = proposals.info_message_visible?
     proposals.fill_content(some_enough_proposal_content)
-    betta_result = proposals.info_message_visible?
+   
+    shown = proposals.info_message_visible?
     proposals.remove_content
-    gamma_result = proposals.info_message_visible?
-
-    expect(alpha_result).to eq(true)
-    expect(betta_result).to eq(false)
-    expect(gamma_result).to eq(true)
+    
+    expect(shown).to eq(false)
+    expect(proposals.info_message_visible?).to eq(true)
   end
 
-  scenario 'when the user click a listed proposal is redirected to that proposal discussion-board' do
-    proposals.new_proposal('first random title', some_enough_proposal_content)
-    proposals.new_proposal('another random title', some_enough_proposal_content)
+  scenario 'Links proposals to the discussion board' do
+    the_proposal='The Proposal'
+    proposals.new_proposal(the_proposal, some_enough_proposal_content)
+    proposals.new_proposal('some title', some_enough_proposal_content)
 
-    board = proposals.visit_proposal('first random title')
+    board = proposals.visit_proposal(the_proposal)
 
-    a_result = board.proposal_title
-
-    expect(a_result).to eq('first random title')
+    expect(board.proposal_title).to eq(the_proposal)
   end
 end
 
-feature 'Create circle' do
-  before(:each) do
-    visit('/proposals/empty')
-  end
+feature 'Create circle', :wip do
+  
   let(:proposals) { Page::Proposals.new }
 
-  scenario 'retrieves users' do
-    proposals.show_form
+  scenario 'Shows users of the system' do
     proposals.new_proposal('second random title', some_enough_proposal_content)
-
-    result = proposals.user_amount
-
-    expect(result).to be > 0
+    expect(proposals.users_shown?).to be true
   end
 
-  scenario 'changes user button to symbol' do
-    proposals.show_form
-    proposals.new_proposal('third random title', some_enough_proposal_content)
+  scenario 'Adding a user marks it as added' do
+    the_user = 'Cersei'
+    proposals.new_proposal('some title', some_enough_proposal_content)
+    proposals.click_user_button(the_user)
+
+    expect(proposals.is_added?(the_user)).to be true
+  end
+
+  scenario 'Finishing disabled until user added' do
+    proposals.new_proposal('some title', some_enough_proposal_content)
+    
+    expect(proposals.button_finish_deactivated?).to be true
+  end
+
+  scenario 'Finishing enabled when user added' do
+    proposals.new_proposal('some title', some_enough_proposal_content)
     proposals.click_user_button('Cersei')
-
-    result = proposals.symbol_exists?('Cersei')
-
-    expect(result).to be true
+    expect(proposals.button_finish_deactivated?).to be false
   end
 
-  scenario 'button finish proposal is disabled when list has not changes' do
-    proposals.show_form
-
-    proposals.new_proposal('some random test circle title', some_enough_proposal_content)
-    result = proposals.button_finish_activate?
-
-    expect(result).to be false
-  end
-
-  scenario 'button finish proposal is enabled when list has changes' do
-    proposals.show_form
-
-    proposals.new_proposal('some random test circle title', some_enough_proposal_content)
+  scenario 'Finishing closes users selection' do
+    proposals.new_proposal('some title', some_enough_proposal_content)
     proposals.click_user_button('Cersei')
-    result = proposals.button_finish_activate?
-
-    expect(result).to be true
-  end
-
-  scenario 'button finish closes userList' do
-    proposals.show_form
-
-    proposals.new_proposal('some random test circle title', some_enough_proposal_content)
-    proposals.click_user_button('Cersei')
+    
     proposals.button_finish_click
 
-    result = proposals.user_selection_is_visible?
-
-    expect(result).to be false
+    expect(proposals.user_selection_is_visible?).to be false
   end
 
-  scenario 'button New Proposal closes userList' do
+  scenario 'Adding a new proposal close users selection' do
+    proposals.new_proposal('some random test new proposal button', some_enough_proposal_content)
     proposals.show_form
 
-    proposals.new_proposal('some random test new proposal button', some_enough_proposal_content)
-    proposals.do_show_form
-
-    result = proposals.user_selection_is_visible?
-
-    expect(result). to be false
+    expect(proposals.user_selection_is_visible?).to be false
   end
 
 end
