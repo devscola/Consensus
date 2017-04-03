@@ -15,7 +15,7 @@ module Page
       click_on('proposal-submit')
     end
 
-    def exist_proposal
+    def any_proposal?
       has_css?('.proposal-entry')
     end
 
@@ -24,10 +24,6 @@ module Page
     end
 
     def user_selection_is_visible?
-      has_css?('#user-selection')
-    end
-
-    def user_list_is_visible?
       has_css?('#user-selection')
     end
 
@@ -101,7 +97,7 @@ module Page
     end
 
     def do_show_form
-      click_on('create-proposal')
+      find('#create-proposal').click
     end
 
     private
@@ -110,6 +106,7 @@ module Page
       page.assert_selector('#create-proposal')
       page.assert_selector('#proposals-list', visible: false)
       page.assert_selector('#proposal-finish', visible: false)
+      page.assert_selector('#user-selection', visible: false)
     end
   end
 end

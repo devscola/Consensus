@@ -11,11 +11,11 @@ module Page
     def sign_in(username, password)
       fill_in('username', with: username)
       fill_in('password', with: password)
-      click_button('submit')
+      find('#submit').click
     end
 
     def dismiss_wrong_credentials_warning
-      click_button('dismiss-warning')
+      find('#dismiss-warning').click
     end
 
     def toggle_password_visibility
@@ -26,7 +26,7 @@ module Page
 
     def validate!
       page.assert_selector('#username')
-      page.assert_selector('#password')
+      page.assert_selector('#password[type="password"]')
       page.assert_selector('#submit')
       page.assert_selector('#password-toggler')
     end

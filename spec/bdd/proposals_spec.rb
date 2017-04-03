@@ -4,63 +4,43 @@ require_relative 'test_support/discussion_board'
 require_relative 'test_support/fixtures'
 require_relative '../../app'
 
-feature 'Proposals' do
-  before(:each) do
-    visit('/proposals/empty')
-  end
+feature 'Proposals', :wip do
   let(:proposals) { Page::Proposals.new }
-
-  scenario 'when there are no proposals the list is empty' do
-    result = proposals.exist_proposal
-
-    expect(result).to be false
+  
+  scenario 'List is empty before adding proposals' do
+    empty_fixture
+    expect(proposals.any_proposal?).to be false
   end
 
-  scenario 'when there are some proposals the list is not empty' do
-    proposals.show_form
+  scenario 'Lists proposals added' do
     proposals.new_proposal('some title', some_enough_proposal_content)
-
-    result = proposals.exist_proposal
-
-    expect(result).to be true
+    expect(proposals.any_proposal?).to be true
   end
 
-  scenario 'when creating a proposal a form to fill appears' do
-    alpha_result = proposals.form_visible?
+  scenario 'Form appears when triggered' do
+    previous = proposals.form_visible?
     proposals.show_form
-    betta_result = proposals.form_visible?
-
-    expect(alpha_result).to be false
-    expect(betta_result).to be true
+  
+    expect(previous).to be false
+    expect(proposals.form_visible?).to be true
   end
 
-  scenario 'when a proposal is created the form disappears' do
-    proposals.show_form
+  scenario 'Form disappears at proposal creation' do
     proposals.new_proposal('some title', some_enough_proposal_content)
-
-    result = proposals.form_visible?
-
-    expect(result).to be false
+    expect(proposals.form_visible?).to be false
   end
 
-  scenario 'when a proposal is created appears the user selection' do
-    proposals.show_form
-
-    previous_result = proposals.user_selection_is_visible?
+  scenario 'User selection appears after proposal creation' do
     proposals.new_proposal('some title', some_enough_proposal_content)
-    actual_result = proposals.user_selection_is_visible?
-
-    expect(previous_result).to be false
-    expect(actual_result).to be true
+    
+    expect(proposals.user_selection_is_visible?).to be true
   end
 
-  scenario 'when proposal is created display list alphabetical users' do
-    proposals.show_form
+  xscenario 'Lists users at selection' do  
+  end
 
-    proposals.new_proposal('some title', some_enough_proposal_content)
-    list_users = proposals.user_list_is_visible?
-
-    expect(list_users).to be true
+  def empty_fixture
+    visit('/proposals/empty')
   end
 end
 
