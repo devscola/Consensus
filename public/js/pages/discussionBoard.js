@@ -6,6 +6,12 @@ var DiscussionBoardPage = function() {
     };
 
     id = retrieveId();
+
+    new DiscussionBoard.Title();
+    new DiscussionBoard.Content();
+    new DiscussionBoard.Circle();
     new Services.Proposals();
-    new Proposal(id);
+
+    Bus.publish('proposal.retrieve', id);
+
 };
