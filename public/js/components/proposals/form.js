@@ -11,7 +11,8 @@ Class('Proposals.Form', {
         new Proposal.Counter();
         new Proposal.Submit();
         new Proposal.InfoMessage();
-        new UserList();
+        new Proposal.UserList();
+        new Proposal.Users();
         this.hide();
     },
 

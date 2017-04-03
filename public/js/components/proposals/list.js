@@ -3,7 +3,6 @@ Class('Proposals.List', {
     Extends: Component,
 
     initialize: function() {
-        console.log('initialize Proposals.List');
         Proposals.List.Super.call(this, 'proposals-list');
     },
 
