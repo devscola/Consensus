@@ -9,6 +9,8 @@ Class('Login.Username', {
 
     send: function() {
         Bus.publish('login.username.sent', this.element.value);
-    }
+    },
+
+    subscribe: function() {}
 
 });

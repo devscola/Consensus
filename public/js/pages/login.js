@@ -1,8 +1,8 @@
 var LoginPage = function() {
-    new Services.Login();
-    new Form();
+    new Login.Form();
     new Login.Warning();
     new Login.WarningDismisser();
+    new Services.Login();
 
     var HOME = '/';
 

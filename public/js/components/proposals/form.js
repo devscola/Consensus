@@ -50,4 +50,5 @@ Class('Proposals.Form', {
         Bus.subscribe('proposal.submit', this.addProposal.bind(this));
         Bus.subscribe('proposal.added', this.hide.bind(this));
     }
+
 });

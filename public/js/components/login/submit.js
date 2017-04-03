@@ -9,6 +9,8 @@ Class('Login.Submit', {
 
     notifyClick: function() {
         Bus.publish('login.submit.clicked');
-    }
+    },
+
+    subscribe: function() {}
 
 });

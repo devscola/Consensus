@@ -1,30 +1,37 @@
-var Form = function() {
-    new Login.Submit();
-    new Login.Username();
-    new Login.Password();
-    new Login.PasswordToggler();
-    var username;
-    var password;
+Class('Login.Form', {
 
-    var retrieveCredentials = function() {
-        return {username: username, password: password};
-    };
+    Extends: Component,
 
-    var doLogin = function() {
-        var credentials = retrieveCredentials();
+    initialize: function() {
+        Login.Form.Super.call(this, 'login-form');
+        new Login.Submit();
+        new Login.Username();
+        new Login.Password();
+        new Login.PasswordToggler();
+    },
+
+    doLogin: function() {
+        var credentials = this.retrieveCredentials();
 
         Bus.publish('LoginAttempt', credentials);
-    };
+    },
 
-    var fillUsername = function(value) {
-        username = value;
-    };
+    retrieveCredentials: function() {
+        return {username: this.username, password: this.password};
+    },
 
-    var fillPassword = function(value) {
-        password = value;
-    };
+    captureUsername: function(value) {
+        this.username = value;
+    },
 
-    Bus.subscribe('login.submit.clicked', doLogin);
-    Bus.subscribe('login.username.sent', fillUsername);
-    Bus.subscribe('login.password.sent', fillPassword);
-};
+    capturePassword: function(value) {
+        this.password = value;
+    },
+
+    subscribe: function() {
+        Bus.subscribe('login.submit.clicked', this.doLogin.bind(this));
+        Bus.subscribe('login.username.sent', this.captureUsername.bind(this));
+        Bus.subscribe('login.password.sent', this.capturePassword.bind(this));
+    }
+
+});

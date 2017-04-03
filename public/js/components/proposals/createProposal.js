@@ -10,5 +10,8 @@ Class('Proposals.ProposalCreator', {
     create: function() {
         Bus.publish('proposal.empty');
         Bus.publish('proposal.new');
-    }
+    },
+
+    subscribe: function() {}
+
 });

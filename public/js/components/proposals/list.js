@@ -48,4 +48,5 @@ Class('Proposals.List', {
         Bus.subscribe('proposal.listed', this.show.bind(this));
         Bus.subscribe('proposal.added', this.retrieve.bind(this));
     }
+
 });

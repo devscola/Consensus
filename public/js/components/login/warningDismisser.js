@@ -9,6 +9,8 @@ Class('Login.WarningDismisser', {
 
     press: function() {
         Bus.publish('login.warning.dismiss');
-    }
+    },
+
+    subscribe: function() {}
 
 });
