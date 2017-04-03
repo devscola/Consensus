@@ -9,6 +9,7 @@ Class('Proposal.Content', {
     initialize: function() {
         Proposal.Content.Super.call(this, 'proposal-content');
         this.element.addEventListener('input', this.updateCounter.bind(this));
+        this.ContentState = 'MIN';
         this.updateCounter();
     },
 
@@ -30,12 +31,16 @@ Class('Proposal.Content', {
         Bus.publish('proposal.update.counter', this.characterCount());
 
         if (this.characterCount() >= Proposal.Content.MIN_PROPOSAL_CONTENT) {
-            Bus.publish('proposal.content.ready', this.element.value);
+            this.ContentState = 'MAX';
             this.element.addEventListener('keyup', this.keySubmit);
+            Bus.publish('proposal.content.ready', this.element.value);
         }
 
         if (this.characterCount() < Proposal.Content.MIN_PROPOSAL_CONTENT) {
-            Bus.publish('proposal.content.not.ready');
+            if (this.ContentState == 'MAX') {
+                Bus.publish('proposal.content.not.ready');
+                this.ContentState = 'MIN';
+            }
         }
     },
 
