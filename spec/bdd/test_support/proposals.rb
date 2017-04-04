@@ -8,10 +8,10 @@ module Page
       validate!
     end
 
-    def new_proposal(title, content)
+    def new_proposal(title)
       do_show_form
       fill_in('proposal-title', with: title)
-      fill_in('proposal-content', with: content)
+      fill_enough_content
       find('#proposal-submit').click
     end
 
@@ -99,6 +99,10 @@ module Page
     end
 
     private
+
+    def fill_enough_content
+      execute_script('document.getElementById("proposal-content").value = "Lorem";Bus.publish("proposal.content.ready")')
+    end
 
     def validate!
       page.assert_selector('#create-proposal')
