@@ -1,7 +1,6 @@
 require 'spec_helper_bdd'
 require_relative 'test_support/proposals'
 require_relative 'test_support/discussion_board'
-require_relative 'test_support/fixtures'
 require_relative '../../app'
 
 feature 'Proposals' do
@@ -56,7 +55,7 @@ feature 'New proposal form' do
 
   scenario 'Toggles button on content length' do
     proposals.show_form
-    proposals.fill_content(some_enough_proposal_content)
+    proposals.fill_enough_content
 
     enough = proposals.submit_button_enabled?
     proposals.remove_content
@@ -67,7 +66,7 @@ feature 'New proposal form' do
 
   scenario 'Toggles message on content length' do
     proposals.show_form
-    proposals.fill_content(some_enough_proposal_content)
+    proposals.fill_enough_content
 
     shown = proposals.info_message_visible?
     proposals.remove_content
@@ -130,8 +129,4 @@ feature 'Create circle' do
 
     expect(proposals.user_selection_is_visible?).to be false
   end
-end
-
-def some_enough_proposal_content
-  Fixtures.enough_proposal_content
 end
