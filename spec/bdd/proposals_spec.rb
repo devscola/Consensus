@@ -12,7 +12,7 @@ feature 'Proposals' do
     expect(proposals.any_proposal?).to be false
   end
 
-  scenario 'Lists proposals added', :wip do
+  scenario 'Lists proposals added' do
     proposals.new_proposal('some title')
     expect(proposals.any_proposal?).to be true
   end
@@ -34,9 +34,6 @@ feature 'Proposals' do
     proposals.new_proposal('some title')
 
     expect(proposals.user_selection_is_visible?).to be true
-  end
-
-  xscenario 'Lists users at selection' do
   end
 
   def empty_fixture

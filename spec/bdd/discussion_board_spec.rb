@@ -3,15 +3,19 @@ require_relative 'test_support/proposals'
 require_relative '../../app'
 
 feature 'Discussion board' do
-  scenario 'shows users involved in the proposal' do
+  scenario 'Lists users at selection' do
+    users = ['Cersei', 'Arya', 'KingRobert']
+    the_proposal = 'list user at selection title'
     visit('/proposals/empty')
     proposals = Page::Proposals.new
-    proposals.new_proposal('strange title')
-    proposals.click_user_button('Cersei')
-    board = proposals.visit_proposal('strange title')
 
-    result = board.users_listed?
+    proposals.new_proposal(the_proposal)
+    users.each do |user|
+      proposals.click_user_button(user)
+    end
+    proposals.button_finish_click
+    board = proposals.visit_proposal(the_proposal)
 
-    expect(result).to be true
+    expect(board.circle).to eq(users.sort)
   end
 end

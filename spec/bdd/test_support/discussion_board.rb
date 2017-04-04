@@ -14,6 +14,14 @@ module Page
       has_css?('.user-involved')
     end
 
+    def circle
+      users = []
+      all('.user-involved').each do |user|
+        users << user.text
+      end
+      users.sort
+    end
+
     def validate!
       page.assert_selector('#title', visible: false)
       page.assert_selector('#content', visible: false)
