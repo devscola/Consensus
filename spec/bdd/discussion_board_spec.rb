@@ -5,7 +5,7 @@ require_relative '../../app'
 feature 'Discussion board' do
   scenario 'Lists users at selection' do
     users = ['Cersei', 'Arya', 'KingRobert']
-    the_proposal = 'list user at selection title'
+    the_proposal = 'some title'
     visit('/proposals/empty')
     proposals = Page::Proposals.new
 

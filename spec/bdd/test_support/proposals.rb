@@ -93,7 +93,11 @@ module Page
     end
 
     def button_finish_deactivated?
-      has_css?('#proposal-finish[disabled]', visible: false)
+      has_css?('#proposal-finish[disabled]')
+    end
+
+    def button_finish_activated?
+      find('#proposal-finish').has_no_content?('disabled')
     end
 
     def do_show_form

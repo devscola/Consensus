@@ -11,7 +11,7 @@ feature 'Proposals' do
     expect(proposals.any_proposal?).to be false
   end
 
-  scenario 'Lists proposals added' do
+  scenario 'Lists proposals added', :not_deterministic do
     proposals.new_proposal('some title')
     expect(proposals.any_proposal?).to be true
   end
@@ -33,10 +33,6 @@ feature 'Proposals' do
     proposals.new_proposal('some title')
 
     expect(proposals.user_selection_is_visible?).to be true
-  end
-
-  def empty_fixture
-    visit('/proposals/empty')
   end
 end
 
@@ -75,7 +71,8 @@ feature 'New proposal form' do
     expect(proposals.info_message_visible?).to eq(true)
   end
 
-  scenario 'Links proposals to the discussion board' do
+  scenario 'Links proposals to the discussion board', :empty do
+    empty_fixture
     the_proposal = 'The Proposal'
     proposals.new_proposal(the_proposal)
     proposals.new_proposal('some title')
@@ -90,7 +87,7 @@ feature 'Create circle' do
   let(:proposals) { Page::Proposals.new }
 
   scenario 'Shows users of the system' do
-    proposals.new_proposal('second random title')
+    proposals.new_proposal('some title')
     expect(proposals.users_shown?).to be true
   end
 
@@ -124,9 +121,13 @@ feature 'Create circle' do
   end
 
   scenario 'Adding a new proposal close users selection' do
-    proposals.new_proposal('some random test new proposal button')
+    proposals.new_proposal('some title')
     proposals.show_form
 
     expect(proposals.user_selection_is_visible?).to be false
   end
+end
+
+def empty_fixture
+  visit('/proposals/empty')
 end
