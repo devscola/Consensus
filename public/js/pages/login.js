@@ -1,26 +1,36 @@
-var LoginPage = function() {
-    new Login.Form();
-    new Login.Warning();
-    new Login.WarningDismisser();
-    new Services.Login();
+Class('Page.Login', {
 
-    var HOME = '/';
+    Extends: Page,
 
-    var goToHome = function() {
-        window.location = HOME;
-    };
+    STATIC: {
+        HOME: '/'
+    },
 
-    var doLogin = function() {
-        goToHome();
-    };
+    initialize: function() {
+        instances = [Login.Form, Login.Warning, Login.WarningDismisser, Services.Login];
+        Page.Login.Super.call(this, instances);
+    },
 
-    var checkLogin = function(result) {
+    goToHome: function() {
+        window.location = Page.Login.HOME;
+    },
+
+    doLogin: function() {
+        this.goToHome();
+    },
+
+    checkLogin: function(result) {
         if (!result) {
             Bus.publish('warning.show');
             return;
         }
-        doLogin();
-    };
+        this.doLogin();
+    },
 
-    Bus.subscribe('login.result', checkLogin);
-};
+    publish: function() {},
+
+    subscribe: function() {
+        Bus.subscribe('login.result', this.checkLogin.bind(this));
+    }
+
+});

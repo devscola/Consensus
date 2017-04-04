@@ -1,9 +1,16 @@
-var ProposalsPage = function() {
-    new Proposals.ProposalCreator();
-    new Proposals.List();
-    new Proposals.Form();
-    new Services.UserList();
-    new Services.Proposals();
+Class('Page.Proposals', {
 
-    Bus.publish('proposal.list');
-};
+    Extends: Page,
+
+    initialize: function() {
+        instances = [Proposals.ProposalCreator, Proposals.List, Proposals.Form, Services.UserList, Services.Proposals];
+        Page.Proposals.Super.call(this, instances);
+    },
+
+    publish: function() {
+        Bus.publish('proposal.list');
+    },
+
+    subscribe: function() {}
+
+});

@@ -1,17 +1,22 @@
-var DiscussionBoardPage = function() {
+Class('Page.DiscussionBoard', {
 
-    var retrieveId = function() {
+    Extends: Page,
+
+    initialize: function() {
+        instances = [DiscussionBoard.Title, DiscussionBoard.Content, DiscussionBoard.Circle, Services.Proposals];
+        Page.DiscussionBoard.Super.call(this, instances);
+    },
+
+    retrieveId: function() {
         var url = window.location.href;
         return url.split('discussion-board/')[1];
-    };
+    },
 
-    id = retrieveId();
+    publish: function() {
+        id = this.retrieveId();
+        Bus.publish('proposal.retrieve', id);
+    },
 
-    new DiscussionBoard.Title();
-    new DiscussionBoard.Content();
-    new DiscussionBoard.Circle();
-    new Services.Proposals();
+    subscribe: function() {}
 
-    Bus.publish('proposal.retrieve', id);
-
-};
+});

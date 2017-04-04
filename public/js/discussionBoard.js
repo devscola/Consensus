@@ -2,6 +2,6 @@ main();
 
 function main() {
     document.addEventListener('DOMContentLoaded', function() {
-        new DiscussionBoardPage();
+        new Page.DiscussionBoard();
     });
 }
