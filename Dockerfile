@@ -12,5 +12,6 @@ RUN apt-get install g++
 RUN apt-get install make
 RUN gem install bundler
 CMD bundle install --path=vendor/bundle
+CMD gem list
 WORKDIR $app
 CMD bundle install

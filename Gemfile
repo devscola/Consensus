@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rake', '>= 12.0.0'
+gem 'rake'
 gem 'sinatra', '1.4.8'
 
 group :development do
