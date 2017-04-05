@@ -18,5 +18,4 @@ install:
 
 script:
   - docker ps -a
-  - gem list
   - docker-compose run web bundle exec rake test
