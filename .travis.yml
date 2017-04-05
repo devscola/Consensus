@@ -13,7 +13,7 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker-compose up -d
-  - docker-compose exec web bash -c "bundle install --jobs 3"
+  - docker-compose exec web bash -c "bundle install"
 
 script:
   - docker ps -a
