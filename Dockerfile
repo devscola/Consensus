@@ -11,11 +11,6 @@ RUN apt-get update
 RUN apt-get install g++
 RUN apt-get install make
 RUN gem install bundler
-RUN gem install rake
-RUN gem install rerun
-RUN gem install sinatra
-RUN gem install capybara
-RUN gem install rspec
-RUN gem install selenium-webdriver
+CMD bundle install --path=vendor/bundle
 WORKDIR $app
 CMD bundle install
