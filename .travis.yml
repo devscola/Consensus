@@ -15,4 +15,5 @@ before_install:
 
 script:
   - docker-compose up -d
+  - wait 10
   - docker-compose run web rake test
