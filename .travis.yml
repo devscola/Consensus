@@ -15,7 +15,6 @@ before_install:
 
 install:
   - docker-compose up --build -d
-  - sleep 10
 
 script:
   - docker ps -a
