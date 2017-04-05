@@ -13,7 +13,10 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker-compose build
+
+install:
   - docker-compose start
+
 
 script:
   - docker ps -a
