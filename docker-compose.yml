@@ -9,7 +9,7 @@ services:
     volumes:
      - .:/opt/consensus
      - bundle:/usr/local/bundle
-    command: bash -c  "bundle install --jobs 3 && bundle exec rake"
+    command: bash -c "bundle install --jobs 3 && bundle exec rake"
 
   selenium:
     image: selenium/standalone-chrome
