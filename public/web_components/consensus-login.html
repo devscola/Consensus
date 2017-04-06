@@ -1,0 +1,28 @@
+<link rel="import" href="/web_components/login-username.html">
+<link rel="import" href="/web_components/login-password.html">
+<link rel="import" href="/web_components/login-password-toggler.html">
+
+<dom-module id="consensus-login">
+    <template>
+        <style>
+        </style>
+
+        <h2>Master</h2>
+        <login-username username="{{username}}"></login-username>
+        <login-password password="{{password}}"></login-password>
+        <login-password-toggler></login-password-toggler>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'consensus-login',
+
+            listeners: {},
+
+            ready: function() {},
+
+            testing: function() {}
+        });
+    </script>
+    <script src="/js/infrastructure/bus.js"></script>
+</dom-module>

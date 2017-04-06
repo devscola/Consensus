@@ -1,0 +1,29 @@
+<dom-module id="login-username">
+    <template>
+        <style>
+        </style>
+
+        <input id="username" class="form-group" type="text" placeholder="Insert username here" content={{username}}>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'login-username',
+
+            properties: {
+                username: {
+                    type: String,
+                    notify: true
+                }
+            },
+
+            ready: function() {
+                this.$.username.addEventListener('blur', this.send.bind(this));
+            },
+
+            send: function() {
+                this.username = this.$.username.value;
+            }
+        });
+    </script>
+</dom-module>
