@@ -1,9 +1,5 @@
 sudo: required
 
-branches:
-  only:
-  - master
-
 env:
   DOCKER_COMPOSE_VERSION: 1.11.2
 
@@ -32,6 +28,3 @@ script:
 after_script:
   - docker-compose down
 
-notifications:
-  email:
-  - raul@cuchame.es
