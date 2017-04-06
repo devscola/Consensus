@@ -3,7 +3,7 @@
         <style>
         </style>
 
-        <input id="username" class="form-group" type="text" placeholder="Insert username here" content={{username}}>
+        <input id="wcUsername" class="form-group" type="text" placeholder="Insert username here" content={{username}}>
     </template>
 
     <script>
@@ -18,11 +18,12 @@
             },
 
             ready: function() {
-                this.$.username.addEventListener('blur', this.send.bind(this));
+                this.element = this.$.wcUsername;
+                this.element.addEventListener('blur', this.send.bind(this));
             },
 
             send: function() {
-                this.username = this.$.username.value;
+                this.username = this.element.value;
             }
         });
     </script>
