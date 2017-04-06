@@ -16,7 +16,6 @@ install:
   - docker build -t devscola/consensus .
   - docker-compose build
   - docker-compose up -d
-  - docker-compose ps
 
 before_script:
   - docker-compose run web /bin/sh -c "cd /opt/consensus; bundle install; bundle exec rake &"
