@@ -1,2 +1,37 @@
+sudo: required
+
+branches:
+  only:
+  - master
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.11.2
+
 services:
   - docker
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+install:
+  - docker build -t devscola/consensus .
+  - docker-compose build
+  - docker-compose up -d
+  - docker-compose ps
+
+before_script:
+  - docker-compose run web /bin/sh -c "cd /opt/consensus; bundle install; bundle exec rake &"
+  - sleep 5
+
+script:
+  - docker-compose run web /bin/sh -c "cd /opt/consensus; bundle install; bundle exec rake test"
+
+after_script:
+  - docker-compose down
+
+notifications:
+  email:
+  - raul@cuchame.es
