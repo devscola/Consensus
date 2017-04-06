@@ -28,3 +28,10 @@ script:
 after_script:
   - docker-compose down
 
+notifications:
+  slack:
+    template:
+      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch} by %{author} %{result} in %{duration}"
+    rooms:
+      - devscola:l7PXPT2ycwSwtbwNI8Bd1hEb#run2017
+
