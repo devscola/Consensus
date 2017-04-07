@@ -17,7 +17,7 @@ install:
   - docker-compose build
 
 script:
-  - docker-compose up
+  - docker-compose run web /bin/sh -c "cd /opt/consensus; bundle install; bundle exec rake"
 
 after_script:
   - docker-compose down
