@@ -1,29 +1,85 @@
 <link rel="import" href="https://polygit.org/components/polymer/polymer.html">
-<link rel="import" href="/web_components/login-username.html">
-<link rel="import" href="/web_components/login-password.html">
-<link rel="import" href="/web_components/login-password-toggler.html">
 
 <dom-module id="consensus-login">
     <template>
         <style>
+            #warning.show {
+                display: block;
+            }
+
+            #warning.hide {
+                display: none;
+            }
         </style>
 
-        <h2>Master</h2>
-        <login-username username="{{username}}"></login-username>
-        <login-password password="{{password}}"></login-password>
-        <login-password-toggler></login-password-toggler>
+        <div class="container" warningVisibility="[[warningVisibility]]">
+            <div class="panel col-sm-offset-4 col-sm-4">
+                <div id="login-form" class="panel-body">
+                    <input id="username" class="form-group" type="text" placeholder="Insert username here">
+                    <input id="password" class="form-group" type$="{{password}}" placeholder="Insert password here">
+                    <div id="toggler" on-click="togglePassword" class="glyphicon glyphicon-eye-close" aria-hidden="true"></div>
+                    <button id="submit" on-click="loginAttempt" class="btn btn-default">Sign in</button>
+                    <div id="warning" class$="{{visibility}}">
+                        <p class="text-danger">It seems you have typed in an incorrect username or password. Please try again.</p>
+                        <button id="dismiss" on-click="_hideWarning" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </template>
 
     <script>
         Polymer({
             is: 'consensus-login',
 
-            listeners: {},
+            properties: {
+                password: {
+                    type: String,
+                    value: 'password'
+                },
+                visibility: {
+                    type: String,
+                    value: 'hide'
+                },
+                warningVisibility: {
+                    type: Boolean,
+                    reflectToAttribute: true,
+                    observer: '_renderWarning'
+                }
+            },
 
-            ready: function() {},
+            togglePassword: function() {
+                if (this.password === 'password') {
+                    this.showText();
+                } else {
+                    this.showPassword();
+                }
+            },
 
-            testing: function() {}
+            showText: function() {
+                this.password = 'text';
+            },
+
+            showPassword:  function() {
+                this.password = 'password';
+            },
+
+            _renderWarning: function() {
+                if (this.warningVisibility) {
+                    this.visibility = 'show';
+                } else {
+                    this.visibility = 'hide';
+                }
+            },
+
+            _hideWarning: function() {
+                this.warningVisibility = false;
+            },
+
+            loginAttempt: function(e, detail) {
+                this.fire('submit', {username: this.$.username.value, password: this.$.password.value});
+            }
         });
     </script>
-    <script src="/js/infrastructure/bus-login.js"></script>
 </dom-module>
