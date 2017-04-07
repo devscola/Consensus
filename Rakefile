@@ -3,10 +3,18 @@ require 'rspec/core/rake_task'
 
 SINATRA_PORT = retrieve_port
 
+TRAVIS_CI = retrieve_travis
+
 task :default => :start
 
 task :start do
-  sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0"
+  if ( TRAVIS_CI == 'true' )
+    sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0 &"
+    sh 'rspec spec/tdd'
+    sh 'rspec spec/bdd'
+  else
+    sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0"
+  end
 end
 
 task :tdd do

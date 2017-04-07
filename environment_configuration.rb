@@ -1,3 +1,12 @@
+def retrieve_mode
+  begin
+    consensus_environment = ENV.fetch('CONSENSUS_MODE')
+  rescue
+    consensus_environment = nil
+  end
+  return consensus_environment
+end
+
 def retrieve_port
   begin
     capybara_default_port =  eval File.open('.env').read
@@ -6,3 +15,13 @@ def retrieve_port
   end
   return capybara_default_port
 end
+
+def retrieve_travis
+  begin
+    travis_environment = ENV.fetch('TRAVIS')
+  rescue
+    travis_environment = nil
+  end
+  return travis_environment
+end
+
