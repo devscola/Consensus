@@ -10,8 +10,9 @@ task :default => :start
 task :start do
 	puts SINATRA_PORT
 	puts TRAVIS_CI
+	puts DEBIAN_FRONTEND
 	puts "*********"
-  if ( TRAVIS_CI == 'true' )
+  if ENV['TRAVIS']
     sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0 &"
     sh 'rspec spec/tdd'
     sh 'rspec spec/bdd'

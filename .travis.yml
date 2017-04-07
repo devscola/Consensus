@@ -1,8 +1,9 @@
 sudo: required
 
 env:
-  DOCKER_COMPOSE_VERSION: 1.11.2
-  TRAVIS: true
+  global:
+  - DOCKER_COMPOSE_VERSION: 1.11.2
+  - TRAVIS: true
 
 services:
   - docker
