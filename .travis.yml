@@ -19,7 +19,6 @@ install:
 
 before_script:
   - docker-compose run web /bin/sh -c "cd /opt/consensus; bundle install; bundle exec rake &"
-  - sleep 5
 
 script:
   - docker-compose run web /bin/sh -c "cd /opt/consensus; bundle install; bundle exec rake test"
