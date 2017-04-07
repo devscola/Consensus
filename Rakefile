@@ -3,6 +3,15 @@ require 'rspec/core/rake_task'
 
 SINATRA_PORT = retrieve_port
 
+def retrieve_travis
+  begin
+    travis_environment = ENV.fetch('TRAVIS')
+  rescue
+    travis_environment = nil
+  end
+  return travis_environment
+end
+
 TRAVIS_CI = retrieve_travis
 
 task :default => :start
