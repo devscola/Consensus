@@ -15,13 +15,3 @@ def retrieve_port
   end
   return capybara_default_port
 end
-
-def retrieve_travis
-  begin
-    travis_environment = ENV.fetch('TRAVIS')
-  rescue
-    travis_environment = nil
-  end
-  return travis_environment
-end
-
