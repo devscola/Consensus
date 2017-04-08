@@ -17,6 +17,6 @@ def retrieve_port
 end
 
 def retrieve_travis
-    not_travis_ci = File.exist?('travis.ci')
+  File.exist?('travis.ci')
 end
 
