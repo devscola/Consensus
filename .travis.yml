@@ -17,11 +17,8 @@ install:
   - docker-compose build
   - docker-compose up -d
 
-before_script:
-  - docker-compose run web /bin/sh -c "cd /opt/consensus; bundle install; bundle exec rake &"
-
 script:
-  - docker-compose run web /bin/sh -c "cd /opt/consensus; bundle install; bundle exec rake test"
+  - docker-compose run web /bin/sh -c "cd /opt/consensus; touch travis.ci; bundle install; bundle exec rake"
 
 after_script:
   - docker-compose down
