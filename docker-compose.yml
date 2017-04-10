@@ -8,6 +8,7 @@ services:
     volumes:
      - .:/opt/consensus
      - bundle:/usr/local/bundle
+
     links:
       - selenium
     command: bundle exec rake

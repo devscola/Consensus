@@ -7,9 +7,11 @@ Class('Services.Login', {
     },
 
     hasSucceeded: function(result) {
-        if (result.token) {
+        if (result.valid) {
+            localStorage.setItem('authorized', result.token);
             Bus.publish('attemp.succeeded');
         } else {
+            localStorage.removeItem('authorized');
             Bus.publish('attemp.failed');
         }
     },
