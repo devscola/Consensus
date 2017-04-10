@@ -7,6 +7,15 @@ describe Authorization::Service do
 
     result = Authorization::Service.verify('some_random_user' , '123test')
 
+    expect(result).to be_truthy
+  end
+
+  it 'generates a token with each successfull login' do
+    register_some_user
+
+    current_token = Authorization::Service.verify('some_random_user' , '123test')
+    result = Authorization::Service.tokens.include?(current_token)
+
     expect(result).to be(true)
   end
 

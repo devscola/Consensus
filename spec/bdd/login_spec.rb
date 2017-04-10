@@ -37,7 +37,7 @@ feature "Login" do
 
   scenario 'Toggle password visualization' do
     login_page
-    
+
     login_page.toggle_password_visibility
     expect(page).to have_css('#password[type="text"]')
 

@@ -60,6 +60,11 @@ module Authorization
         list_users
       end
 
+      def generate_token(username)
+        time = Time.now.getutc
+        Digest::MD5.hexdigest(time.to_s + username)
+      end
+
       private
 
       def retrieve_data

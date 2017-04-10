@@ -7,7 +7,7 @@ Class('Services.Login', {
     },
 
     hasSucceeded: function(result) {
-        if (result.valid) {
+        if (result.token) {
             Bus.publish('attemp.succeeded');
         } else {
             Bus.publish('attemp.failed');
