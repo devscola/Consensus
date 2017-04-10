@@ -15,11 +15,21 @@ module Page
     end
 
     def dismiss_wrong_credentials_warning
-      find('#dismiss-warning').click
+      find('#dismiss').click
     end
 
     def toggle_password_visibility
-      find('#password-toggler').click
+      find('#toggler').click
+    end
+
+    def token?
+      script = <<~SCRIPT
+        return localStorage.getItem('authorized');
+      SCRIPT
+      
+      token = execute_script(script)
+      return true if token
+      false
     end
 
     private
@@ -28,7 +38,7 @@ module Page
       page.assert_selector('#username')
       page.assert_selector('#password[type="password"]')
       page.assert_selector('#submit')
-      page.assert_selector('#password-toggler')
+      page.assert_selector('#toggler')
     end
   end
 end

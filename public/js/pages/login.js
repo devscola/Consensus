@@ -7,7 +7,7 @@ Class('Page.Login', {
     },
 
     initialize: function() {
-        instances = [Login.Form, Login.Warning, Login.WarningDismisser, Services.Login];
+        instances = [Login.Form, Services.Login];
         Page.Login.Super.call(this, instances);
     },
 
@@ -19,18 +19,10 @@ Class('Page.Login', {
         this.goToHome();
     },
 
-    checkLogin: function(result) {
-        if (!result) {
-            Bus.publish('warning.show');
-            return;
-        }
-        this.doLogin();
-    },
-
     publish: function() {},
 
     subscribe: function() {
-        Bus.subscribe('login.result', this.checkLogin.bind(this));
+        Bus.subscribe('attemp.succeeded', this.goToHome);
     }
 
 });

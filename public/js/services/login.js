@@ -7,15 +7,17 @@ Class('Services.Login', {
     },
 
     hasSucceeded: function(result) {
-        return result.valid;
+        if (result.valid) {
+            localStorage.setItem('authorized', result.token);
+            Bus.publish('attemp.succeeded');
+        } else {
+            localStorage.removeItem('authorized');
+            Bus.publish('attemp.failed');
+        }
     },
 
     login: function(credentials) {
-        callback = function(result) {
-            Bus.publish('login.result', this.hasSucceeded(result));
-        };
-
-        this.doRequest(this.baseUrl, credentials, callback.bind(this));
+        this.doRequest(this.baseUrl, credentials, this.hasSucceeded);
     },
 
     subscribe: function() {
