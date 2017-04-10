@@ -69,8 +69,22 @@ describe Proposals::Service do
     expect(result.to_h[:circle]).to eq(['KingRobert', 'Cersei'])
   end
 
+  it 'retrieve if user belongs to circle' do
+    idProposal = Proposals::Service.add('title_sample', 'content_sample')
+    username1 = 'KingRobert'
+    username2 = 'Arya'
+    Proposals::Service.involve(idProposal, username1)
+    Proposals::Service.involve(idProposal, username2)
+
+
+    result = Proposals::Service.user_inside_circle(idProposal, username1)
+
+    expect(result).to be true
+  end
+
   def calculate_proposal_signature(title, content)
     proposal_signature = title + content
     Digest::MD5.hexdigest(proposal_signature)
   end
+
 end

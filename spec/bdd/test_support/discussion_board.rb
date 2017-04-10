@@ -15,11 +15,22 @@ module Page
     end
 
     def circle
+      users = fill_circle
+      users.sort
+    end
+
+    def user_in_circle?(username)
+      fill_circle.include?(username)
+    end
+
+    private
+
+    def fill_circle
       users = []
       all('.user-involved').each do |user|
         users << user.text
       end
-      users.sort
+      users
     end
 
     def validate!
