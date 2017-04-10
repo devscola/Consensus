@@ -26,6 +26,7 @@ module Page
       page.assert_selector('#title', visible: false)
       page.assert_selector('#content', visible: false)
       page.assert_selector('#circle', visible: false)
+      page.assert_selector('#question')
     end
   end
 end

@@ -2,7 +2,7 @@ require 'spec_helper_bdd'
 require_relative 'test_support/proposals'
 require_relative '../../app'
 
-feature 'Discussion board' do
+feature 'Discussion board', :wip do
   scenario 'Lists users at selection' do
     users = ['Cersei', 'Arya', 'KingRobert']
     the_proposal = 'some title'
