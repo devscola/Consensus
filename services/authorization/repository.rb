@@ -2,34 +2,13 @@ module Authorization
   class Repository
     class << self
       LOGIN_CREDENTIALS = [
-        {
-          :username => 'KingRobert',
-          :password => 'Stag'
-        },
-        {
-          :username => 'Cersei',
-          :password => 'Lion'
-        },
-        {
-          :username => 'Khaleesi',
-          :password => 'Dragon'
-        },
-        {
-          :username => 'Arya',
-          :password => 'Wolf'
-        },
-        {
-          :username => 'Varys',
-          :password => 'Bird'
-        },
-        {
-          :username => 'Joffrey',
-          :password => 'Asshole'
-        },
-        {
-          :username => 'LyanaMormont',
-          :password => 'Badass'
-        }
+        { :username => 'KingRobert', :password => 'Stag'},
+        { :username => 'Cersei', :password => 'Lion'},
+        { :username => 'Khaleesi', :password => 'Dragon'},
+        { :username => 'Arya', :password => 'Wolf'},
+        { :username => 'Varys', :password => 'Bird'},
+        { :username => 'Joffrey', :password => 'Asshole'},
+        { :username => 'LyanaMormont', :password => 'Badass'}
       ].freeze
       private_constant :LOGIN_CREDENTIALS
 
