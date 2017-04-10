@@ -9,6 +9,12 @@ class App < Sinatra::Base
     password = payload['password']
 
     verified = Authorization::Service.verify(username, password)
-    { valid: verified }.to_json
+
+    if verified
+    	{ valid: verified, token: 'fake token' }.to_json
+    else
+    	{ valid: verified }.to_json
+    end
+
   end
 end

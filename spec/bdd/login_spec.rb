@@ -2,7 +2,7 @@ require 'spec_helper_bdd'
 require_relative 'test_support/login'
 require_relative '../../app'
 
-feature "Login" do
+feature 'Login' do
   let(:login_page) do
     Page::Login.new
   end
@@ -44,5 +44,30 @@ feature "Login" do
     login_page.toggle_password_visibility
     expect(page).to have_css('#password[type="password"]')
   end
+
+  scenario 'Retrieve a token when authorized' do
+    valid_username = 'KingRobert'
+    valid_password = 'Stag'
+
+    login_page.sign_in(valid_username, valid_password)
+    result = login_page.token?
+
+
+    expect(result).to eq(true)
+  end
+
+  scenario 'Retrieve a null when not authorized' do
+    username = 'wadus'
+    password = 'yolo'
+
+    login_page.sign_in(username, password)
+    result = login_page.token?
+
+
+    expect(result).to eq(false)
+  end
+
+
+  
 
 end

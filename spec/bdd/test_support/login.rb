@@ -22,6 +22,16 @@ module Page
       find('#toggler').click
     end
 
+    def token?
+      script = <<~SCRIPT
+        return localStorage.getItem('authorized');
+      SCRIPT
+      
+      token = execute_script(script)
+      return true if token
+      false
+    end
+
     private
 
     def validate!
