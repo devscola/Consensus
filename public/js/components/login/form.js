@@ -3,35 +3,20 @@ Class('Login.Form', {
     Extends: Component,
 
     initialize: function() {
-        Login.Form.Super.call(this, 'login-form');
-        new Login.Submit();
-        new Login.Username();
-        new Login.Password();
-        new Login.PasswordToggler();
+        Login.Form.Super.call(this, 'login');
+        this.element.addEventListener('submit', this.doLogin);
     },
 
-    doLogin: function() {
-        var credentials = this.retrieveCredentials();
-
-        Bus.publish('LoginAttempt', credentials);
+    doLogin: function(data) {
+        Bus.publish('LoginAttempt', data.detail);
     },
 
-    retrieveCredentials: function() {
-        return {username: this.username, password: this.password};
-    },
-
-    captureUsername: function(value) {
-        this.username = value;
-    },
-
-    capturePassword: function(value) {
-        this.password = value;
+    showWarning: function() {
+        this.element.warningVisibility = true;
     },
 
     subscribe: function() {
-        Bus.subscribe('login.submit.clicked', this.doLogin.bind(this));
-        Bus.subscribe('login.username.sent', this.captureUsername.bind(this));
-        Bus.subscribe('login.password.sent', this.capturePassword.bind(this));
+        Bus.subscribe('attemp.failed', this.showWarning.bind(this));
     }
 
 });

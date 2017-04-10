@@ -7,15 +7,15 @@ Class('Services.Login', {
     },
 
     hasSucceeded: function(result) {
-        return result.valid;
+        if (result.valid) {
+            Bus.publish('attemp.succeeded');
+        } else {
+            Bus.publish('attemp.failed');
+        }
     },
 
     login: function(credentials) {
-        callback = function(result) {
-            Bus.publish('login.result', this.hasSucceeded(result));
-        };
-
-        this.doRequest(this.baseUrl, credentials, callback.bind(this));
+        this.doRequest(this.baseUrl, credentials, this.hasSucceeded);
     },
 
     subscribe: function() {

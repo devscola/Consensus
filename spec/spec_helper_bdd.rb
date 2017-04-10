@@ -6,15 +6,6 @@ require_relative '../environment_configuration'
 
 SINATRA_PORT = retrieve_port
 
-def retrieve_mode
-  begin
-    consensus_environment = ENV.fetch('CONSENSUS_MODE')
-  rescue
-    consensus_environment = nil
-  end
-  return consensus_environment
-end
-
 def host_ip
   routes = `/sbin/ip route`
   routes.match(/[\d\.]+/)

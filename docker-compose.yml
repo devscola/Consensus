@@ -1,15 +1,17 @@
 version: '2'
 services:
   web:
+    container_name: consensus
     build: .
     ports:
       - ${SINATRA_DEFAULT_PORT}:${SINATRA_DEFAULT_PORT}
-    links:
-      - selenium
     volumes:
      - .:/opt/consensus
      - bundle:/usr/local/bundle
-    command: bash -c "bundle install --jobs 3 && bundle exec rake"
+
+    links:
+      - selenium
+    command: bundle exec rake
 
   selenium:
     image: selenium/standalone-chrome

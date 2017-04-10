@@ -1,12 +1,15 @@
 FROM ruby:2.4.0
 
-ENV SINATRA_DEFAULT_PORT 4567
-ENV app /opt/consensus
+RUN mkdir -p /opt/consensus
+ADD . /opt/consensus
+WORKDIR /opt/consensus
+
+CMD . /opt/consensus
+ENV .env /opt/consensus
+CMD /bin/bash env .env
+
 ENV CONSENSUS_MODE development
 
 RUN apt-get update
-RUN apt-get install g++
-RUN apt-get install make
-
-RUN mkdir -p $app
-WORKDIR $app
+RUN gem install bundler
+RUN bundle install

@@ -7,14 +7,25 @@ services:
   - docker
 
 before_install:
-  - docker build -t devscola/consensus .
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
+
+install:
+  - docker build -t devscola/consensus .
+  - docker-compose build
   - docker-compose up -d
-  - docker-compose exec web bash -c "bundle install"
 
 script:
-  - docker ps -a
-  - docker-compose run web rake test
+  - docker-compose run web /bin/sh -c "cd /opt/consensus; touch travis.ci; bundle install; bundle exec rake"
+
+after_script:
+  - docker-compose down
+
+notifications:
+  slack:
+    template:
+      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch} by %{author} %{result} in %{duration}"
+    rooms:
+      - devscola:l7PXPT2ycwSwtbwNI8Bd1hEb#run2017
