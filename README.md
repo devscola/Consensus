@@ -21,6 +21,20 @@ For web-test install chromedriver (webdriver):
 sudo apt-get install chromium-chromedriver
 ~~~
 
+or manually install:
+
+~~~
+wget https://chromedriver.storage.googleapis.com/2.29/chromedriver_linux64.zip
+sudo unzip -e chromedriver_linux64.zip -d /usr/local/bin/;
+~~~
+
+or install from pip:
+
+~~~
+sudo apt install python-pip python-dev build-essential
+pip install --upgrade pip
+pip install chromedriver
+~~~
 
 
 ## Install gems
@@ -29,6 +43,11 @@ sudo apt-get install chromium-chromedriver
 *Bundler* gem has to be installed first:
 
 ~~~
+sudo gem install rerun
+sudo gem install rake
+sudo gem install sinatra
+sudo gem install capybara
+sudo gem install selenium-webdriver
 sudo gem install bundler
 ~~~
 
