@@ -1,7 +1,7 @@
 module Proposals
   class Repository
     @proposals = []
-
+    
     class << self
       def store(title = '', content)
         id = generate_id(title.to_s, content.to_s)
