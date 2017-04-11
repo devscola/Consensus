@@ -47,4 +47,12 @@ class App < Sinatra::Base
     result = Proposals::Service.involved(id)
     result.to_json
   end
+
+  get '/proposals/retrieveValidUserCircle' do
+    body = JSON.parse(request.body.read)
+    id = body['id']
+    #TO-DO....
+    username = 'KingRobert'
+    Proposals::Service.retrieve_valid_user_for_circle(id, username)
+  end
 end

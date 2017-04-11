@@ -30,6 +30,14 @@ module Proposals
         proposal = Repository.retrieve(id)
         { 'circle': proposal.circle }
       end
+
+      def user_inside_circle(idProposal, username)
+        circle = retrieve(idProposal)[:circle]
+
+        validUsername = circle.find_index(username)
+
+        return validUsername != nil
+      end
     end
   end
 end
