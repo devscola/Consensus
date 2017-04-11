@@ -77,7 +77,7 @@ describe Proposals::Service do
     Proposals::Service.involve(idProposal, username2)
 
 
-    result = Proposals::Service.user_inside_circle(idProposal, username1)
+    result = Proposals::Service.user_inside_circle?(idProposal, username1)
 
     expect(result).to be true
   end

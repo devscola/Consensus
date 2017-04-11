@@ -5,6 +5,8 @@ Class('Page.DiscussionBoard', {
     initialize: function() {
         instances = [DiscussionBoard.Title, DiscussionBoard.Content, DiscussionBoard.Circle, Services.Proposals];
         Page.DiscussionBoard.Super.call(this, instances);
+
+        new DiscussionBoard.Questioner(this.retrieveId());
     },
 
     retrieveId: function() {
@@ -15,12 +17,6 @@ Class('Page.DiscussionBoard', {
     publish: function() {
         id = this.retrieveId();
         Bus.publish('proposal.retrieve', id);
-    },
-
-    request_for_inside_user_circle: function(username) {
-        id = this.retrieveId();
-        validUserName = Services.Proposals.retrieve_valid_user_for_circle(id, username);
-        return validUserName;
     },
 
     subscribe: function() {}

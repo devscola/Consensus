@@ -3,15 +3,39 @@
 <dom-module id="question-button">
     <template>
         <style>
+            #question-mark.show {
+                display: block;
+            }
+
+            #question-mark.hide {
+                display: none;
+            }
         </style>
 
-        <button>?</button>
+        <button id="question" class$="{{visibility}}">?</button>
 
     </template>
 
     <script>
         Polymer({
             is: 'question-button',
+
+            properties: {
+                buttonVisibility: {
+                    type: Boolean,
+                    reflectToAttribute: true,
+                    observer: '_renderButton'
+                },
+                visibility: {
+                    type: String,
+                    value: 'hide'
+                }
+            },
+
+            _renderButton: function() {
+                this.visibility = 'show';
+            }
+
         });
     </script>
 </dom-module>

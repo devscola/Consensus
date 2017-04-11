@@ -11,4 +11,13 @@ describe Authorization::Repository do
     expect(alpha_result).to be_a(Authorization::Repository::Credential)
     expect(betta_result).to be_a(Authorization::Repository::Credential)
   end
+
+  it 'stores a token associated to a unique md5' do
+    username = 'KingRobert'
+    token = Authorization::Repository.token(username)
+
+    result = Authorization::Repository.retrieve_username(token)
+
+    expect(result).to eq('KingRobert')
+  end
 end

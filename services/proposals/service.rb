@@ -31,12 +31,10 @@ module Proposals
         { 'circle': proposal.circle }
       end
 
-      def user_inside_circle(idProposal, username)
-        circle = retrieve(idProposal)[:circle]
+      def user_inside_circle?(id, username)
+        circle = retrieve(id)[:circle]
 
-        validUsername = circle.find_index(username)
-
-        return validUsername != nil
+        circle.include?(username)
       end
     end
   end

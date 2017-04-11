@@ -39,9 +39,19 @@ module Authorization
         list_users
       end
 
-      def generate_token(username)
+      def token(username)
+        @tokens ||= []
         time = Time.now.getutc
-        Digest::MD5.hexdigest(time.to_s + username)
+        md5 = Digest::MD5.hexdigest(time.to_s + username)
+
+        @tokens << Token.new(username, md5)
+
+        md5
+      end
+
+      def retrieve_username(md5)
+        token = @tokens.find { |element| element.md5 == md5 }
+        token.username
       end
 
       private
@@ -82,6 +92,14 @@ module Authorization
         def is_secured_by?(passphrase)
           return false
         end
+      end
+    end
+
+    class Token
+      attr_reader :md5, :username
+      def initialize(username, md5)
+        @username = username
+        @md5 = md5
       end
     end
   end
