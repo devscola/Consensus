@@ -16,4 +16,13 @@ class App < Sinatra::Base
       { valid: false }.to_json
     end
   end
+
+  post '/user/logged' do
+    payload = JSON.parse(request.body.read)
+    token = payload['token']
+
+    username = Authorization::Service.decode(token)
+
+    { 'username': username }.to_json
+  end
 end

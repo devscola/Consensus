@@ -14,8 +14,8 @@ describe Proposals::Service do
   end
 
   it 'returns proposals added' do
-    Proposals::Service.add(:title, :content)
-    Proposals::Service.add(:title, :content)
+    Proposals::Service.add(:title, :content, :some_proposer)
+    Proposals::Service.add(:title, :content, :some_proposer)
 
     result = Proposals::Service.list()
 
@@ -23,16 +23,16 @@ describe Proposals::Service do
   end
 
   it 'returns proposal added contents' do
-    Proposals::Service.add(:a_title, :content)
+    Proposals::Service.add(:some_title, :content, :some_proposer)
 
     result = Proposals::Service.list()
     the_proposal = result.last
-    expect(the_proposal[:title]).to eq :a_title
+    expect(the_proposal[:title]).to eq :some_title
   end
 
   it 'retrieve a scenario via search' do
-    id = Proposals::Service.add('title_sample', 'content_sample')
-    Proposals::Service.add('not_what_you_re_looking_for', 'content_sample')
+    id = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
+    Proposals::Service.add('not_what_you_re_looking_for', 'content_sample', :some_proposer)
 
     result = Proposals::Service.retrieve(id)
     expect(result.to_h[:id]).to eq id
@@ -44,7 +44,7 @@ describe Proposals::Service do
     some_proposal_title = 'some title'
     some_proposal_content = 'some content'
     username = 'KingRobert'
-    Proposals::Service.add(some_proposal_title, some_proposal_content)
+    Proposals::Service.add(some_proposal_title, some_proposal_content, :some_proposer)
     retrieval_code = calculate_proposal_signature(some_proposal_title, some_proposal_content)
     Proposals::Service.involve(retrieval_code, username)
 
@@ -58,7 +58,7 @@ describe Proposals::Service do
     some_proposal_content = 'some content'
     first_user = 'KingRobert'
     second_user = 'Cersei'
-    Proposals::Service.add(some_proposal_title, some_proposal_content)
+    Proposals::Service.add(some_proposal_title, some_proposal_content, :some_proposer)
     retrieval_code = calculate_proposal_signature(some_proposal_title,
       some_proposal_content)
     Proposals::Service.involve(retrieval_code, first_user)
@@ -70,7 +70,7 @@ describe Proposals::Service do
   end
 
   it 'retrieve if user belongs to circle' do
-    idProposal = Proposals::Service.add('title_sample', 'content_sample')
+    idProposal = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
     username1 = 'KingRobert'
     username2 = 'Arya'
     Proposals::Service.involve(idProposal, username1)
@@ -80,6 +80,14 @@ describe Proposals::Service do
     result = Proposals::Service.user_inside_circle?(idProposal, username1)
 
     expect(result).to be true
+  end
+
+  it 'stores proposal with its proposer' do
+    Proposals::Service.add(:a_title, :content, :some_proposer)
+
+    result = Proposals::Service.list()
+    the_proposal = result.last
+       expect(the_proposal[:proposer]).to eq :some_proposer
   end
 
   def calculate_proposal_signature(title, content)

@@ -4,6 +4,13 @@ require_relative 'test_support/login'
 require_relative '../../app'
 
 feature 'Discussion board' do
+    before(:each) do
+      username = 'KingRobert'
+      password = 'Stag'
+      login = Page::Login.new
+      login.sign_in(username, password)
+    end
+
   scenario 'Lists users at selection' do
     users = ['Cersei', 'Arya', 'KingRobert']
     the_proposal = 'some title'
@@ -39,7 +46,7 @@ feature 'Discussion board' do
 
     expect(result).to be true
   end
-  scenario 'Show question button if user in circle', :wip do
+  scenario 'Show question button if user in circle' do
     users = ['KingRobert', 'Arya']
     the_proposal = 'some title'
     visit('/proposals/empty')
@@ -59,7 +66,7 @@ feature 'Discussion board' do
 
     expect(board.question_button?).to be true
   end
-  scenario "Doesn't show question button if user not in circle", :wip do
+  scenario "Doesn't show question button if user not in circle" do
     users = ['Cersei', 'Arya']
     the_proposal = 'some title'
     visit('/proposals/empty')

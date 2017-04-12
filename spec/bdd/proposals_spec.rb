@@ -1,9 +1,16 @@
 require 'spec_helper_bdd'
+require_relative '../../app'
+require_relative 'test_support/login'
 require_relative 'test_support/proposals'
 require_relative 'test_support/discussion_board'
-require_relative '../../app'
 
 feature 'Proposals' do
+  before(:each) do
+    username = 'KingRobert'
+    password = 'Stag'
+    login = Page::Login.new
+    login.sign_in(username, password)
+  end
   let(:proposals) { Page::Proposals.new }
 
   scenario 'List is empty before adding proposals' do
@@ -24,8 +31,14 @@ feature 'Proposals' do
     expect(proposals.form_visible?).to be true
   end
 
-  scenario 'Form disappears at proposal creation' do
+  scenario 'Form disappears at proposal creation', :not_deterministic do
+    username = 'KingRobert'
+    password = 'Stag'
+    login = Page::Login.new
+    login.sign_in(username, password)
+
     proposals.new_proposal('some title')
+    sleep 0.5
     expect(proposals.form_visible?).to be false
   end
 
@@ -38,6 +51,12 @@ end
 
 feature 'New proposal form' do
   let(:proposals) { Page::Proposals.new }
+  before(:each) do
+    username = 'KingRobert'
+    password = 'Stag'
+    login = Page::Login.new
+    login.sign_in(username, password)
+  end
 
   scenario 'Counts number of characters' do
     some_text = 'some random text'
@@ -71,11 +90,10 @@ feature 'New proposal form' do
     expect(proposals.info_message_visible?).to eq(true)
   end
 
-  scenario 'Links proposals to the discussion board', :empty do
+  scenario 'Links proposals to the discussion board' do
     empty_fixture
     the_proposal = 'The Proposal'
     proposals.new_proposal(the_proposal)
-    proposals.new_proposal('some title')
 
     board = proposals.visit_proposal(the_proposal)
 
@@ -85,6 +103,12 @@ end
 
 feature 'Create circle' do
   let(:proposals) { Page::Proposals.new }
+  before(:each) do
+    username = 'KingRobert'
+    password = 'Stag'
+    login = Page::Login.new
+    login.sign_in(username, password)
+  end
 
   scenario 'Shows users of the system' do
     proposals.new_proposal('some title')
@@ -120,10 +144,11 @@ feature 'Create circle' do
     expect(proposals.user_selection_is_visible?).to be false
   end
 
-  scenario 'Adding a new proposal close users selection' do
+  scenario 'Adding a new proposal close users selection', :not_deterministic do
     proposals.new_proposal('some title')
     proposals.show_form
 
+    sleep 0.5
     expect(proposals.user_selection_is_visible?).to be false
   end
 end
