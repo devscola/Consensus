@@ -5,6 +5,7 @@ require_relative '../../app'
 
 feature 'Discussion board' do
   scenario 'Lists users at selection' do
+    proposer = 'Khaleesi'
     users = ['Cersei', 'Arya', 'KingRobert']
     the_proposal = 'some title'
     visit('/proposals/empty')
@@ -16,6 +17,8 @@ feature 'Discussion board' do
     end
     proposals.button_finish_click
     board = proposals.visit_proposal(the_proposal)
+    
+    users << proposer
 
     expect(board.circle).to eq(users.sort)
   end
@@ -52,8 +55,8 @@ feature 'Discussion board' do
     end
     proposals.button_finish_click
 
-    proposer = 'KingRobert'
-    password = 'Stag'
+    proposer = 'Khaleesi'
+    password = 'Dragon'
     login = Page::Login.new
     login.sign_in(proposer, password)
     board = proposals.visit_proposal(the_proposal)
