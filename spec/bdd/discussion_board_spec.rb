@@ -12,6 +12,7 @@ feature 'Discussion board' do
     end
 
   scenario 'Lists users at selection' do
+    proposer = 'Khaleesi'
     users = ['Cersei', 'Arya', 'KingRobert']
     the_proposal = 'some title'
     visit('/proposals/empty')
@@ -23,6 +24,7 @@ feature 'Discussion board' do
     end
     proposals.button_finish_click
     board = proposals.visit_proposal(the_proposal)
+    users << proposer
 
     expect(board.circle).to eq(users.sort)
   end
@@ -46,6 +48,28 @@ feature 'Discussion board' do
 
     expect(result).to be true
   end
+
+  scenario 'Request proposer at circle' do
+    users = ['LyanaMormont', 'Arya']
+    the_proposal = 'some title'
+    visit('/proposals/empty')
+    proposals = Page::Proposals.new
+
+    proposals.new_proposal(the_proposal)
+    users.each do |user|
+      proposals.click_user_button(user)
+    end
+    proposals.button_finish_click
+
+    proposer = 'Khaleesi'
+    password = 'Dragon'
+    login = Page::Login.new
+    login.sign_in(proposer, password)
+    board = proposals.visit_proposal(the_proposal)
+
+    expect(board.has_content?(proposer)).to be true
+  end
+
   scenario 'Show question button if user in circle' do
     users = ['KingRobert', 'Arya']
     the_proposal = 'some title'
@@ -66,6 +90,7 @@ feature 'Discussion board' do
 
     expect(board.question_button?).to be true
   end
+
   scenario "Doesn't show question button if user not in circle" do
     users = ['Cersei', 'Arya']
     the_proposal = 'some title'
