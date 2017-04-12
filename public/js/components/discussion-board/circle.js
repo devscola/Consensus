@@ -12,7 +12,9 @@ Class('DiscussionBoard.Circle', {
     },
 
     populateCircle: function(circle) {
+        var addProposer = 'KingRobert';
         var listItems = document.createDocumentFragment();
+        listItems.append(this.createListItem(addProposer));
         circle.forEach(function(username) {
             listItems.append(this.createListItem(username));
         }.bind(this));

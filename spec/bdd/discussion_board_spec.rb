@@ -39,6 +39,28 @@ feature 'Discussion board' do
 
     expect(result).to be true
   end
+
+  scenario 'Request proposer at circle' do
+    users = ['LyanaMormont', 'Arya']
+    the_proposal = 'some title'
+    visit('/proposals/empty')
+    proposals = Page::Proposals.new
+
+    proposals.new_proposal(the_proposal)
+    users.each do |user|
+      proposals.click_user_button(user)
+    end
+    proposals.button_finish_click
+
+    proposer = 'KingRobert'
+    password = 'Stag'
+    login = Page::Login.new
+    login.sign_in(proposer, password)
+    board = proposals.visit_proposal(the_proposal)
+
+    expect(board.has_content?(proposer)).to be true
+  end
+
   scenario 'Show question button if user in circle', :wip do
     users = ['KingRobert', 'Arya']
     the_proposal = 'some title'
