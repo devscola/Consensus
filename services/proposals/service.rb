@@ -3,8 +3,8 @@ require_relative 'repository'
 module Proposals
   class Service
     class << self
-      def add(title, content)
-        id = Repository.store(title, content)
+      def add(title, content, proposer)
+        id = Repository.store(title, content, proposer)
         return id
       end
 

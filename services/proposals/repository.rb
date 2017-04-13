@@ -3,9 +3,9 @@ module Proposals
     @proposals = []
     
     class << self
-      def store(title = '', content)
+      def store(title = '', content, proposer)
         id = generate_id(title.to_s, content.to_s)
-        @proposals << Proposal.new(title, content, id)
+        @proposals << Proposal.new(title, content, id, proposer)
         return id
       end
 
@@ -28,17 +28,18 @@ module Proposals
       end
 
       class Proposal
-        attr_reader :id, :title, :content, :circle
+        attr_reader :id, :title, :proposer, :content, :circle
 
-        def initialize(title, content, id, circle = [])
+        def initialize(title, content, id, proposer, circle = [])
           @title = title
           @content = content
           @id = id
+          @proposer = proposer
           @circle = circle
         end
 
         def to_h
-          { title: @title, content: @content, id: @id, circle: @circle }
+          { title: @title, content: @content, proposer: @proposer, id: @id, circle: @circle }
         end
       end
     end

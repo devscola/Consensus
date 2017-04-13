@@ -11,8 +11,9 @@ class App < Sinatra::Base
     payload = JSON.parse(request.body.read)
     title = payload['title']
     content = payload['content']
+    proposer = payload['proposer']
 
-    result = Proposals::Service.add(title, content)
+    result = Proposals::Service.add(title, content, proposer)
     result.to_json
   end
 

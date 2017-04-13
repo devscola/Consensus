@@ -12,6 +12,7 @@ module Page
 
     def new_proposal(title)
       do_show_form
+      stub_authorization_token
       fill_in('proposal-title', with: title)
       fill_enough_content
       find('#proposal-submit').click
@@ -114,6 +115,16 @@ module Page
     end
 
     private
+
+    def stub_authorization_token
+      script = <<~SCRIPT
+        var currentToken = localStorage.getItem('authorized');
+        if(currentToken === undefined) {
+          fakeToken = 'sometesttoken';
+          localStorage.setItem('authorized', fakeToken);
+        };
+      SCRIPT
+    end
 
     def validate!
       page.assert_selector('#create-proposal')

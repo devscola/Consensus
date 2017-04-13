@@ -67,7 +67,4 @@ feature 'Login' do
     expect(result).to eq(false)
   end
 
-
-  
-
 end
