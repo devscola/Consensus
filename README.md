@@ -131,25 +131,29 @@ pip install chromedriver
 
 ## Install gems
 
-
-*Bundler* gem has to be installed first:
+First download consensus git: 
 
 ~~~
-sudo gem install rerun
-sudo gem install rake
-sudo gem install sinatra
-sudo gem install capybara
-sudo gem install selenium-webdriver
-sudo gem install bundler
+git clone https://github.com/devscola/consensus
 ~~~
 
-Install Rspec and Nokogiri:
+Continue with installation bundler:
+
+~~~
+sudo apt install bundler
+~~~
+
+And finally:
 
 ~~~
 sudo gem install rspec
 sudo gem install nokogiri
+sudo gem install rake
+sudo gem install rerun
+sudo gem install capybara
+sudo gem install sinatra
+sudo gem install selenium-webdriver
 ~~~
-
 
 ### install the gems in the local folder of the project
 ~~~
@@ -161,15 +165,7 @@ If bundle install fail, use *sudo*
 
 ## Run tests in local environment:
 
-
-1. Download consensus git: 
-
-~~~
-git clone https://github.com/devscola/consensus
-~~~
-
-
-2.  To run the test you must have the Consensus app up:
+To run the test you must have the Consensus app up:
 
 First run Rake:
 
