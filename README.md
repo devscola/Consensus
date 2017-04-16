@@ -137,13 +137,7 @@ First download consensus git:
 git clone https://github.com/devscola/consensus
 ~~~
 
-Continue with installation bundler:
-
-~~~
-sudo apt install bundler
-~~~
-
-And finally:
+### Continue with manual installation:
 
 ~~~
 sudo gem install rspec
@@ -155,15 +149,22 @@ sudo gem install sinatra
 sudo gem install selenium-webdriver
 ~~~
 
-### install the gems in the local folder of the project
+### Or install the gems automatic with bundler
+
+Firts install bundler:
+
 ~~~
-bundle install --path vendor/bundle
+sudo gem install bundler
 ~~~
 
-If bundle install fail, use *sudo*
+And install gems:
+
+~~~
+sudo bundle install --path dependencies/bundle
+~~~
 
 
-## Run tests in local environment:
+## Run tests in local environment (without bundler):
 
 To run the test you must have the Consensus app up:
 
@@ -201,9 +202,9 @@ To run specific test you can do it like this:
 rspec -e 'any word of the test title' 
 ~~~
 
-## To tag a test and run only tagged tests
+### To tag a test and run only tagged tests
 
-**1.-** To tag a specific test, we have to write after the test name the tag that we want to use, with a comma and the _:tag_name_ as follows:
+**1.** To tag a specific test, we have to write after the test name the tag that we want to use, with a comma and the _:tag_name_ as follows:
 
 ~~~
 it 'test_name', :example do
@@ -215,11 +216,29 @@ it 'test_name', :example do
  
 In this case,  _example_ is the tag that we are using.
 
-**2.-** To run the specific test with this tag, you can do it this way:
+**2.** To run the specific test with this tag, you can do it this way:
 
 ~~~
 rake tag[example]
 ~~~
+
+
+## Run tests in local environment with bundler:
+
+Use for all **bundle exec**, exemple:
+
+~~~
+bundle exec rake
+~~~
+
+or:
+
+~~~
+bundle exec rake test
+~~~
+
+and so for all the exemples.
+
 	
 ## Bootstrap
 
