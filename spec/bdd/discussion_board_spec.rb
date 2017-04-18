@@ -11,9 +11,9 @@ feature 'Discussion board' do
       login.sign_in(username, password)
     end
 
-  scenario 'Lists users at selection' do
-    proposer = 'Khaleesi'
-    users = ['Cersei', 'Arya', 'KingRobert']
+  scenario 'Shows circle users including the proposer' do
+    proposer = 'KingRobert'
+    users = ['Cersei', 'Arya']
     the_proposal = 'some title'
     visit('/proposals/empty')
     proposals = Page::Proposals.new
@@ -23,68 +23,22 @@ feature 'Discussion board' do
       proposals.click_user_button(user)
     end
     proposals.button_finish_click
-    board = proposals.visit_proposal(the_proposal)
     users << proposer
+
+    board = proposals.visit_proposal(the_proposal)
 
     expect(board.circle).to eq(users.sort)
   end
 
-  scenario 'Request user at circle' do
-    users = ['Cersei', 'Arya', 'KingRobert']
+  scenario 'Show question button if user in circle',:wip do
+    user = 'Arya'
     the_proposal = 'some title'
     visit('/proposals/empty')
     proposals = Page::Proposals.new
 
     proposals.new_proposal(the_proposal)
-    users.each do |user|
-      proposals.click_user_button(user)
-    end
+    proposals.click_user_button(user)
     proposals.button_finish_click
-    board = proposals.visit_proposal(the_proposal)
-
-    username = 'KingRobert'
-
-    result = board.user_in_circle?(username)
-
-    expect(result).to be true
-  end
-
-  scenario 'Request proposer at circle' do
-    users = ['LyanaMormont', 'Arya']
-    the_proposal = 'some title'
-    visit('/proposals/empty')
-    proposals = Page::Proposals.new
-
-    proposals.new_proposal(the_proposal)
-    users.each do |user|
-      proposals.click_user_button(user)
-    end
-    proposals.button_finish_click
-
-    proposer = 'Khaleesi'
-    password = 'Dragon'
-    login = Page::Login.new
-    login.sign_in(proposer, password)
-    board = proposals.visit_proposal(the_proposal)
-
-    expect(board.has_content?(proposer)).to be true
-  end
-
-  scenario 'Show question button if user in circle', :wip do
-    users = ['KingRobert', 'Arya']
-    the_proposal = 'some title'
-    visit('/proposals/empty')
-    proposals = Page::Proposals.new
-    proposals.new_proposal(the_proposal)
-    users.each do |user|
-      proposals.click_user_button(user)
-    end
-    proposals.button_finish_click
-
-    username = 'KingRobert'
-    password = 'Stag'
-    login = Page::Login.new
-    login.sign_in(username, password)
 
     board = proposals.visit_proposal(the_proposal)
 
@@ -92,18 +46,17 @@ feature 'Discussion board' do
   end
 
   scenario "Doesn't show question button if user not in circle" do
-    users = ['Cersei', 'Arya']
+    user = 'Arya'
     the_proposal = 'some title'
     visit('/proposals/empty')
     proposals = Page::Proposals.new
+
     proposals.new_proposal(the_proposal)
-    users.each do |user|
-      proposals.click_user_button(user)
-    end
+    proposals.click_user_button(user)
     proposals.button_finish_click
 
-    username = 'KingRobert'
-    password = 'Stag'
+    username = 'Varys'
+    password = 'Bird'
     login = Page::Login.new
     login.sign_in(username, password)
 

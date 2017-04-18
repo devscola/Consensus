@@ -131,45 +131,42 @@ pip install chromedriver
 
 ## Install gems
 
-
-*Bundler* gem has to be installed first:
-
-~~~
-sudo gem install rerun
-sudo gem install rake
-sudo gem install sinatra
-sudo gem install capybara
-sudo gem install selenium-webdriver
-sudo gem install bundler
-~~~
-
-Install Rspec and Nokogiri:
-
-~~~
-sudo gem install rspec
-sudo gem install nokogiri
-~~~
-
-
-### install the gems in the local folder of the project
-~~~
-bundle install --path vendor/bundle
-~~~
-
-If bundle install fail, use *sudo*
-
-
-## Run tests in local environment:
-
-
-1. Download consensus git: 
+First download consensus git: 
 
 ~~~
 git clone https://github.com/devscola/consensus
 ~~~
 
+### Continue with manual installation:
 
-2.  To run the test you must have the Consensus app up:
+~~~
+sudo gem install rspec
+sudo gem install nokogiri
+sudo gem install rake
+sudo gem install rerun
+sudo gem install capybara
+sudo gem install sinatra
+sudo gem install selenium-webdriver
+~~~
+
+### Or install the gems automatic with bundler
+
+Firts install bundler:
+
+~~~
+sudo gem install bundler
+~~~
+
+And install gems:
+
+~~~
+sudo bundle install --path dependencies/bundle
+~~~
+
+
+## Run tests in local environment (without bundler):
+
+To run the test you must have the Consensus app up:
 
 First run Rake:
 
@@ -205,9 +202,9 @@ To run specific test you can do it like this:
 rspec -e 'any word of the test title' 
 ~~~
 
-## To tag a test and run only tagged tests
+### To tag a test and run only tagged tests
 
-**1.-** To tag a specific test, we have to write after the test name the tag that we want to use, with a comma and the _:tag_name_ as follows:
+**1.** To tag a specific test, we have to write after the test name the tag that we want to use, with a comma and the _:tag_name_ as follows:
 
 ~~~
 it 'test_name', :example do
@@ -219,11 +216,29 @@ it 'test_name', :example do
  
 In this case,  _example_ is the tag that we are using.
 
-**2.-** To run the specific test with this tag, you can do it this way:
+**2.** To run the specific test with this tag, you can do it this way:
 
 ~~~
 rake tag[example]
 ~~~
+
+
+## Run tests in local environment with bundler:
+
+Use for all **bundle exec**, exemple:
+
+~~~
+bundle exec rake
+~~~
+
+or:
+
+~~~
+bundle exec rake test
+~~~
+
+and so for all the exemples.
+
 	
 ## Bootstrap
 

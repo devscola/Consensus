@@ -24,6 +24,7 @@ module Page
     end
 
     def question_button?
+      sleep(1)
       has_css?('#question')
     end
 

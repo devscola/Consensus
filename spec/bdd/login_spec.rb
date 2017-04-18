@@ -7,7 +7,7 @@ feature 'Login' do
     Page::Login.new
   end
 
-  scenario 'Log with authorized credentials', :wip do
+  scenario 'Log with authorized credentials' do
     valid_username = 'KingRobert'
     valid_password = 'Stag'
 
