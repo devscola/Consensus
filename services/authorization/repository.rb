@@ -50,6 +50,11 @@ module Authorization
       end
 
       def retrieve_username(md5)
+        token = @tokens.find { |element| element.md5 == md5 }
+        token.username
+      end
+
+      def retrieve_token(md5)
         @tokens.find { |element| element.md5 == md5 }
       end
 

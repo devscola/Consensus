@@ -30,7 +30,7 @@ feature 'Discussion board' do
     expect(board.circle).to eq(users.sort)
   end
 
-  scenario 'Show question button if user in circle',:wip do
+  scenario 'Show question button if user in circle' do
     user = 'Arya'
     the_proposal = 'some title'
     visit('/proposals/empty')

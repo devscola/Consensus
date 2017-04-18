@@ -18,6 +18,6 @@ describe Authorization::Repository do
 
     result = Authorization::Repository.retrieve_username(token)
 
-    expect(result.username).to eq('KingRobert')
+    expect(result).to eq('KingRobert')
   end
 end

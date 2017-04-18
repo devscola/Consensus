@@ -22,5 +22,10 @@ module Authorization
     def self.decode(md5)
       Repository.retrieve_username(md5)
     end
+
+    def self.decode_token(md5)
+      Repository.retrieve_token(md5)
+    end
+
   end
 end
