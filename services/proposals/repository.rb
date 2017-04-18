@@ -1,7 +1,7 @@
 module Proposals
   class Repository
     @proposals = []
-    
+
     class << self
       def store(title = '', content, proposer)
         id = generate_id(title.to_s, content.to_s)
@@ -30,12 +30,12 @@ module Proposals
       class Proposal
         attr_reader :id, :title, :proposer, :content, :circle
 
-        def initialize(title, content, id, proposer, circle = [])
+        def initialize(title, content, id, proposer)
           @title = title
           @content = content
           @id = id
           @proposer = proposer
-          @circle = circle
+          @circle = [proposer]
         end
 
         def to_h

@@ -33,9 +33,9 @@ Class('Services.Proposals', {
 
     _retrieveProposerName: function(proposalData) {
         var token = localStorage.getItem('authorized');
-        serialized_token = {'token': token}
-        this.doRequest('/user/logged', serialized_token, function(proposerName) {
-            proposalData.proposer = proposerName;
+        serialized_token = {'token': token};
+        this.doRequest('/user/logged', serialized_token, function(proposer) {
+            proposalData.proposer = proposer.username;
             this.add(proposalData);
         }.bind(this));
     },

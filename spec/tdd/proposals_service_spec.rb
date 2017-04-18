@@ -50,7 +50,7 @@ describe Proposals::Service do
 
     result = Proposals::Service.involved(retrieval_code)
 
-    expect(result[:circle]).to eq(['KingRobert'])
+    expect(result[:circle]).to eq([:some_proposer, 'KingRobert'])
   end
 
   it 'retrieves proposal with its circle' do
@@ -66,7 +66,7 @@ describe Proposals::Service do
 
     result = Proposals::Service.retrieve(retrieval_code)
 
-    expect(result.to_h[:circle]).to eq(['KingRobert', 'Cersei'])
+    expect(result.to_h[:circle]).to eq([:some_proposer, 'KingRobert', 'Cersei'])
   end
 
   it 'retrieve if user belongs to circle' do
