@@ -31,8 +31,11 @@ class App < Sinatra::Base
     token = payload['token']
 
     response = Authorization::Service.decode_token(token)
-
-    { 'token': response.md5 }.to_json
+    if response != nil
+      { 'token': response.md5 }.to_json
+    else
+      { 'token': 'error'}.to_json
+    end
   end
 
 end

@@ -55,6 +55,7 @@ module Authorization
       end
 
       def retrieve_token(md5)
+        @tokens ||= []
         @tokens.find { |element| element.md5 == md5 }
       end
 
