@@ -3,7 +3,7 @@ Class('Page.Proposals', {
     Extends: Page,
 
     initialize: function() {
-        instances = [Proposals.ProposalCreator, Proposals.List, Proposals.Form, Services.UserList, Services.Proposals];
+        instances = [Services.Proposals, Proposals.ProposalCreator, Proposals.List, Proposals.Form, Services.UserList];
         Page.Proposals.Super.call(this, instances);
     },
 

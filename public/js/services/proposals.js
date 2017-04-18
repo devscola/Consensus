@@ -33,15 +33,25 @@ Class('Services.Proposals', {
 
     _retrieveProposerName: function(proposalData) {
         var token = localStorage.getItem('authorized');
-        serialized_token = {'token': token}
+        serialized_token = {'token': token};
         this.doRequest('/user/logged', serialized_token, function(proposerName) {
             proposalData.proposer = proposerName;
             this.add(proposalData);
         }.bind(this));
     },
+    _retrieveToken: function() {
+        var token = localStorage.getItem('authorized');
+        serialized_token = {'token': token};
+        this.doRequest('/create-proposal/token', serialized_token, function(response) {
+            if(token == response.token){
+                Bus.publish('proposal.create.show');
+            }
+        }.bind(this));
+    },
 
     subscribe: function() {
         Bus.subscribe('proposal.add', this._retrieveProposerName.bind(this));
+        Bus.subscribe('proposal.logged', this._retrieveToken.bind(this));
         Bus.subscribe('proposal.list', this.list.bind(this));
         Bus.subscribe('proposal.retrieve', this.retrieve.bind(this));
         Bus.subscribe('proposal.validate.user', this.userInCircle.bind(this));

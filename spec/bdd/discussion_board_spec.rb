@@ -70,7 +70,7 @@ feature 'Discussion board' do
     expect(board.has_content?(proposer)).to be true
   end
 
-  scenario 'Show question button if user in circle' do
+  scenario 'Show question button if user in circle', :wip do
     users = ['KingRobert', 'Arya']
     the_proposal = 'some title'
     visit('/proposals/empty')

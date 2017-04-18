@@ -4,7 +4,12 @@ Class('Proposals.ProposalCreator', {
 
     initialize: function() {
         Proposals.ProposalCreator.Super.call(this, 'create-proposal');
-        this.element.addEventListener('click', this.create.bind(this));
+        this.element.addEventListener('create', this.create.bind(this));
+        this._isLogged();
+    },
+
+    showButton: function() {
+        this.element.buttonVisibility = true;
     },
 
     create: function() {
@@ -12,6 +17,12 @@ Class('Proposals.ProposalCreator', {
         Bus.publish('proposal.new');
     },
 
-    subscribe: function() {}
+    _isLogged: function(){
+        Bus.publish('proposal.logged');
+    },
+
+    subscribe: function() {
+        Bus.subscribe('proposal.create.show', this.showButton.bind(this));
+    }
 
 });

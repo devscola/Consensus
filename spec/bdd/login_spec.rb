@@ -7,13 +7,13 @@ feature 'Login' do
     Page::Login.new
   end
 
-  scenario 'Log with authorized credentials' do
+  scenario 'Log with authorized credentials', :wip do
     valid_username = 'KingRobert'
     valid_password = 'Stag'
 
     login_page.sign_in(valid_username, valid_password)
 
-    expect(page).to have_css('#create-proposal')
+    expect(page).to have_css('#newProposal')
   end
 
   scenario 'Attemp to login with bad credentials triggers warning' do

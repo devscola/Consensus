@@ -5,11 +5,12 @@
         <title>Proposals</title>
         <link rel="stylesheet" href="/styles/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/styles/bootsketch.css">
+        <link rel="import" href="/web_components/create-proposal.html">
     </head>
     <body>
         <div class="container">
             <div class="col-sm-4">
-                <button id="create-proposal" class="btn btn-default">New Proposal</button>
+                <create-proposal id="create-proposal" buttonVisibility="false"></create-proposal>
                 <div id="proposals-list" class="list-group"></div>
             </div>
 
@@ -34,6 +35,7 @@
             </div>
         </div>
 
+        <script src="/js/infrastructure/webcomponents-lite.min.js"></script>
         <script src="/js/infrastructure/bus.js"></script>
         <script src="/js/infrastructure/class.min.js"></script>
         <script src="/js/infrastructure/service.js"></script>

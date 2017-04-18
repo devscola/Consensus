@@ -1,0 +1,45 @@
+<link rel="import" href="https://polygit.org/components/polymer/polymer.html">
+
+<dom-module id="create-proposal">
+    <template>
+        <style>
+            #newProposal.show {
+                display: block;
+            }
+
+            #newProposal.hide {
+                display: none;
+            }
+        </style>
+
+        <button id="newProposal" on-click="create" class$="{{visibility}} btn btn-default">New Proposal</button>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'create-proposal',
+
+            properties: {
+                buttonVisibility: {
+                    type: Boolean,
+                    reflectToAttribute: true,
+                    observer: '_renderButton'
+                },
+                visibility: {
+                    type: String,
+                    value: 'hide'
+                }
+            },
+
+            _renderButton: function() {
+                this.visibility = 'show';
+            },
+
+            create: function(e, detail) {
+                this.fire('create');
+            }
+
+        });
+    </script>
+</dom-module>

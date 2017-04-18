@@ -21,8 +21,18 @@ class App < Sinatra::Base
     payload = JSON.parse(request.body.read)
     token = payload['token']
 
-    username = Authorization::Service.decode(token)
+    response = Authorization::Service.decode(token)
 
-    { 'username': username }.to_json
+    { 'username': response.username }.to_json
   end
+
+  post '/create-proposal/token' do
+    payload = JSON.parse(request.body.read)
+    token = payload['token']
+
+    response = Authorization::Service.decode(token)
+
+    { 'token': response.md5 }.to_json
+  end
+
 end
