@@ -61,4 +61,16 @@ class App < Sinatra::Base
     result = { 'valid': user_in_circle }
     result.to_json
   end
+
+  post '/proposals/add/question' do
+    payload = JSON.parse(request.body.read)
+
+    added = Proposals::Service.add_question(payload)
+
+    if added
+      { 'added': true }.to_json
+    else
+      { 'added': false }.to_json
+    end
+  end
 end
