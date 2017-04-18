@@ -28,6 +28,16 @@ module Page
       has_css?('#question')
     end
 
+    def fill_question(text)
+      fill_in('question-text', with: text)
+    end
+
+    def submit_question_active?
+      button = find('#question-submit', visible: false)
+      result = button[:disabled]
+      result.nil?
+    end
+
     private
 
     def fill_circle
