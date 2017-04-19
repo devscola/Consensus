@@ -67,14 +67,25 @@ feature 'Discussion board' do
 
   scenario 'Submit question activates when enough text' do
     board=new_proposal_with_Arya_involved
+    board.create_question
     board.fill_question(enough_text)
     expect(board.submit_question_active?).to be true
   end
 
   scenario 'Submit question doesnt activate without enough text' do
     board = new_proposal_with_Arya_involved
+    board.create_question
     board.fill_question('not enough text to activate')
     expect(board.submit_question_active?).to be false
+  end
+
+  scenario 'Shows textarea when question button is clicked' do
+    board = new_proposal_with_Arya_involved
+
+    board.create_question
+
+    expect(board.question_button_active?).to be false
+    expect(board.question_content?).to be true
   end
 
   def new_proposal_with_Arya_involved

@@ -5,6 +5,7 @@ Class('DiscussionBoard.Questioner', {
     initialize: function(proposalId) {
         this.proposalId = proposalId;
         DiscussionBoard.Questioner.Super.call(this, 'questioner');
+        this.element.addEventListener('openTextarea', this._showTextarea.bind(this));
         this.involvedInCircle();
     },
 
@@ -22,6 +23,10 @@ Class('DiscussionBoard.Questioner', {
 
     showButton: function() {
         this.element.buttonVisibility = true;
+    },
+
+    _showTextarea: function() {
+        Bus.publish('discussion-board.show-textarea');
     },
 
     subscribe: function() {

@@ -3,6 +3,13 @@
 <dom-module id="question-form">
     <template>
         <style>
+            #questionContent.show {
+                display: block;
+            }
+
+            #questionContent.hide {
+                display: none;
+            }
             #submit.show {
                 display: block;
             }
@@ -11,9 +18,12 @@
                 display: none;
             }
         </style>
-        <input type="textarea" name="question-text" value="{{theQuestion::input}}" on-input="_count"></input>
-        <span class="badge">{{count}}</span>
-        <button id="question-submit" disabled$="{{enabledSubmit}}">submit</button>
+
+        <div id="questionContent" class$="{{visibility}}">
+            <input type="textarea" name="question-text" value="{{theQuestion::input}}" on-input="_count"></input>
+            <span class="badge">{{count}}</span>
+            <button id="question-submit" disabled$="{{enabledSubmit}}">submit</button>
+        </div>
 
 
     </template>
@@ -28,8 +38,17 @@
                     value: null,
                     reflectToAttribute: true
                 },
-                
-                
+
+                textboxVisibility: {
+                    type: Boolean,
+                    reflectToAttribute: true,
+                    observer: '_render'
+                },
+                visibility: {
+                    type: String,
+                    value: 'hide'
+                },
+
                 theQuestion:{
                     type: String,
                     value: ''
@@ -53,7 +72,10 @@
                 }else{
                     this.enabledSubmit = 'true';
                 }
-                
+            },
+
+            _render: function() {
+                this.visibility = 'show';
             }
 
         });

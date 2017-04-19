@@ -28,6 +28,20 @@ module Page
       has_css?('#question')
     end
 
+    def create_question
+      find('#question').click
+    end
+
+    def question_content?
+      has_css?('#questionContent')
+    end
+
+    def question_button_active?
+      button = find('#question')
+      result = button[:disabled]
+      result.nil?
+    end
+
     def fill_question(text)
       fill_in('question-text', with: text)
     end
