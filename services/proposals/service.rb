@@ -18,7 +18,10 @@ module Proposals
       end
 
       def retrieve(id)
-        Repository.retrieve(id).to_h
+        proposal = Repository.retrieve(id).to_h
+        questions = QuestionsRepository.retrieve(id).map { |question| question.to_h }
+        proposal['questions'] = questions
+        proposal
       end
 
       def involve(id, username)
@@ -38,8 +41,8 @@ module Proposals
         circle.include?(username)
       end
 
-      def add_question(*question)
-        true
+      def add_question(question)
+        Proposals::QuestionsRepository.store(question)
       end
     end
   end

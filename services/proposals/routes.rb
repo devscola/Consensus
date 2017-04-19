@@ -19,7 +19,7 @@ class App < Sinatra::Base
 
   post '/proposals/list' do
     result = Proposals::Service.list()
-    {result: result}.to_json
+    { result: result }.to_json
   end
 
   get '/proposals/empty' do
@@ -64,13 +64,6 @@ class App < Sinatra::Base
 
   post '/proposals/add/question' do
     payload = JSON.parse(request.body.read)
-
-    added = Proposals::Service.add_question(payload)
-
-    if added
-      { 'added': true }.to_json
-    else
-      { 'added': false }.to_json
-    end
+    Proposals::Service.add_question(payload)
   end
 end

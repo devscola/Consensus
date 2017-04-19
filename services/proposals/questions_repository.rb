@@ -1,14 +1,19 @@
 module Proposals
   class QuestionsRepository
     class << self
-      def store(question, author, proposal_id)
+      def store(question)
         @contents ||= []
-        @contents << Question.new(question, author, proposal_id)
+        @contents << Question.new(
+          question['body'],
+          question['author'],
+          question['proposal_id']
+        )
+        nil
       end
 
       def retrieve(requested_proposal_id)
         @contents ||= []
-        @contents.find { |question| question.proposal_id == requested_proposal_id }
+        @contents.find_all { |question| question.proposal_id == requested_proposal_id }
       end
 
       private
@@ -20,6 +25,10 @@ module Proposals
           @author = author
           @proposal_id = proposal_id
           @date = Time.now.utc
+        end
+
+        def to_h
+          { body: @body, author: @author, date: @date }
         end
       end
     end
