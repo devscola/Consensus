@@ -18,10 +18,7 @@ module Proposals
       end
 
       def retrieve(id)
-        proposal = Repository.retrieve(id).to_h
-        questions = QuestionsRepository.retrieve(id).map { |question| question.to_h }
-        proposal['questions'] = questions
-        proposal
+        Repository.retrieve(id).to_h
       end
 
       def involve(id, username)
@@ -42,7 +39,13 @@ module Proposals
       end
 
       def add_question(question)
+        proposal_id = question['proposal_id']
         Proposals::QuestionsRepository.store(question)
+
+        proposal = Repository.retrieve(proposal_id).to_h
+        questions = QuestionsRepository.retrieve(proposal_id).map { |question| question.to_h }
+        proposal['questions'] = questions
+        proposal
       end
     end
   end

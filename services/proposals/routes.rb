@@ -63,7 +63,7 @@ class App < Sinatra::Base
   end
 
   post '/proposals/add/question' do
-    payload = JSON.parse(request.body.read)
-    Proposals::Service.add_question(payload)
+    question = JSON.parse(request.body.read)
+    Proposals::Service.add_question(question).to_json
   end
 end

@@ -18,10 +18,10 @@ describe Proposals::QuestionsRepository do
     }.to_json
 
     post '/proposals/add/question', question
+    result = retrieved_proposal
 
-    retrieved_question = retrieve_question(proposal_id)
-    expect(retrieved_question[:body]).to eq('some_text')
-    expect(retrieved_question[:author]).to eq('KingRobert')
+    expect(result[:body]).to eq('some_text')
+    expect(result[:author]).to eq('KingRobert')
   end
 
   def add_proposal
@@ -34,10 +34,7 @@ describe Proposals::QuestionsRepository do
     parse_response
   end
 
-  def retrieve_question(proposal_id)
-    payload = { 'proposal_id' => proposal_id }.to_json
-    post '/proposals/retrieve', payload
-
+  def retrieved_proposal
     first_question = parse_response['questions'].first
     body = first_question['body']
     author = first_question['author']

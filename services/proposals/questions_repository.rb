@@ -8,7 +8,7 @@ module Proposals
           question['author'],
           question['proposal_id']
         )
-        nil
+        return nil
       end
 
       def retrieve(requested_proposal_id)
