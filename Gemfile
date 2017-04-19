@@ -8,6 +8,7 @@ group :development do
 end
 
 group :test do
+  gem 'rack-test'
   gem 'capybara', '>=2.12.0'
   gem 'rspec', '>=3.5.0'
   gem 'selenium-webdriver', '>=3.0.8'

@@ -65,7 +65,30 @@ feature 'Discussion board' do
     expect(board.question_button?).to be false
   end
 
-  scenario 'Shows textarea when question button is clicked', :wip do
+  scenario 'Submit question activates when enough text' do
+    board=new_proposal_with_Arya_involved
+    board.create_question
+    board.fill_question(enough_text)
+    expect(board.submit_question_active?).to be true
+  end
+
+  scenario 'Submit question doesnt activate without enough text' do
+    board = new_proposal_with_Arya_involved
+    board.create_question
+    board.fill_question('not enough text to activate')
+    expect(board.submit_question_active?).to be false
+  end
+
+  scenario 'Shows textarea when question button is clicked' do
+    board = new_proposal_with_Arya_involved
+
+    board.create_question
+
+    expect(board.question_button_active?).to be false
+    expect(board.question_content?).to be true
+  end
+
+  def new_proposal_with_Arya_involved
     user = 'Arya'
     the_proposal = 'some title'
     visit('/proposals/empty')
@@ -74,11 +97,12 @@ feature 'Discussion board' do
     proposals.new_proposal(the_proposal)
     proposals.click_user_button(user)
     proposals.button_finish_click
+    proposals.visit_proposal(the_proposal)
+  end
 
-    board = proposals.visit_proposal(the_proposal)
-
-    board.create_question
-
-    expect(board.question_content?).to be true
+  def enough_text
+    enough_length_text= ''
+    101.times{enough_length_text<<'a'}
+    enough_length_text
   end
 end

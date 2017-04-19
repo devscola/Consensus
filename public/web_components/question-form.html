@@ -1,0 +1,83 @@
+<link rel="import" href="/web_components/infrastructure/polymer.html">
+
+<dom-module id="question-form">
+    <template>
+        <style>
+            #questionContent.show {
+                display: block;
+            }
+
+            #questionContent.hide {
+                display: none;
+            }
+            #submit.show {
+                display: block;
+            }
+
+            #submit.hide {
+                display: none;
+            }
+        </style>
+
+        <div id="questionContent" class$="{{visibility}}">
+            <input type="textarea" name="question-text" value="{{theQuestion::input}}" on-input="_count"></input>
+            <span class="badge">{{count}}</span>
+            <button id="question-submit" disabled$="{{enabledSubmit}}">submit</button>
+        </div>
+
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'question-form',
+
+            properties: {
+                enabledSubmit: {
+                    type: String,
+                    value: null,
+                    reflectToAttribute: true
+                },
+
+                textboxVisibility: {
+                    type: Boolean,
+                    reflectToAttribute: true,
+                    observer: '_render'
+                },
+                visibility: {
+                    type: String,
+                    value: 'hide'
+                },
+
+                theQuestion:{
+                    type: String,
+                    value: ''
+                },
+
+                count:{
+                    type: Number,
+                    value: 0
+                }
+            },
+
+
+            _count: function() {
+                this.count=this.theQuestion.length;
+                this._activateSubmit();
+            },
+
+            _activateSubmit: function() {
+                if (this.count >= 100){
+                    this.enabledSubmit = null;
+                }else{
+                    this.enabledSubmit = 'true';
+                }
+            },
+
+            _render: function() {
+                this.visibility = 'show';
+            }
+
+        });
+    </script>
+</dom-module>

@@ -1,4 +1,5 @@
 require_relative 'repository'
+require_relative 'questions_repository'
 
 module Proposals
   class Service
@@ -35,6 +36,10 @@ module Proposals
         circle = retrieve(id)[:circle]
 
         circle.include?(username)
+      end
+
+      def add_question(*question)
+        true
       end
     end
   end
