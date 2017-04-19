@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/styles/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/styles/bootsketch.css">
         <link rel="import" href="/web_components/question-button.html">
+        <link rel="import" href="/web_components/question-content.html">
     </head>
     <body>
         <div class="container">
@@ -18,6 +19,9 @@
             </div>
             <div class="col-sm-offset-1 col-sm-10">
                 <question-button id="questioner" buttonVisibility="false"></question-button>
+            </div>
+            <div class="col-sm-offset-1 col-sm-10">
+                <question-content id="question-content" textareaVisibility="false"></question-content>
             </div>
         </div>
 
@@ -32,6 +36,7 @@
         <script src="/js/components/discussion-board/questioner.js"></script>
         <script src="/js/components/discussion-board/title.js"></script>
         <script src="/js/components/discussion-board/content.js"></script>
+        <script src="/js/components/discussion-board/question-content.js"></script>
         <script src="/js/components/discussion-board/circle.js"></script>
 
         <script src="/js/pages/discussionBoard.js"></script>

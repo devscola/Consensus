@@ -64,4 +64,21 @@ feature 'Discussion board' do
 
     expect(board.question_button?).to be false
   end
+
+  scenario 'Shows textarea when question button is clicked', :wip do
+    user = 'Arya'
+    the_proposal = 'some title'
+    visit('/proposals/empty')
+    proposals = Page::Proposals.new
+
+    proposals.new_proposal(the_proposal)
+    proposals.click_user_button(user)
+    proposals.button_finish_click
+
+    board = proposals.visit_proposal(the_proposal)
+
+    board.create_question
+
+    expect(board.question_content?).to be true
+  end
 end
