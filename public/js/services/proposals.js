@@ -39,6 +39,7 @@ Class('Services.Proposals', {
             this.add(proposalData);
         }.bind(this));
     },
+
     _retrieveToken: function() {
         var token = localStorage.getItem('authorized');
         serialized_token = {'token': token};

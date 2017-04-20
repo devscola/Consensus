@@ -52,6 +52,10 @@ module Page
       result.nil?
     end
 
+    def question_button_visible?
+      has_css?('#question')
+    end
+
     private
 
     def fill_circle

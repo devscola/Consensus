@@ -31,16 +31,9 @@ feature 'Discussion board' do
   end
 
   scenario 'Show question button if user in circle' do
-    user = 'Arya'
-    the_proposal = 'some title'
-    visit('/proposals/empty')
-    proposals = Page::Proposals.new
-
-    proposals.new_proposal(the_proposal)
-    proposals.click_user_button(user)
-    proposals.button_finish_click
-
-    board = proposals.visit_proposal(the_proposal)
+    proposals = new_proposal_with_Arya_involved_and_visit_with_her('A Proposal')
+    
+    board = proposals.visit_proposal('A Proposal')
 
     expect(board.question_button?).to be true
   end
@@ -66,26 +59,58 @@ feature 'Discussion board' do
   end
 
   scenario 'Submit question activates when enough text' do
-    board=new_proposal_with_Arya_involved
+    proposals = new_proposal_with_Arya_involved_and_visit_with_her('A Proposal')
+    board = proposals.visit_proposal('A Proposal')
     board.create_question
     board.fill_question(enough_text)
     expect(board.submit_question_active?).to be true
   end
 
   scenario 'Submit question doesnt activate without enough text' do
-    board = new_proposal_with_Arya_involved
+    proposals = new_proposal_with_Arya_involved_and_visit_with_her('A Proposal')
+    board = proposals.visit_proposal('A Proposal')
     board.create_question
     board.fill_question('not enough text to activate')
     expect(board.submit_question_active?).to be false
   end
 
   scenario 'Shows textarea when question button is clicked' do
-    board = new_proposal_with_Arya_involved
+    proposals = new_proposal_with_Arya_involved_and_visit_with_her('A Proposal')
+    board = proposals.visit_proposal('A Proposal')
 
     board.create_question
 
     expect(board.question_button_active?).to be false
     expect(board.question_content?).to be true
+  end
+
+  scenario 'Does not show question button for proposal user' do
+    board = new_proposal_with_Arya_involved
+
+    expect(board.question_button_visible?).to be false
+  end
+
+  scenario 'Shows question button for not proposal user' do
+    the_proposal = 'some title'
+    proposals = new_proposal_with_Arya_involved_and_visit_with_her(the_proposal)
+
+    board = proposals.visit_proposal(the_proposal)
+
+    expect(board.question_button_visible?).to be true
+  end
+
+  def new_proposal_with_Arya_involved_and_visit_with_her(the_proposal)
+    user = 'Arya'
+    password = 'Wolf'
+    visit('/proposals/empty')
+    proposals = Page::Proposals.new
+    proposals.new_proposal(the_proposal)
+    proposals.click_user_button(user)
+    proposals.button_finish_click
+    proposals.visit_proposal(the_proposal)
+    login = Page::Login.new
+    login.sign_in(user, password)
+    proposals
   end
 
   def new_proposal_with_Arya_involved

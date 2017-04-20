@@ -3,7 +3,14 @@ Class('Page.DiscussionBoard', {
     Extends: Page,
 
     initialize: function() {
-        instances = [DiscussionBoard.Title, DiscussionBoard.Content, DiscussionBoard.Circle, DiscussionBoard.QuestionContent, Services.Proposals];
+        instances = [
+            DiscussionBoard.Title,
+            DiscussionBoard.Content,
+            DiscussionBoard.Circle,
+            DiscussionBoard.QuestionContent,
+            Services.Proposals
+        ];
+
         Page.DiscussionBoard.Super.call(this, instances);
 
         new DiscussionBoard.Questioner(this.retrieveId());

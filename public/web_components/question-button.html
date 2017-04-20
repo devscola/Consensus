@@ -12,7 +12,14 @@
             }
         </style>
 
-        <button id="question" on-click="openTextarea" disabled$="{{enabledQuestion}}" class$="{{visibility}}">?</button>
+        <button
+            id="question"
+            on-click="openTextarea"
+            disabled$="{{enabledQuestion}}"
+            class$="{{visibility}}"
+        >
+            ?
+        </button>
 
     </template>
 
@@ -29,17 +36,31 @@
 
                 buttonVisibility: {
                     type: Boolean,
+                    value: false,
                     reflectToAttribute: true,
                     observer: '_renderButton'
                 },
 
                 visibility: {
-                    type: String,
+                    type: Boolean,
                     value: 'hide'
+                },
+
+                validQuestioner: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true,
+                    observer: '_renderButton'
                 }
             },
 
             _renderButton: function() {
+                if (this.validQuestioner) {
+                    this._show();
+                }
+            },
+
+            _show: function() {
                 this.visibility = 'show';
             },
 

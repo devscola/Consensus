@@ -9,6 +9,7 @@ Class('Services.Login', {
     hasSucceeded: function(result) {
         if (result.valid) {
             localStorage.setItem('authorized', result.token);
+            localStorage.setItem('username', result.username);
             Bus.publish('attemp.succeeded');
         } else {
             localStorage.removeItem('authorized');

@@ -22,15 +22,32 @@ Class('DiscussionBoard.Questioner', {
     },
 
     showButton: function() {
-        this.element.buttonVisibility = true;
+        this.element.validQuestioner = true;   
     },
 
     _showTextarea: function() {
         Bus.publish('discussion-board.show-textarea');
     },
 
+    retrieveId: function() {
+        var url = window.location.href;
+        return url.split('discussion-board/')[1];
+    },
+
+    allowQuestioning: function(proposal) {
+        var username = localStorage.getItem('username');
+        var involved = proposal.circle.includes(username);
+        var isProposer = (proposal.proposer == username);
+
+        this.element.validQuestioner = (involved && !isProposer);
+    },
+
+    publish: function() {
+        Bus.publish('proposal.retrieve', this.retrieveId());
+    },
+
     subscribe: function() {
-        Bus.subscribe('proposal.user.validated', this.userValidation.bind(this));
+        Bus.subscribe('proposal.retrieved', this.allowQuestioning.bind(this));
     }
 
 });
