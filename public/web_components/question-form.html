@@ -63,7 +63,13 @@
             
             questionAttempt: function(e, detail) {
                 this.fire('questionSubmit');
-                this.activated = false;
+                this.activated = false;    
+                this.resetForm();
+            },
+
+            resetForm: function() {
+                this.$.questionText.value = '';
+                this.count = 0;
             },
 
             evaluateDisplay: function(){

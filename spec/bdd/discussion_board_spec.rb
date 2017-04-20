@@ -108,8 +108,6 @@ feature 'Discussion board' do
     expect(board.question_form?).to be false
   end
 
-
-
   def new_proposal_with_Arya_involved
     user = 'Arya'
     the_proposal = 'some title'

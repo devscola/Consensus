@@ -10,6 +10,7 @@
             #question.hide {
                 display: none;
             }
+       
         </style>
 
         <button id="question" on-click="openTextarea" disabled$="{{enabledQuestion}}" class$="{{visibility}}">?</button>
@@ -24,19 +25,25 @@
                 enabledQuestion: {
                     type: Boolean,
                     value: false,
-                    reflectToAttribute: true
+                },
+
+                buttonActivated: {
+                    type: Boolean,
+                    reflectToAttribute: true,
+                    observer: 'buttonActivation'
+                },
+
+                visibility: {
+                    type: String,
+                    value: 'hide',
                 },
 
                 buttonVisibility: {
                     type: Boolean,
                     reflectToAttribute: true,
-                    observer: '_renderButton'
+                    observer: 'showButton'
                 },
 
-                visibility: {
-                    type: String,
-                    value: 'hide'
-                }
             },
             
             openTextarea: function(e, detail) {
@@ -44,7 +51,12 @@
                 this.enabledQuestion = true;
             },
 
-            _renderButton: function() {
+            buttonActivation: function() {
+                this.buttonActivated = false;
+                this.enabledQuestion = false;
+            },
+
+            showButton: function() {
                 this.visibility = 'show';
             }
 

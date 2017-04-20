@@ -4,12 +4,13 @@ Class('DiscussionBoard.Questioner', {
 
     initialize: function(proposalId) {
         this.proposalId = proposalId;
-        DiscussionBoard.Questioner.Super.call(this, 'questioner');
+        DiscussionBoard.Questioner.Super.call(this, 'question-container');
         this.element.addEventListener('openTextarea', this.showTextarea.bind(this));
-        this.element.addEventListener('questionSubmit', this.enableQuestionButton.bind(this));
+        this.element.addEventListener('questionSubmit', this.addQuestion.bind(this));
         this.involvedInCircle();
         this.retrieveAuthor();
         this.questionForm = document.getElementById('question-content');
+        this.questionButton = document.getElementById('questioner');
     },
 
 
@@ -20,14 +21,14 @@ Class('DiscussionBoard.Questioner', {
         Bus.publish('proposal.validate.user', data);
     },
 
-    userValidation: fopenTextareaunction(result) {
+    userValidation: function(result) {
         if (result.valid) {
             this.showButton();
         }
     },
 
     showButton: function() {
-        this.element.buttonVisibility = true;
+        this.questionButton.buttonVisibility = true;
     },
 
     addQuestion: function() {
@@ -47,8 +48,8 @@ Class('DiscussionBoard.Questioner', {
         this.author = author;
     },
 
-    enableQuestionButton: function(result) {
-        this.element.enabledQuestion = false;
+    enableQuestionButton: function(result) {      
+        this.questionButton.buttonActivated = true;
     },
 
     showTextarea: function() {
