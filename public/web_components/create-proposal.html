@@ -1,5 +1,4 @@
-<link rel="import" href="https://polygit.org/components/polymer/polymer.html">
-
+<link rel="import" href="/web_components/infrastructure/polymer.html">
 <dom-module id="create-proposal">
     <template>
         <style>
@@ -21,11 +20,14 @@
             is: 'create-proposal',
 
             properties: {
-                buttonVisibility: {
+                
+                actionAllowed: {
                     type: Boolean,
+                    default: false,
                     reflectToAttribute: true,
                     observer: '_renderButton'
                 },
+
                 visibility: {
                     type: String,
                     value: 'hide'
@@ -33,7 +35,11 @@
             },
 
             _renderButton: function() {
-                this.visibility = 'show';
+               if (this.actionAllowed) {
+                    this.visibility = 'show';
+                } else {
+                    this.visibility = 'hide';
+                }
             },
 
             create: function(e, detail) {

@@ -12,7 +12,7 @@ Class('Login.Form', {
     },
 
     showWarning: function() {
-        this.element.warningVisibility = true;
+        this.element.warningShown = true;
     },
 
     subscribe: function() {

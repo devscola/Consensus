@@ -33,6 +33,12 @@
             is: 'question-form',
 
             properties: {
+                minimumLength:{
+                    type: Number,
+                    value: 0,
+                    reflectToAttribute:true
+                },
+
                 enabledSubmit: {
                     type: String,
                     value: null,
@@ -67,7 +73,7 @@
             },
 
             _activateSubmit: function() {
-                if (this.count >= 100){
+                if (this.count >= this.minimumLength){
                     this.enabledSubmit = null;
                 }else{
                     this.enabledSubmit = 'true';
