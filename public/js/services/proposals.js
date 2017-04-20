@@ -39,6 +39,15 @@ Class('Services.Proposals', {
             this.add(proposalData);
         }.bind(this));
     },
+
+    retrieveLoggedUser: function() {
+        var token = localStorage.getItem('authorized');
+        serialized_token = {'token': token};
+        this.doRequest('/user/logged', serialized_token, function(proposer) {
+            Bus.publish('logged.user', proposer.username);
+        }.bind(this));
+    },
+
     _retrieveToken: function() {
         var token = localStorage.getItem('authorized');
         serialized_token = {'token': token};
@@ -50,6 +59,7 @@ Class('Services.Proposals', {
     },
 
     subscribe: function() {
+        Bus.subscribe('proposal.logged.user',this.retrieveLoggedUser.bind(this));
         Bus.subscribe('proposal.add', this._retrieveProposerName.bind(this));
         Bus.subscribe('proposal.logged', this._retrieveToken.bind(this));
         Bus.subscribe('proposal.list', this.list.bind(this));

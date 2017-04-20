@@ -88,6 +88,28 @@ feature 'Discussion board' do
     expect(board.question_content?).to be true
   end
 
+  scenario 'Question button enabled when proposal is submited' do
+    board = new_proposal_with_Arya_involved
+
+    board.create_question
+    board.fill_question(enough_text)
+    board.submit_question_form
+
+    expect(board.question_button_active?).to be true
+  end
+
+  scenario 'Question form disabled when proposal is submited' do
+    board = new_proposal_with_Arya_involved
+
+    board.create_question
+    board.fill_question(enough_text)
+    board.submit_question_form
+
+    expect(board.question_form?).to be false
+  end
+
+
+
   def new_proposal_with_Arya_involved
     user = 'Arya'
     the_proposal = 'some title'

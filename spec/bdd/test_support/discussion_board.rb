@@ -24,7 +24,6 @@ module Page
     end
 
     def question_button?
-      sleep(1)
       has_css?('#question')
     end
 
@@ -34,6 +33,10 @@ module Page
 
     def question_content?
       has_css?('#questionContent')
+    end
+
+    def question_form?
+      has_css?('#questionText')
     end
 
     def question_button_active?
@@ -50,6 +53,10 @@ module Page
       button = find('#question-submit', visible: false)
       result = button[:disabled]
       result.nil?
+    end
+
+    def submit_question_form
+      find('#question-submit').click
     end
 
     private
