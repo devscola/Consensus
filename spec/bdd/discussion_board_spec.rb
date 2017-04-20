@@ -99,18 +99,26 @@ feature 'Discussion board' do
     expect(board.question_button_visible?).to be true
   end
 
-  def new_proposal_with_Arya_involved_and_visit_with_her(the_proposal)
-    user = 'Arya'
-    password = 'Wolf'
-    visit('/proposals/empty')
-    proposals = Page::Proposals.new
-    proposals.new_proposal(the_proposal)
-    proposals.click_user_button(user)
-    proposals.button_finish_click
-    proposals.visit_proposal(the_proposal)
-    login = Page::Login.new
-    login.sign_in(user, password)
-    proposals
+  scenario 'Question button enabled when proposal is submited' do
+    proposals = new_proposal_with_Arya_involved_and_visit_with_her('a_proposal')
+    board = proposals.visit_proposal('a_proposal')
+
+    board.create_question
+    board.fill_question(enough_text)
+    board.submit_question_form
+
+    expect(board.question_button_active?).to be true
+  end
+
+  scenario 'Question form disabled when proposal is submited', :wip do
+    proposals = new_proposal_with_Arya_involved_and_visit_with_her('a_proposal')
+    board = proposals.visit_proposal('a_proposal')
+
+    board.create_question
+    board.fill_question(enough_text)
+    board.submit_question_form
+
+    expect(board.question_form?).to be false
   end
 
   def new_proposal_with_Arya_involved
@@ -129,5 +137,19 @@ feature 'Discussion board' do
     enough_length_text= ''
     101.times{enough_length_text<<'a'}
     enough_length_text
+  end
+
+  def new_proposal_with_Arya_involved_and_visit_with_her(the_proposal)
+    user = 'Arya'
+    password = 'Wolf'
+    visit('/proposals/empty')
+    proposals = Page::Proposals.new
+    proposals.new_proposal(the_proposal)
+    proposals.click_user_button(user)
+    proposals.button_finish_click
+    proposals.visit_proposal(the_proposal)
+    login = Page::Login.new
+    login.sign_in(user, password)
+    proposals
   end
 end

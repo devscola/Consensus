@@ -7,10 +7,9 @@ Class('Page.DiscussionBoard', {
             DiscussionBoard.Title,
             DiscussionBoard.Content,
             DiscussionBoard.Circle,
-            DiscussionBoard.QuestionContent,
-            Services.Proposals
+            Services.Proposals,
+            Services.DiscussionBoard
         ];
-
         Page.DiscussionBoard.Super.call(this, instances);
 
         new DiscussionBoard.Questioner(this.retrieveId());

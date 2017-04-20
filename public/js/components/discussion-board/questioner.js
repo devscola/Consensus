@@ -4,10 +4,16 @@ Class('DiscussionBoard.Questioner', {
 
     initialize: function(proposalId) {
         this.proposalId = proposalId;
-        DiscussionBoard.Questioner.Super.call(this, 'questioner');
-        this.element.addEventListener('openTextarea', this._showTextarea.bind(this));
+        DiscussionBoard.Questioner.Super.call(this, 'question-container');
+        this.element.addEventListener('openTextarea', this.showTextarea.bind(this));
+        this.element.addEventListener('questionSubmit', this.addQuestion.bind(this));
         this.involvedInCircle();
+        this.retrieveAuthor();
+        this.questionForm = document.getElementById('question-content');
+        this.questionButton = document.getElementById('questioner');
     },
+
+
 
     involvedInCircle: function() {
         var token = localStorage.getItem('authorized');
@@ -22,11 +28,32 @@ Class('DiscussionBoard.Questioner', {
     },
 
     showButton: function() {
-        this.element.validQuestioner = true;   
+        this.questionButton.validQuestioner = true;
     },
 
-    _showTextarea: function() {
-        Bus.publish('discussion-board.show-textarea');
+    addQuestion: function() {
+        var questionData = {};
+        var body = document.getElementById('questionText');
+        questionData.proposal_id = this.proposalId;
+        questionData.author = this.author;
+        questionData.body = body.value;
+        Bus.publish('proposal.question.add', questionData);
+    },
+
+    retrieveAuthor: function(){
+        Bus.publish('proposal.logged.user');
+    },
+
+    loggedUser: function(author){
+        this.author = author;
+    },
+
+    enableQuestionButton: function(result) {
+        this.questionButton.buttonActivated = true;
+    },
+
+    showTextarea: function() {
+        this.questionForm.activated = true;
     },
 
     retrieveId: function() {
@@ -39,7 +66,7 @@ Class('DiscussionBoard.Questioner', {
         var involved = proposal.circle.includes(username);
         var isProposer = (proposal.proposer == username);
 
-        this.element.validQuestioner = (involved && !isProposer);
+        this.questionButton.validQuestioner = (involved && !isProposer);
     },
 
     publish: function() {
@@ -48,6 +75,7 @@ Class('DiscussionBoard.Questioner', {
 
     subscribe: function() {
         Bus.subscribe('proposal.retrieved', this.allowQuestioning.bind(this));
+        Bus.subscribe('proposal.question.added', this.enableQuestionButton.bind(this));
     }
 
 });

@@ -10,22 +10,14 @@
             #questionContent.hide {
                 display: none;
             }
-            #submit.show {
-                display: block;
-            }
 
-            #submit.hide {
-                display: none;
-            }
         </style>
 
-        <div id="questionContent" class$="{{visibility}}">
-            <input type="textarea" name="question-text" value="{{theQuestion::input}}" on-input="_count"></input>
+        <div id="questionContent" class$="{{displayed}}">
+            <input id="questionText" type="textarea" name="question-text" value="{{theQuestion::input}}" on-input="_count"></input>
             <span class="badge">{{count}}</span>
-            <button id="question-submit" disabled$="{{enabledSubmit}}">submit</button>
+            <button id="question-submit" on-click="questionAttempt"disabled$="{{enabledSubmit}}">submit</button>
         </div>
-
-
     </template>
 
     <script>
@@ -45,14 +37,15 @@
                     reflectToAttribute: true
                 },
 
-                textboxVisibility: {
+                displayed: {
+                    type: String,
+                    value: 'hide',
+                },
+
+                activated: {
                     type: Boolean,
                     reflectToAttribute: true,
-                    observer: '_render'
-                },
-                visibility: {
-                    type: String,
-                    value: 'hide'
+                    observer: 'evaluateDisplay'
                 },
 
                 theQuestion:{
@@ -66,6 +59,24 @@
                 }
             },
 
+            questionAttempt: function(e, detail) {
+                this.fire('questionSubmit');
+                this.activated = false;
+                this.resetForm();
+            },
+
+            resetForm: function() {
+                this.$.questionText.value = '';
+                this.count = 0;
+            },
+
+            evaluateDisplay: function(){
+                if (this.activated) {
+                    this.displayed = 'show';
+                } else {
+                    this.displayed = 'hide';
+                }
+            },
 
             _count: function() {
                 this.count=this.theQuestion.length;
@@ -75,13 +86,9 @@
             _activateSubmit: function() {
                 if (this.count >= this.minimumLength){
                     this.enabledSubmit = null;
-                }else{
+                } else {
                     this.enabledSubmit = 'true';
                 }
-            },
-
-            _render: function() {
-                this.visibility = 'show';
             }
 
         });

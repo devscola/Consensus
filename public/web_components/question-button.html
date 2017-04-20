@@ -10,6 +10,7 @@
             #question.hide {
                 display: none;
             }
+
         </style>
 
         <button
@@ -31,19 +32,24 @@
                 enabledQuestion: {
                     type: Boolean,
                     value: false,
-                    reflectToAttribute: true
+                },
+
+                buttonActivated: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true,
+                    observer: 'buttonActivation'
+                },
+
+                visibility: {
+                    type: String,
+                    value: 'hide',
                 },
 
                 buttonVisibility: {
                     type: Boolean,
-                    value: false,
                     reflectToAttribute: true,
-                    observer: '_renderButton'
-                },
-
-                visibility: {
-                    type: Boolean,
-                    value: 'hide'
+                    observer: 'showButton'
                 },
 
                 validQuestioner: {
@@ -67,6 +73,15 @@
             openTextarea: function(e, detail) {
                 this.fire('openTextarea');
                 this.enabledQuestion = true;
+            },
+
+            buttonActivation: function() {
+                this.buttonActivated = false;
+                this.enabledQuestion = false;
+            },
+
+            showButton: function() {
+                this.visibility = 'show';
             }
 
         });
