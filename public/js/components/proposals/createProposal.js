@@ -9,7 +9,7 @@ Class('Proposals.ProposalCreator', {
     },
 
     showButton: function() {
-        this.element.buttonVisibility = true;
+       this.element.actionAllowed = true; 
     },
 
     create: function() {

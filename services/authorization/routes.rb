@@ -11,7 +11,7 @@ class App < Sinatra::Base
     response = Authorization::Service.verify(username, password)
 
     if response
-      { valid: true, token: response }.to_json
+      { valid: true, token: response, username: username }.to_json
     else
       { valid: false }.to_json
     end
