@@ -110,7 +110,7 @@ feature 'Discussion board' do
     expect(board.question_button_active?).to be true
   end
 
-  scenario 'Question form disabled when proposal is submited', :wip do
+  scenario 'Question form disabled when proposal is submited' do
     proposals = new_proposal_with_Arya_involved_and_visit_with_her('a_proposal')
     board = proposals.visit_proposal('a_proposal')
 
