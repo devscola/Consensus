@@ -146,7 +146,7 @@ feature 'Create circle' do
     expect(proposals.user_selection_is_visible?).to be false
   end
 
-  xscenario 'Adding a new proposal close users selection', :not_deterministic do
+  scenario 'Adding a new proposal close users selection', :not_deterministic do
     proposals.new_proposal('some title')
     proposals.show_form
 
