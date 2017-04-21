@@ -38,8 +38,8 @@ class App < Sinatra::Base
     body = JSON.parse(request.body.read)
     id = body['id']
     username = body['username']
-    result = Proposals::Service.involve(id, username)
-    result.to_json
+    Proposals::Service.involve(id, username)
+    empty_json
   end
 
   post '/proposal/users/retrieve' do
@@ -65,5 +65,11 @@ class App < Sinatra::Base
   post '/proposals/add/question' do
     question = JSON.parse(request.body.read)
     Proposals::Service.add_question(question).to_json
+  end
+
+  private
+
+  def empty_json
+    ''.to_json
   end
 end

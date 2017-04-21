@@ -24,7 +24,6 @@ module Proposals
       def involve(id, username)
         proposal = Repository.retrieve(id)
         proposal.circle << username
-        ''
       end
 
       def involved(id)
