@@ -25,7 +25,7 @@ module Authorization
           credential.responds_to?(username)
         end
 
-        result = Credential.get_null if result.nil?
+        result = Credential.nullified if result.nil?
         result
       end
 
@@ -76,7 +76,7 @@ module Authorization
     end
 
     class Credential
-      def self.get_null
+      def self.nullified
         NullCredential.new(nil, nil)
       end
 
@@ -89,12 +89,12 @@ module Authorization
         return (@username == login)
       end
 
-      def is_secured_by?(passphrase)
+      def secured_by?(passphrase)
         return (@password == passphrase)
       end
 
       class NullCredential < Credential
-        def is_secured_by?(passphrase)
+        def secured_by?(passphrase)
           return false
         end
       end

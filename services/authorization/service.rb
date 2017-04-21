@@ -7,7 +7,7 @@ module Authorization
       return false if (username.nil? || password.nil?)
 
       credential = Repository.retrieve(username)
-      if( credential.is_secured_by?(password) )
+      if( credential.secured_by?(password) )
         Repository.token(username)
       else
         false

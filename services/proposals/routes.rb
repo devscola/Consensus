@@ -56,9 +56,9 @@ class App < Sinatra::Base
 
     username = Authorization::Service.decode(token)
 
-    user_in_circle = Proposals::Service.user_inside_circle?(id, username)
+    user_is_involved = Proposals::Service.user_inside_circle?(id, username)
 
-    result = { 'valid': user_in_circle }
+    result = { 'valid': user_is_involved }
     result.to_json
   end
 
