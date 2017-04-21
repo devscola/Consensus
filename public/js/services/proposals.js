@@ -25,12 +25,6 @@ Class('Services.Proposals', {
         });
     },
 
-    userInCircle: function(data) {
-        this.doRequest(this.baseUrl + '/user/involved', data, function(result) {
-            Bus.publish('proposal.user.validated', result);
-        });
-    },
-
     _retrieveProposerName: function(proposalData) {
         var token = localStorage.getItem('authorized');
         serialized_token = {'token': token};
@@ -64,7 +58,6 @@ Class('Services.Proposals', {
         Bus.subscribe('proposal.logged', this._retrieveToken.bind(this));
         Bus.subscribe('proposal.list', this.list.bind(this));
         Bus.subscribe('proposal.retrieve', this.retrieve.bind(this));
-        Bus.subscribe('proposal.validate.user', this.userInCircle.bind(this));
     }
 
 });

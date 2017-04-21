@@ -7,18 +7,9 @@ Class('DiscussionBoard.Questioner', {
         DiscussionBoard.Questioner.Super.call(this, 'question-container');
         this.element.addEventListener('openTextarea', this.showTextarea.bind(this));
         this.element.addEventListener('questionSubmit', this.addQuestion.bind(this));
-        this.involvedInCircle();
         this.retrieveAuthor();
         this.questionForm = document.getElementById('question-content');
         this.questionButton = document.getElementById('questioner');
-    },
-
-
-
-    involvedInCircle: function() {
-        var token = localStorage.getItem('authorized');
-        var data = {'id': this.proposalId, 'token': token};
-        Bus.publish('proposal.validate.user', data);
     },
 
     userValidation: function(result) {
