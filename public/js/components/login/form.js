@@ -7,8 +7,8 @@ Class('Login.Form', {
         this.element.addEventListener('submit', this.doLogin);
     },
 
-    doLogin: function(data) {
-        Bus.publish('LoginAttempt', data.detail);
+    doLogin: function(polymerEvent) {
+        Bus.publish('LoginAttempt', polymerEvent.detail);
     },
 
     showWarning: function() {
