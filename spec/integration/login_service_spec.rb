@@ -2,7 +2,7 @@ require 'rack/test'
 require 'json'
 require_relative './../../services/authorization/routes'
 
-describe '/login' do
+describe 'login service' do
   include Rack::Test::Methods
 
   def app
