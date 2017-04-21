@@ -15,10 +15,6 @@ Class('Page.Login', {
         window.location = Page.Login.HOME;
     },
 
-    doLogin: function() {
-        this.goToHome();
-    },
-
     publish: function() {},
 
     subscribe: function() {
