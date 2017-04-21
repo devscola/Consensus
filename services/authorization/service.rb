@@ -4,8 +4,6 @@ require_relative '../proposals/service'
 module Authorization
   class Service
     def self.verify(username, password)
-      return false if (username.nil? || password.nil?)
-
       credential = Repository.retrieve(username)
       if( credential.secured_by?(password) )
         Repository.token(username)
