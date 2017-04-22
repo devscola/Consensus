@@ -17,14 +17,14 @@ Class('Proposal.CircleFinisher', {
 
     hide: function() {
         this.element.style.display = 'none';
-        this._disable();
+        this.disable();
     },
 
     enable: function() {
         this.element.disabled = false;
     },
 
-    _disable: function() {
+    disable: function() {
         this.element.disabled = true;
     },
 

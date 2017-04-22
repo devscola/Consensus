@@ -21,7 +21,7 @@
                     <button id="submit" on-click="loginAttempt" class="btn btn-default">Sign in</button>
                     <div id="warning" class$="{{visibility}}">
                         <p class="text-danger">It seems you have typed in an incorrect username or password. Please try again.</p>
-                        <button id="dismiss" on-click="_hideWarning" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        <button id="dismiss" on-click="hideWarning" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                 warningShown: {
                     type: Boolean,
                     reflectToAttribute: true,
-                    observer: '_renderWarning'
+                    observer: 'renderWarning'
                 }
             },
 
@@ -66,7 +66,7 @@
                 this.password = 'password';
             },
 
-            _renderWarning: function() {
+            renderWarning: function() {
                 if (this.warningShown) {
                     this.visibility = 'show';
                 } else {
@@ -74,7 +74,7 @@
                 }
             },
 
-            _hideWarning: function() {
+            hideWarning: function() {
                 this.warningShown = false;
             },
 

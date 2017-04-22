@@ -7,22 +7,22 @@ Class('Proposals.List', {
     },
 
     show: function(proposals) {
-        this._emptyList();
-        this._enlist(proposals);
+        this.emptyList();
+        this.enlist(proposals);
     },
 
     retrieve: function() {
         Bus.publish('proposal.list');
     },
 
-    _emptyList: function() {
+    emptyList: function() {
         this.element.innerHTML = '';
     },
 
-    _enlist: function(proposals) {
+    enlist: function(proposals) {
         var callback = function(proposal) {
-            var entry = this._createEntry();
-            var link = this._linkerize(proposal);
+            var entry = this.createEntry();
+            var link = this.linkerize(proposal);
 
             link.textContent = proposal.title;
             entry.append(link);
@@ -31,13 +31,13 @@ Class('Proposals.List', {
         proposals.result.forEach(callback.bind(this));
     },
 
-    _createEntry: function() {
+    createEntry: function() {
         var container = document.createElement('div');
         container.className = 'proposal-entry list-group-item';
         return container;
     },
 
-    _linkerize: function(proposal){
+    linkerize: function(proposal){
         var link = document.createElement('a');
         link.href = 'discussion-board/' + proposal.id;
         return link;
