@@ -1,3 +1,5 @@
+require_relative './credential'
+require_relative './token'
 module Authorization
   class Repository
     class << self
@@ -15,7 +17,7 @@ module Authorization
       def store(username, password)
         @contents ||= retrieve_data
 
-        @contents << Credential.new(username, password)
+        @contents << Authorization::Credential.new(username, password)
       end
 
       def retrieve(username)
@@ -44,7 +46,7 @@ module Authorization
         time = Time.now.getutc
         md5 = Digest::MD5.hexdigest(time.to_s + username)
 
-        @tokens << Token.new(username, md5)
+        @tokens << Authorization::Token.new(username, md5)
 
         md5
       end
@@ -72,39 +74,6 @@ module Authorization
         end
 
         credentials
-      end
-    end
-
-    class Credential
-      def self.nullified
-        NullCredential.new(nil, nil)
-      end
-
-      def initialize(login, passphrase = nil)
-        @username = login
-        @password = passphrase
-      end
-
-      def responds_to?(login)
-        return (@username == login)
-      end
-
-      def secured_by?(passphrase)
-        return (@password == passphrase)
-      end
-
-      class NullCredential < Credential
-        def secured_by?(passphrase)
-          return false
-        end
-      end
-    end
-
-    class Token
-      attr_reader :md5, :username
-      def initialize(username, md5)
-        @username = username
-        @md5 = md5
       end
     end
   end
