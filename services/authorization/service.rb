@@ -1,5 +1,4 @@
 require_relative './repository'
-require_relative '../proposals/service'
 
 module Authorization
   class Service
