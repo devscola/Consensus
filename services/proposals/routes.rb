@@ -13,8 +13,8 @@ class App < Sinatra::Base
     content = payload['content']
     proposer = payload['proposer']
 
-    result = Proposals::Service.add(title, content, proposer)
-    result.to_json
+    proposal = Proposals::Service.add(title, content, proposer)
+    proposal.to_json
   end
 
   post '/proposals/list' do

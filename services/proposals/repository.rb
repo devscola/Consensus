@@ -6,7 +6,8 @@ module Proposals
       def store(title = '', content, proposer)
         id = generate_id(title.to_s, content.to_s)
         @proposals << Proposal.new(title, content, id, proposer)
-        return id
+        proposal = retrieve(id)
+        return proposal.to_h
       end
 
       def retrieve(id)
