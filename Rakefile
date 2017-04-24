@@ -19,6 +19,9 @@ task :start do
   end
   if (TRAVIS == true)
     File.delete('travis.ci')
+    sh 'mkdir public/vendor/polymer -p'
+    Support::Courier.act
+
     sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0 &"
     sh 'rspec spec/integration'
     sh 'rspec spec/tdd'
