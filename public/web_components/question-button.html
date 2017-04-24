@@ -50,17 +50,17 @@
                     type: Boolean,
                     value: false,
                     reflectToAttribute: true,
-                    observer: '_renderButton'
+                    observer: 'renderButton'
                 }
             },
 
-            _renderButton: function() {
+            renderButton: function() {
                 if (this.validQuestioner) {
-                    this._show();
+                    this.show();
                 }
             },
 
-            _show: function() {
+            show: function() {
                 this.visibility = 'show';
             },
 

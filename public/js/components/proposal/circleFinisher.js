@@ -17,19 +17,19 @@ Class('Proposal.CircleFinisher', {
 
     hide: function() {
         this.element.style.display = 'none';
-        this._disable();
+        this.disable();
     },
 
     enable: function() {
         this.element.disabled = false;
     },
 
-    _disable: function() {
+    disable: function() {
         this.element.disabled = true;
     },
 
     subscribe: function() {
-        Bus.subscribe('proposal.submit', this.show.bind(this));
+        Bus.subscribe('proposal.add', this.show.bind(this));
         Bus.subscribe('proposal.new', this.hide.bind(this));
         Bus.subscribe('proposal.user.added', this.enable.bind(this));
     }

@@ -5,11 +5,11 @@ Class('Proposals.ProposalCreator', {
     initialize: function() {
         Proposals.ProposalCreator.Super.call(this, 'create-proposal');
         this.element.addEventListener('create', this.create.bind(this));
-        this._isLogged();
+        this.isLogged();
     },
 
     showButton: function() {
-       this.element.actionAllowed = true; 
+       this.element.actionAllowed = true;
     },
 
     create: function() {
@@ -17,7 +17,7 @@ Class('Proposals.ProposalCreator', {
         Bus.publish('proposal.new');
     },
 
-    _isLogged: function(){
+    isLogged: function(){
         Bus.publish('proposal.logged');
     },
 

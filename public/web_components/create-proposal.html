@@ -20,12 +20,12 @@
             is: 'create-proposal',
 
             properties: {
-                
+
                 actionAllowed: {
                     type: Boolean,
                     default: false,
                     reflectToAttribute: true,
-                    observer: '_renderButton'
+                    observer: 'renderButton'
                 },
 
                 visibility: {
@@ -34,7 +34,7 @@
                 }
             },
 
-            _renderButton: function() {
+            renderButton: function() {
                if (this.actionAllowed) {
                     this.visibility = 'show';
                 } else {

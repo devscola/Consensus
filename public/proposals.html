@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/styles/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/styles/bootsketch.css">
         <link rel="import" href="/web_components/create-proposal.html">
+        <link rel="import" href="/web_components/proposal-form.html">
     </head>
     <body>
         <div class="container">
@@ -15,22 +16,13 @@
             </div>
 
             <div class="panel col-sm-8">
-                <div id="proposal-form" class="panel-body">
-                    <input id="proposal-title" class="form-control" name="proposal_title" type="text" placeholder="Type your title here. Remember, keep it short and clear">
-                    <textarea id="proposal-content" class="form-control" name="proposal_content" placeholder="Type your proposal text here. Remember, explain your proposal thoroughly"></textarea>
-                    <div id="counter"></div>
-                    <div id="info-message" class="text-primary">
-                        You will be able to submit your proposal when you reach a minimum of 1.000 characters.
+                <proposal-form id="form-container" minimum-content-length="1000"></proposal-form>
+                <div id="circle">
+                    <div id="user-selection" class="panel-body">
+                        create your circle
+                        <ul id="users" class="list-group"></ul>
+                        <button id="proposal-finish" class="btn btn-default">Finish</button>
                     </div>
-                    <button id="proposal-submit" class="btn btn-default" disabled>
-                        Submit
-                    </button>
-                </div>
-
-                <div id="user-selection" class="panel-body">
-                    create your circle
-                    <ul id='users' class='list-group'></ul>
-                    <button id="proposal-finish" class="btn btn-default">Finish</button>
                 </div>
             </div>
         </div>
@@ -44,13 +36,9 @@
 
         <script src="/js/components/proposals/createProposal.js"></script>
         <script src="/js/components/proposals/form.js"></script>
+        <script src="/js/components/proposals/circle.js"></script>
         <script src="/js/components/proposals/list.js"></script>
 
-        <script src="/js/components/proposal/submit.js"></script>
-        <script src="/js/components/proposal/title.js"></script>
-        <script src="/js/components/proposal/content.js"></script>
-        <script src="/js/components/proposal/counter.js"></script>
-        <script src="/js/components/proposal/infoMessage.js"></script>
         <script src="/js/components/proposal/circleFinisher.js"></script>
         <script src="/js/components/proposal/userList.js"></script>
         <script src="/js/components/proposal/users.js"></script>

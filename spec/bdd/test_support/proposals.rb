@@ -12,9 +12,9 @@ module Page
 
     def new_proposal(title)
       do_show_form
-      fill_in('proposal-title', with: title)
+      fill_in('title', with: title)
       fill_enough_content
-      find('#proposal-submit').click
+      find('#submit').click
     end
 
     def any_proposal?
@@ -22,7 +22,7 @@ module Page
     end
 
     def form_visible?
-      has_css?('#proposal-form')
+      has_css?('#form')
     end
 
     def user_selection_is_visible?
@@ -68,7 +68,7 @@ module Page
     end
 
     def submit_button_enabled?
-      button = find('#proposal-submit')
+      button = find('#submit')
       result = button[:disabled]
 
       return true if result.nil?
@@ -77,15 +77,15 @@ module Page
     end
 
     def fill_content(content)
-      fill_in('proposal-content', with: content)
+      fill_in('content', with: content)
     end
 
     def remove_content
-      fill_in('proposal-content', with: ' ')
+      fill_in('content', with: ' ')
     end
 
     def content_length
-      find('#proposal-content').value.length.to_i
+      find('#content').value.length.to_i
     end
 
     def button_finish_click
@@ -107,9 +107,10 @@ module Page
 
     def fill_enough_content
       script = <<~SCRIPT
-        content = new Proposal.Content();
-        content.element.value = '#{ENOUGH_CONTENT}';
-        content.updateCounter();
+        content = document.getElementById('content');
+        content.value = '#{ENOUGH_CONTENT}';
+        form = document.getElementById('form-container');
+        form.updateCounter();
       SCRIPT
       execute_script(script)
     end
@@ -132,7 +133,7 @@ module Page
       page.assert_selector('#proposals-list', visible: false)
       page.assert_selector('#proposal-finish', visible: false)
       page.assert_selector('#user-selection', visible: false)
-      page.assert_selector('#proposal-submit[disabled]', visible: false)
+      page.assert_selector('#submit', visible: false)
     end
   end
 end

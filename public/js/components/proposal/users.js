@@ -65,14 +65,14 @@ Class('Proposal.Users', {
     addUserToCircle: function(username) {
         var circleData = {
             username: username,
-            id: this.proposal
+            id: this.proposal.id
         };
         Bus.publish('proposal.user.add', circleData);
     },
 
     retrieveCircle: function(){
         var proposalId = {
-            id: this.proposal
+            id: this.proposal.id
         };
 
         Bus.publish('proposal.circle.retrieve', proposalId);

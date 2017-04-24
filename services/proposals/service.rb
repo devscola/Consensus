@@ -5,8 +5,8 @@ module Proposals
   class Service
     class << self
       def add(title, content, proposer)
-        id = Repository.store(title, content, proposer)
-        return id
+        proposal = Repository.store(title, content, proposer)
+        return proposal
       end
 
       def list()

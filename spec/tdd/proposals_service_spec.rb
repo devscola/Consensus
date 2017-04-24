@@ -31,13 +31,13 @@ describe Proposals::Service do
   end
 
   it 'retrieve a scenario via search' do
-    id = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
+    proposal = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
     Proposals::Service.add('not_what_you_re_looking_for', 'content_sample', :some_proposer)
 
-    result = Proposals::Service.retrieve(id)
-    expect(result.to_h[:id]).to eq id
-    expect(result.to_h[:title]).to eq 'title_sample'
-    expect(result.to_h[:content]).to eq 'content_sample'
+    result = Proposals::Service.retrieve(proposal[:id])
+    expect(result[:id]).to eq proposal[:id]
+    expect(result[:title]).to eq 'title_sample'
+    expect(result[:content]).to eq 'content_sample'
   end
 
   it 'adds users to a proposal circle' do
@@ -70,14 +70,14 @@ describe Proposals::Service do
   end
 
   it 'retrieve if user belongs to circle' do
-    idProposal = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
+    proposal = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
     username1 = 'KingRobert'
     username2 = 'Arya'
-    Proposals::Service.involve(idProposal, username1)
-    Proposals::Service.involve(idProposal, username2)
+    Proposals::Service.involve(proposal[:id], username1)
+    Proposals::Service.involve(proposal[:id], username2)
 
 
-    result = Proposals::Service.user_inside_circle?(idProposal, username1)
+    result = Proposals::Service.user_inside_circle?(proposal[:id], username1)
 
     expect(result).to be true
   end

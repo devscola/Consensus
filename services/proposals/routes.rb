@@ -13,8 +13,8 @@ class App < Sinatra::Base
     content = payload['content']
     proposer = payload['proposer']
 
-    result = Proposals::Service.add(title, content, proposer)
-    result.to_json
+    proposal = Proposals::Service.add(title, content, proposer)
+    proposal.to_json
   end
 
   post '/proposals/list' do
@@ -38,8 +38,8 @@ class App < Sinatra::Base
     body = JSON.parse(request.body.read)
     id = body['id']
     username = body['username']
-    Proposals::Service.involve(id, username)
-    empty_json
+    circle = Proposals::Service.involve(id, username)
+    { circle: circle }.to_json
   end
 
   post '/proposal/users/retrieve' do

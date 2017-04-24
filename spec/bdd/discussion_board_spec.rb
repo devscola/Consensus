@@ -32,7 +32,7 @@ feature 'Discussion board' do
 
   scenario 'Show question button if user in circle' do
     proposals = new_proposal_with_Arya_involved_and_visit_with_her('A Proposal')
-    
+
     board = proposals.visit_proposal('A Proposal')
 
     expect(board.question_button?).to be true

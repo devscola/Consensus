@@ -58,4 +58,20 @@ feature 'Login' do
     expect(result).to eq(false)
   end
 
+  context 'Spaces in the username' do
+
+    scenario 'The warning not appears by default' do
+      expect(login_page.space_warning?).to be false
+    end
+
+    scenario 'A warning appears when the last character in the username is a space' do
+      name = 'Some username '
+
+      login_page.fill_user(name)
+
+      expect(login_page.space_warning?).to be true
+    end
+  
+  end
+
 end

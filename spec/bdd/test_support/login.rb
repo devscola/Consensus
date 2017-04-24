@@ -8,6 +8,14 @@ module Page
       validate!
     end
 
+    def fill_user(username)
+      fill_in('username', with: username)
+    end
+
+    def space_warning?
+      has_css?('#space-warning')
+    end
+
     def sign_in(username, password)
       fill_in('username', with: username)
       fill_in('password', with: password)
