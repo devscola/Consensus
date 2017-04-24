@@ -17,7 +17,7 @@
                 <div id="login-form" class="panel-body">
                     <input id="username" class="form-group" type="text" placeholder="Insert username here" value="{{theUsername::input}}">
                     <input id="password" class="form-group" type$="{{password}}" placeholder="Insert password here">
-                    <div id="toggler" on-click="togglePassword" class="glyphicon glyphicon-eye-close" aria-hidden="true"></div>
+                    <div id="toggler" on-click="togglePassword" class$="{{eyeGlyphicon}}" aria-hidden="true"></div>
                     <button id="submit" on-click="loginAttempt" class="btn btn-default">Sign in</button>
                     <div id="warning" class$="{{visibility}}">
                         <p class="text-danger">It seems you have typed in an incorrect username or password. Please try again.</p>
@@ -51,6 +51,10 @@
                     type: String,
                     observer: 'evaluateUsername'
                 },
+                eyeGlyphicon: {
+                    type: String,
+                    value: 'glyphicon glyphicon-eye-close'
+                },
                 spaceWarningVisibility: {
                     type: String,
                     value: 'hide'
@@ -72,22 +76,13 @@
             },
 
             togglePassword: function() {
-                var eye = document.getElementById('toggler');
                 if (this.password === 'password') {
                     this.showText();
-                    this.eyeOpened(eye);
+                    this.eyeGlyphicon = 'glyphicon glyphicon-eye-open';
                 } else {
                     this.showPassword();
-                    this.eyeClosed(eye);
+                    this.eyeGlyphicon = 'glyphicon glyphicon-eye-close';
                 };
-            },
-
-            eyeOpened: function(eye){
-                eye.setAttribute('class', 'glyphicon glyphicon-eye-open');
-            },
-
-            eyeClosed: function(eye){
-                eye.setAttribute('class', 'glyphicon glyphicon-eye-close');
             },
 
             showText: function() {

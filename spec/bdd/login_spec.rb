@@ -2,7 +2,7 @@ require 'spec_helper_bdd'
 require_relative 'test_support/login'
 require_relative '../../app'
 
-feature 'Login', :wip do
+feature 'Login' do
   let(:login_page) do
     Page::Login.new
   end
