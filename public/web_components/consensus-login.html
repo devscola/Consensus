@@ -15,13 +15,16 @@
         <div class="container">
             <div class="panel col-sm-offset-4 col-sm-4">
                 <div id="login-form" class="panel-body">
-                    <input id="username" class="form-group" type="text" placeholder="Insert username here">
+                    <input id="username" class="form-group" type="text" placeholder="Insert username here" value="{{theUsername::input}}">
                     <input id="password" class="form-group" type$="{{password}}" placeholder="Insert password here">
                     <div id="toggler" on-click="togglePassword" class="glyphicon glyphicon-eye-close" aria-hidden="true"></div>
                     <button id="submit" on-click="loginAttempt" class="btn btn-default">Sign in</button>
                     <div id="warning" class$="{{visibility}}">
                         <p class="text-danger">It seems you have typed in an incorrect username or password. Please try again.</p>
                         <button id="dismiss" on-click="hideWarning" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    </div>
+                    <div id="space-warning" class$="{{spaceWarningVisibility}}">
+                        <p class="text-danger">The username you typed have an blank space at the end.</p>
                     </div>
                 </div>
             </div>
@@ -30,9 +33,10 @@
     </template>
 
     <script>
+        var BLANK_SPACE = ' ';
+
         Polymer({
             is: 'consensus-login',
-
 
             properties: {
                 password: {
@@ -43,11 +47,28 @@
                     type: String,
                     value: 'hide'
                 },
+                theUsername: {
+                    type: String,
+                    observer: 'evaluateUsername'
+                },
+                spaceWarningVisibility: {
+                    type: String,
+                    value: 'hide'
+                },
                 warningShown: {
                     type: Boolean,
                     reflectToAttribute: true,
                     observer: 'renderWarning'
                 }
+            },
+
+            evaluateUsername: function() {
+                var lastUsernameCharacter = this.theUsername.slice(-1);
+                if ( lastUsernameCharacter == BLANK_SPACE ) {
+                    this.spaceWarningVisibility = 'show';
+                } else {
+                    this.spaceWarningVisibility = 'hide';
+                };
             },
 
             togglePassword: function() {
@@ -72,10 +93,6 @@
                 } else {
                     this.visibility = 'hide';
                 }
-            },
-
-            hideWarning: function() {
-                this.warningShown = false;
             },
 
             loginAttempt: function() {
