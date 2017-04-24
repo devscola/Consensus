@@ -95,6 +95,10 @@
                 }
             },
 
+            hideWarning: function() {
+                this.warningShown = false;
+            },
+
             loginAttempt: function() {
                 this.fire('submit', {username: this.$.username.value, password: this.$.password.value});
             }
