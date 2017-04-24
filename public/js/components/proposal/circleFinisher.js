@@ -29,7 +29,7 @@ Class('Proposal.CircleFinisher', {
     },
 
     subscribe: function() {
-        Bus.subscribe('proposal.submit', this.show.bind(this));
+        Bus.subscribe('proposal.add', this.show.bind(this));
         Bus.subscribe('proposal.new', this.hide.bind(this));
         Bus.subscribe('proposal.user.added', this.enable.bind(this));
     }

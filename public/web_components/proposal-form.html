@@ -1,0 +1,118 @@
+<link rel="import" href="/web_components/infrastructure/polymer.html">
+
+<dom-module id="proposal-form">
+    <template>
+        <style>
+            #form.show {
+                display: block;
+            }
+
+            #form.hide {
+                display: none;
+            }
+
+            #info-message.show {
+                display: block;
+            }
+
+            #info-message.hide {
+                display: none;
+            }
+        </style>
+        <div id="form" class$="{{formVisibility}} panel-body">
+            <input id="title" class="form-control" placeholder="Type your title here. Remember, keep it short and clear">
+            <textarea id="content" class="form-control" on-input="updateCounter" on-keyup="ctrlEnterSubmit" placeholder="Type your proposal text here. Remember, explain your proposal thoroughly"></textarea>
+            <div id="counter">{{contentLength}}</div>
+            <div id="info-message" class$="{{infoVisibility}} text-primary">
+                You will be able to submit your proposal when you reach a minimum of {{minimumContentLength}} characters.
+            </div>
+            <button id="submit" class="btn btn-default" on-click="submit" disabled$="{{disableSubmit}}">
+                Submit
+            </button>
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'proposal-form',
+
+            ready: function() {
+                this.proposalTitle = document.getElementById('title');
+                this.content = document.getElementById('content');
+            },
+
+            properties: {
+                visible: {
+                    type: Boolean,
+                    reflectToAttribute: true,
+                    observer: 'toggleVisibility'
+                },
+
+                formVisibility: {
+                    type: String,
+                    value: 'hide'
+                },
+
+                infoVisibility: {
+                    type: String,
+                    value: 'show'
+                },
+
+                contentLength: {
+                    type: Number,
+                    value: 0
+                },
+
+                minimumContentLength: {
+                    type: Number,
+                    reflectToAttribute: true,
+                }
+            },
+
+            toggleVisibility: function() {
+                if (this.visible) {
+                    this.formVisibility = 'show';
+                } else {
+                    this.formVisibility = 'hide';
+                }
+            },
+
+            updateCounter: function() {
+                this.contentLength = this.content.textLength;
+                if (this.contentLength >= this.minimumContentLength) {
+                    this.disableSubmit = false;
+                    this.infoVisibility = 'hide';
+                } else {
+                    this.disableSubmit = true;
+                    this.infoVisibility = 'show';
+                }
+            },
+
+            ctrlEnterSubmit: function(event) {
+                if (event.ctrlKey && event.keyCode == 13) {
+                    this.submit();
+                }
+            },
+
+            submit: function() {
+                var data = this.retrieveValues();
+                this.fire('proposalSubmit', data);
+                this.visible = false;
+                this.empty();
+                this.updateCounter();
+            },
+
+            retrieveValues: function() {
+                titleValue = this.proposalTitle.value;
+                contentValue = this.content.value;
+                return {title: titleValue, content: contentValue};
+            },
+
+            empty: function() {
+                this.proposalTitle.value = '';
+                this.content.value = '';
+            }
+        });
+    </script>
+</dom-module>
