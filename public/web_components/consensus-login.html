@@ -72,11 +72,22 @@
             },
 
             togglePassword: function() {
+                var eye = document.getElementById('toggler');
                 if (this.password === 'password') {
                     this.showText();
+                    this.eyeOpened(eye);
                 } else {
                     this.showPassword();
-                }
+                    this.eyeClosed(eye);
+                };
+            },
+
+            eyeOpened: function(eye){
+                eye.setAttribute('class', 'glyphicon glyphicon-eye-open');
+            },
+
+            eyeClosed: function(eye){
+                eye.setAttribute('class', 'glyphicon glyphicon-eye-close');
             },
 
             showText: function() {
