@@ -15,8 +15,8 @@
         <div class="container">
             <div class="panel col-sm-offset-4 col-sm-4">
                 <div id="login-form" class="panel-body">
-                    <input id="username" class="form-group" type="text" placeholder="Insert username here" value="{{theUsername::input}}">
-                    <input id="password" class="form-group" type$="{{password}}" placeholder="Insert password here">
+                    <input id="username" class="form-group" type="text" placeholder="Insert username here" value="{{theUsername::input}}" on-keyup="enterSubmit">
+                    <input id="password" class="form-group" type$="{{password}}" placeholder="Insert password here" on-keyup="enterSubmit">
                     <div id="toggler" on-click="togglePassword" class$="{{eyeGlyphicon}}" aria-hidden="true"></div>
                     <button id="submit" on-click="loginAttempt" class="btn btn-default">Sign in</button>
                     <div id="warning" class$="{{visibility}}">
@@ -103,6 +103,12 @@
 
             hideWarning: function() {
                 this.warningShown = false;
+            },
+
+            enterSubmit: function(event) {
+                if (event.ctrlKey && event.keyCode == 13) {
+                    this.loginAttempt();
+                }
             },
 
             loginAttempt: function() {
