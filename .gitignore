@@ -11,6 +11,7 @@ Gemfile.lock
 /rdoc/
 /.bundle/
 /vendor/
+public/vendor/
 /dependencies/bundle
 /lib/bundler/man/
 .ruby-version
