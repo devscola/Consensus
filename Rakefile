@@ -9,16 +9,14 @@ TRAVIS = retrieve_travis
 task :default => :start
 
 task :prepare do
-  sh 'mkdir public/vendor/polymer -p'
-  Support::Courier.act
-end
-
-task :start do
+  sh 'mkdir public/vendor -p'
   sh 'mkdir public/vendor/polymer -p'
   Support::Courier.act
 
   sleep 1
+end
 
+task :start do
   if (TRAVIS == false)
     sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0"
   end

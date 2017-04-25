@@ -19,7 +19,7 @@ install:
   - sleep 5
 
 script:
-  - docker-compose run web /bin/sh -c "cd /opt/consensus; touch travis.ci; bundle install; bundle exec rake"
+  - docker-compose run web /bin/sh -c "cd /opt/consensus; touch travis.ci; bundle install; bundle exec rake prepare; bundle exec rake"
   - sleep 1
 
 after_script:
