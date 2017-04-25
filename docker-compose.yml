@@ -1,6 +1,7 @@
 version: '2'
 services:
   web:
+    image: devscola/consensus:latest
     container_name: consensus
     build: .
     ports:
@@ -11,7 +12,7 @@ services:
 
     links:
       - selenium
-    command: bundle exec rake
+    command: bash -c "bundle install --jobs 3 && bundle exec rake"
 
   selenium:
     image: selenium/standalone-chrome

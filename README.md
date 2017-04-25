@@ -2,92 +2,11 @@
 
 ## INDEX
 
-* Consensus BEM convention for style sheet
 * Configure local system
 * Docker
 * How to dockerize system
 * Continuous Integration: Travis-CI
-
-
-
-# Consensus BEM convention for style sheet
-
-## Exemples:
-
-### Naming blocks
-
-* two word: `class="block-name"`
-* one word: `class="person"`
-
-### Naming Block parts
-
-* `class="block-name__part"`
-* `class="person__hand"`
-
-### Naming Block Modifier 
-
-* `class="block-name--modifier-name"`
-* `class="block--modifier"`
-* `class="person--female"`
-
-### Naming Block Part Modifier 
-
-* `class="block-name__part-name--modifier-name"`
-* `class="block__part--modifier"`
-* `class="person__hand--open"`
-* `class="person__hair--dark-red"`
-
-### Nesting
-
-```html
-<div class="block">
-    <div class="block__elem1">
-        <div class="block__elem2">
-            <div class="block__elem3"></div>
-        </div>
-    </div>
-</div>
-```
-
-The block structure is always represented as a flat list of elements in the BEM methodology:
-
-```css
-.block {}
-.block__elem1 {}
-.block__elem2 {}
-.block__elem3 {}
-```
-
-## Rules:
-
-* It's forbiden to create a part inside a block part.
-```html
-
-<!-- wrong: -->
-class="person__hand__finger"
-<!--        -->
-
-<!-- right: -->
-class="person__finger"
-<!--        -->
-
-```
-* A modifier is always a modifier of a block or of a block-part: "In the BEM methodology, a modifier cannot be used outside of the context of its owner."
-
-```html
-
-<!-- wrong: -->
-class="block-name modifier-name"
-class="person move-forward"
-<!--        -->
-
-<!-- right: -->
-class="block-name__part-name--modifier-name"
-class="person__hand--open"
-class="person--walking"
-<!--        -->
-
-```
+* Consensus BEM convention for style sheet
 
 
 # CONFIGURE LOCAL SYSTEM
@@ -129,49 +48,28 @@ pip install chromedriver
 ~~~
 
 
-## Install gems
+## Install gems with bundler
 
-First download consensus git: 
-
+You can choose if install the gems in your system or only in the project folder.
+For system gem installation use:
 ~~~
-git clone https://github.com/devscola/consensus
-~~~
-
-### Continue with manual installation:
-
-~~~
-sudo gem install rspec
-sudo gem install nokogiri
-sudo gem install rake
-sudo gem install rerun
-sudo gem install capybara
-sudo gem install sinatra
-sudo gem install selenium-webdriver
+bundle install
 ~~~
 
-### Or install the gems automatic with bundler
-
-Firts install bundler:
-
+for installing the gems in the project folder use:
 ~~~
-sudo gem install bundler
-~~~
-
-And install gems:
-
-~~~
-sudo bundle install --path dependencies/bundle
+bundle install --path vendor/bundle
 ~~~
 
 
-## Run tests in local environment (without bundler):
+## Run tests in local environment:
 
 To run the test you must have the Consensus app up:
 
 First run Rake:
 
 ~~~
-rake
+bundle exec rake
 ~~~
 
 That will raise the Consensus web in your localhost:4567
@@ -181,25 +79,25 @@ Then in other terminal you can run the tests with:
 All the tests:
 
 ~~~
-rake test
+bundle exec rake test
 ~~~
 
 The unitarian spec tests:
 
 ~~~
-rake tdd
+bundle exec rake tdd
 ~~~
 
 The behauvior spec tests:
 
 ~~~
-rake bdd
+bundle exec rake bdd
 ~~~
 
 To run specific test you can do it like this:
-       
+
 ~~~
-rspec -e 'any word of the test title' 
+bundle exec rspec -e 'any word of the test title'
 ~~~
 
 ### To tag a test and run only tagged tests
@@ -207,45 +105,27 @@ rspec -e 'any word of the test title'
 **1.** To tag a specific test, we have to write after the test name the tag that we want to use, with a comma and the _:tag_name_ as follows:
 
 ~~~
-it 'test_name', :example do
+it 'test_name', :some_example_tag do
    _Arrange_
    _Add_
    _Assert_
  end
 ~~~
- 
-In this case,  _example_ is the tag that we are using.
+
+In this case,  _some_example_tag_ is the tag that we are using.
 
 **2.** To run the specific test with this tag, you can do it this way:
 
 ~~~
-rake tag[example]
+bundle exec rake tag[some_example_tag]
 ~~~
 
-
-## Run tests in local environment with bundler:
-
-Use for all **bundle exec**, exemple:
-
-~~~
-bundle exec rake
-~~~
-
-or:
-
-~~~
-bundle exec rake test
-~~~
-
-and so for all the exemples.
-
-	
 ## Bootstrap
 
 Link: http://getbootstrap.com
 
 
-## To tag tests and run it 
+## To tag tests and run it
 
 We must do this to be able to add a tag in the tests and be able to run them individually:
 
@@ -280,7 +160,7 @@ it 'test_name', :example do
    Assert
  end
 ~~~
- 
+
 In this case,  _example_ is the tag that we are using.
 
 With this, we could run the tests this way:
@@ -322,15 +202,11 @@ In this moment, we could run the tests this way:
 rake tag[example]
 ~~~
 
-
-    
-
 # DOCKER
 
 ## A. DOCKER INSTALATION:
 
 1.- You must install Docker following the web instructions:
-    
 
 Link: www.docker.com
 
@@ -358,7 +234,7 @@ git clone https://github.com/devscola/consensus
 Start the docker-compose service to be able to run the test:
 
 ~~~
-docker build -t consensus .
+docker pull devscola/consensus:latest
 docker-compose build
 ~~~
 
@@ -371,9 +247,9 @@ docker-compose up
 ~~~
 
 Console B:
-    
+
 All test:
-    
+
 ~~~
 docker-compose run web rake test
 ~~~
@@ -456,16 +332,16 @@ docker rm $(docker ps -a -q)
 ~~~
 
 If it doesn't work, we can add -f (force):
-    
+
 ~~~
 docker rm -f $(docker ps -a -q)
 ~~~
-    
+
 Delete all images:
 
 docker rmi -f $(docker images -q)
-    
-Every time that we make exit in our docker, we have to delete the container and we have to run again. 
+
+Every time that we make exit in our docker, we have to delete the container and we have to run again.
 
 ~~~
 docker rm <container_name>
@@ -555,6 +431,11 @@ Build the image:
 docker build -t consensus .
 ~~~
 
+List image created:
+~~~
+docker images
+~~~
+
 Create tag of the build:
 ~~~
 docker tag 7d9495d03763 devscola/consensus:latest
@@ -572,7 +453,7 @@ docker login
 
 Push image:
 ~~~
-docker push devscola/consensus
+docker push devscola/consensus:latest
 ~~~
 
 
@@ -583,6 +464,7 @@ We create the file 'docker-compose.yml' with the following content:
 ~~~
 version: '2'
 services:
+  image: devscola/consensus:latest
   web:
     container_name: consensus
     build: .
@@ -608,13 +490,13 @@ volumes:
     driver: local
 ~~~
 
-In line 7, the environment variable is read for the port that the container will use.
+In line 8, the environment variable is read for the port that the container will use.
 
 The first parameter refers to the input (exposed by Sinatra) and the second parameter refers to the output port of the container for that service.
 
-In line 12 we are forced to put into the Selenium environment that will be in charge of giving the web service that we need.
+In line 13 we are forced to put into the Selenium environment that will be in charge of giving the web service that we need.
 
-On line 13, we tell our container to start the indicated 'bundle' at the start of the environment.
+On line 14, we tell our container to start the indicated 'bundle' at the start of the environment.
 
 ## Preparing the application for booting with 'rake'
 
@@ -657,6 +539,9 @@ TRAVIS = retrieve_travis
 task :default => :start
 
 task :start do
+  sh 'mkdir public/vendor/polymer -p'
+  Support::Courier.act
+
   if ( TRAVIS == false )
     sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0"
   end
@@ -690,7 +575,7 @@ desc 'Run labeled tests'
 end
 ~~~
 
-In it we read the variable of the file '.env' and keep it as constant (necessary) to launch the rake (line 12 and 16).
+In it we read the variable of the file '.env' and keep it as constant (necessary) to launch the rake (line 15 and 19).
 
 'Rerun' allows the web to be updated with every change without the need to stop and restart sinatra.
 
@@ -834,12 +719,14 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 install:
-  - docker build -t devscola/consensus .
+  - docker pull devscola/consensus:latest
   - docker-compose build
   - docker-compose up -d
+  - sleep 5
 
 script:
   - docker-compose run web /bin/sh -c "cd /opt/consensus; touch travis.ci; bundle install; bundle exec rake"
+  - sleep 1
 
 after_script:
   - docker-compose down
@@ -861,3 +748,82 @@ After that we would run the test, but in docker we have also to run the test beh
 We can do that using a hack to create a file only in travis environment ('touch travis.ci' in script) and looking for that in Rakefile. If that file we have the delete command to the file 'travis.ci' and after that it execute the code necessary for travis environment.
 
 In the code of Rakefile I added the '&' on rake to leave this in background and run inmediately the test.
+
+# Consensus BEM convention for style sheet
+
+## Exemples:
+
+### Naming blocks
+
+* two word: `class="block-name"`
+* one word: `class="person"`
+
+### Naming Block parts
+
+* `class="block-name__part"`
+* `class="person__hand"`
+
+### Naming Block Modifier
+
+* `class="block-name--modifier-name"`
+* `class="block--modifier"`
+* `class="person--female"`
+
+### Naming Block Part Modifier
+
+* `class="block-name__part-name--modifier-name"`
+* `class="block__part--modifier"`
+* `class="person__hand--open"`
+* `class="person__hair--dark-red"`
+
+### Nesting
+
+```html
+<div class="block">
+    <div class="block__elem1">
+        <div class="block__elem2">
+            <div class="block__elem3"></div>
+        </div>
+    </div>
+</div>
+```
+
+The block structure is always represented as a flat list of elements in the BEM methodology:
+
+```css
+.block {}
+.block__elem1 {}
+.block__elem2 {}
+.block__elem3 {}
+```
+
+## Rules:
+
+* It's forbiden to create a part inside a block part.
+```html
+
+<!-- wrong: -->
+class="person__hand__finger"
+<!--        -->
+
+<!-- right: -->
+class="person__finger"
+<!--        -->
+
+```
+* A modifier is always a modifier of a block or of a block-part: "In the BEM methodology, a modifier cannot be used outside of the context of its owner."
+
+```html
+
+<!-- wrong: -->
+class="block-name modifier-name"
+class="person move-forward"
+<!--        -->
+
+<!-- right: -->
+class="block-name__part-name--modifier-name"
+class="person__hand--open"
+class="person--walking"
+<!--        -->
+
+```

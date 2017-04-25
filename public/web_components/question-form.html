@@ -14,7 +14,7 @@
         </style>
 
         <div id="questionContent" class$="{{displayed}}">
-            <input id="questionText" type="textarea" name="question-text" value="{{theQuestion::input}}" on-input="counterSwitch"></input>
+            <textarea id="questionText" name="question-text" value="{{theQuestion::input}}" on-input="counterSwitch" on-keyup="controlEnterSubmit"></textarea>
             <span class="badge">{{count}}</span>
             <button id="question-submit" on-click="questionAttempt"disabled$="{{enabledSubmit}}">submit</button>
         </div>
@@ -75,7 +75,7 @@
                     this.displayed = 'show';
                 } else {
                     this.displayed = 'hide';
-                }
+                };
             },
 
             counterSwitch: function() {
@@ -83,12 +83,18 @@
                 this.activateSubmit();
             },
 
+            controlEnterSubmit: function(event) {
+                if (event.ctrlKey && event.keyCode == 13) {
+                    this.questionAttempt();
+                };
+            },
+
             activateSubmit: function() {
                 if (this.count >= this.minimumLength){
                     this.enabledSubmit = null;
                 } else {
                     this.enabledSubmit = 'true';
-                }
+                };
             }
 
         });
