@@ -719,12 +719,14 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 install:
-  - docker build -t devscola/consensus .
+  - docker pull devscola/consensus:latest
   - docker-compose build
   - docker-compose up -d
+  - sleep 5
 
 script:
   - docker-compose run web /bin/sh -c "cd /opt/consensus; touch travis.ci; bundle install; bundle exec rake"
+  - sleep 1
 
 after_script:
   - docker-compose down
