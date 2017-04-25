@@ -9,11 +9,8 @@ TRAVIS = retrieve_travis
 task :default => :start
 
 task :prepare do
-  sh 'mkdir public/vendor -p'
-  sh 'mkdir public/vendor/polymer -p'
+  sh 'mkdir -p public/vendor/polymer'
   Support::Courier.act
-
-  sleep 1
 end
 
 task :start do
