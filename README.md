@@ -13,17 +13,31 @@
 
 ## Preconfiguration of linux systems at no dockerized environment
 
-Install Ruby, Ruby-dev and Ruby-rack:
+Very slow install of latest ruby with rbenv and after compile it:
+~~~
+sudo apt-get install build-essential
+sudo apt-get install libssl-dev libreadline-dev zlib1g-dev
+cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+source ~/.bash_profile
+rbenv install 2.4.0
+rbenv global 2.4.0
+ruby --version
+~~~
 
+Or, fast install of Ruby (not latest version), Ruby-dev and Ruby-rack:
 ~~~
 sudo apt-get install ruby ruby-dev ruby-rack
 ~~~
 
-Visit nokogiri page ( http://www.nokogiri.org/tutorials/installing_nokogiri.html ) and install dependencies, in debian/ubuntu:
+After, visit nokogiri page ( http://www.nokogiri.org/tutorials/installing_nokogiri.html ) and install dependencies, in debian/ubuntu:
 
 ~~~
-sudo apt-get install build-essential patch
-sudo apt-get install zlib1g-dev liblzma-dev libxslt-dev libxml2-dev
+sudo apt-get install build-essential
+sudo apt-get install patch zlib1g-dev liblzma-dev libxslt-dev libxml2-dev
 ~~~
 
 For web-test install chromedriver (webdriver):
@@ -47,16 +61,26 @@ pip install --upgrade pip
 pip install chromedriver
 ~~~
 
+## Install gems manually
+
+If you want to manually install the gems, open the Gemfile and install all gems.
+
 
 ## Install gems with bundler
 
 You can choose if install the gems in your system or only in the project folder.
-For system gem installation use:
+
+For automation system gem installation use:
 ~~~
-bundle install
+sudo apt-get install ruby-bundler
 ~~~
 
-for installing the gems in the project folder use:
+or
+~~~
+gem install bundler
+~~~
+
+For installing the gems in the project folder use:
 ~~~
 bundle install --path vendor/bundle
 ~~~
@@ -64,9 +88,9 @@ bundle install --path vendor/bundle
 
 ## Run tests in local environment:
 
-To run the test you must have the Consensus app up:
+To run the test you must have the Consensus app up.
 
-preapare the local project
+Prepare the local project:
 
 ~~~
 bundle exec rake prepare
