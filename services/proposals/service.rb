@@ -23,7 +23,9 @@ module Proposals
 
       def involve(id, username)
         proposal = Repository.retrieve(id)
-        proposal.circle << username
+
+        proposal.circle << username unless user_inside_circle?(id, username)
+
         proposal.to_h
       end
 
@@ -39,7 +41,7 @@ module Proposals
       end
 
       def add_question(question)
-        proposal_id = question['proposal_id']
+        proposal_id = question.fetch('proposal_id')
         Proposals::QuestionsRepository.store(question)
 
         proposal = Repository.retrieve(proposal_id).to_h

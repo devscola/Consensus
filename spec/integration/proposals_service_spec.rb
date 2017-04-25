@@ -2,7 +2,7 @@ require 'rack/test'
 require 'json'
 require_relative './../../services/proposals/routes'
 
-describe 'proposals service' do
+describe 'Proposals service' do
   include Rack::Test::Methods
 
   def app
@@ -10,11 +10,11 @@ describe 'proposals service' do
   end
 
   it 'adds question to proposal' do
-    proposal_id = add_proposal
+    proposal = add_proposal
     question = {
       body: 'some_text',
       author: 'KingRobert',
-      proposal_id: proposal_id
+      proposal_id: proposal['id']
     }.to_json
 
     post '/proposals/add/question', question
@@ -22,6 +22,25 @@ describe 'proposals service' do
 
     expect(result[:body]).to eq('some_text')
     expect(result[:author]).to eq('KingRobert')
+  end
+
+  it 'cannot add a user to a proposal circle twice' do
+    proposal = add_proposal
+
+    first_result = add_user_to_circle(proposal['id'], 'Cersei')
+    second_result = add_user_to_circle(proposal['id'], 'Cersei')
+
+    expect(second_result).to eq(first_result)
+  end
+
+  def add_user_to_circle(proposal_id, username)
+    payload = {
+      id: proposal_id,
+      username: username
+    }.to_json
+
+    post '/proposal/user/add', payload
+    parse_response['circle']
   end
 
   def add_proposal
