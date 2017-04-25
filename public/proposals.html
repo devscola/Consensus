@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="/styles/bootsketch.css">
         <link rel="import" href="/web_components/create-proposal.html">
         <link rel="import" href="/web_components/proposal-form.html">
+        <link rel="import" href="/web_components/proposal-circle.html">
     </head>
     <body>
         <div class="container">
@@ -17,13 +18,7 @@
 
             <div class="panel col-sm-8">
                 <proposal-form id="form-container" minimum-content-length="1000"></proposal-form>
-                <div id="circle">
-                    <div id="user-selection" class="panel-body">
-                        create your circle
-                        <ul id="users" class="list-group"></ul>
-                        <button id="proposal-finish" class="btn btn-default">Finish</button>
-                    </div>
-                </div>
+                <proposal-circle id="circle-container"></proposal-circle>
             </div>
         </div>
 
@@ -36,12 +31,7 @@
 
         <script src="/js/components/proposals/createProposal.js"></script>
         <script src="/js/components/proposals/form.js"></script>
-        <script src="/js/components/proposals/circle.js"></script>
         <script src="/js/components/proposals/list.js"></script>
-
-        <script src="/js/components/proposal/circleFinisher.js"></script>
-        <script src="/js/components/proposal/userList.js"></script>
-        <script src="/js/components/proposal/users.js"></script>
 
         <script src="/js/services/proposals.js"></script>
         <script src="/js/services/userList.js"></script>

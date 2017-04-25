@@ -104,6 +104,7 @@ end
 feature 'Create circle' do
   let(:proposals) { Page::Proposals.new }
   before(:each) do
+    empty_fixture
     username = 'KingRobert'
     password = 'Stag'
     login = Page::Login.new
@@ -139,6 +140,7 @@ feature 'Create circle' do
 
   scenario 'Finishing closes users selection' do
     proposals.new_proposal('some title')
+    sleep 3
     proposals.click_user_button('Cersei')
 
     proposals.button_finish_click

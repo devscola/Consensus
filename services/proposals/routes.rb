@@ -38,8 +38,8 @@ class App < Sinatra::Base
     body = JSON.parse(request.body.read)
     id = body['id']
     username = body['username']
-    circle = Proposals::Service.involve(id, username)
-    { circle: circle }.to_json
+    result = Proposals::Service.involve(id, username)
+    result.to_json
   end
 
   post '/proposal/users/retrieve' do

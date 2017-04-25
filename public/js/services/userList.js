@@ -14,7 +14,7 @@ Class('Services.UserList', {
 
     add: function(circleData) {
         this.doRequest(this.baseUrl + '/user/add', circleData, function(result) {
-            Bus.publish('proposal.user.added');
+            Bus.publish('proposal.user.added', result);
         });
     },
 
@@ -25,8 +25,7 @@ Class('Services.UserList', {
     },
 
     subscribe: function() {
-        Bus.subscribe('proposal.added', this.list.bind(this));
-        Bus.subscribe('user.clicked', this.list.bind(this));
+        Bus.subscribe('users.retrieve', this.list.bind(this));
         Bus.subscribe('proposal.user.add', this.add.bind(this));
         Bus.subscribe('proposal.circle.retrieve', this.retrieve.bind(this));
     }
