@@ -10,6 +10,8 @@ module Support
       private
 
       def collect_polymer_files
+        puts 'Support::Courier: starting to collect polymer files'
+
         polymer_main = open('https://polygit.org/components/polymer/polymer.html')
         polymer_mini = open('https://polygit.org/components/polymer/polymer-mini.html')
         polymer_micro = open('https://polygit.org/components/polymer/polymer-micro.html')
@@ -29,6 +31,8 @@ module Support
         @engine_mini.close
         @engine_micro.close
         @engine_webcomponents.close
+
+        puts 'Support::Courier: Polymer files collected'
       end
     end
   end
