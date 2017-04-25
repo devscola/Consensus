@@ -26,7 +26,7 @@ module Page
     end
 
     def user_selection_is_visible?
-      has_css?('#user-selection', wait:1)
+      has_css?('#user-selection', wait:2)
     end
 
     def info_message_visible?

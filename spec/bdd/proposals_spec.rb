@@ -46,7 +46,7 @@ feature 'Proposal form'  do
   end
 end
 
-feature 'New proposal form' ,:wip do
+feature 'New proposal form' do
  
 
   scenario 'counts number of characters' do
@@ -66,7 +66,7 @@ feature 'New proposal form' ,:wip do
     expect(enough).to eq(true)
   end
 
-  xscenario 'disallows submit without enough content', :bug do
+  scenario 'disallows submit without enough content' do
     current= Fixture.proposal_form_shown
     expect(current.submit_button_enabled?).to eq(false)
   end
@@ -131,8 +131,9 @@ feature 'Create circle' do
     expect(proposals.user_selection_is_visible?).to be false
   end
 
-  xscenario 'Adding a new proposal close users selection', :not_deterministic do
+  scenario 'Adding a new proposal close users selection' do
     proposals.new_proposal('some title')
+    sleep 1
     proposals.show_form
 
     expect(proposals.user_selection_is_visible?).to be false
