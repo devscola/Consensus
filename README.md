@@ -66,7 +66,13 @@ bundle install --path vendor/bundle
 
 To run the test you must have the Consensus app up:
 
-First run Rake:
+preapare the local project
+
+~~~
+bundle exec rake prepare
+~~~
+
+then run Rake:
 
 ~~~
 bundle exec rake
