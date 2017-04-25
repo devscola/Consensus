@@ -18,7 +18,7 @@ module Page
     end
 
     def any_proposal?
-      has_css?('.proposal-entry')
+      has_css?('.proposal-entry',wait:1)
     end
 
     def form_visible?
@@ -26,7 +26,7 @@ module Page
     end
 
     def user_selection_is_visible?
-      has_css?('#user-selection')
+      has_css?('#user-selection', wait:1)
     end
 
     def info_message_visible?
@@ -47,7 +47,7 @@ module Page
     end
 
     def visit_proposal(name)
-      click_link(name)
+      click_link(name ,wait: 1)
       return DiscussionBoard.new
     end
 
@@ -101,8 +101,7 @@ module Page
     end
 
     def do_show_form
-      has_css?('#newProposal')
-      find('#newProposal').click
+      find('#newProposal',wait:10).click
     end
 
     def fill_enough_content

@@ -5,6 +5,7 @@ require 'selenium-webdriver'
 require_relative '../environment_configuration'
 
 SINATRA_PORT = retrieve_port
+Capybara.default_max_wait_time=4
 
 def host_ip
   routes = `/sbin/ip route`
