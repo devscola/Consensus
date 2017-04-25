@@ -234,7 +234,7 @@ git clone https://github.com/devscola/consensus
 Start the docker-compose service to be able to run the test:
 
 ~~~
-docker build -t consensus .
+docker pull devscola/consensus:latest
 docker-compose build
 ~~~
 
@@ -431,6 +431,11 @@ Build the image:
 docker build -t consensus .
 ~~~
 
+List image created:
+~~~
+docker images
+~~~
+
 Create tag of the build:
 ~~~
 docker tag 7d9495d03763 devscola/consensus:latest
@@ -448,7 +453,7 @@ docker login
 
 Push image:
 ~~~
-docker push devscola/consensus
+docker push devscola/consensus:latest
 ~~~
 
 
@@ -459,6 +464,7 @@ We create the file 'docker-compose.yml' with the following content:
 ~~~
 version: '2'
 services:
+  image: devscola/consensus:latest
   web:
     container_name: consensus
     build: .
@@ -484,13 +490,13 @@ volumes:
     driver: local
 ~~~
 
-In line 7, the environment variable is read for the port that the container will use.
+In line 8, the environment variable is read for the port that the container will use.
 
 The first parameter refers to the input (exposed by Sinatra) and the second parameter refers to the output port of the container for that service.
 
-In line 12 we are forced to put into the Selenium environment that will be in charge of giving the web service that we need.
+In line 13 we are forced to put into the Selenium environment that will be in charge of giving the web service that we need.
 
-On line 13, we tell our container to start the indicated 'bundle' at the start of the environment.
+On line 14, we tell our container to start the indicated 'bundle' at the start of the environment.
 
 ## Preparing the application for booting with 'rake'
 
@@ -533,6 +539,9 @@ TRAVIS = retrieve_travis
 task :default => :start
 
 task :start do
+  sh 'mkdir public/vendor/polymer -p'
+  Support::Courier.act
+
   if ( TRAVIS == false )
     sh "rerun --background -- rackup --port #{SINATRA_PORT} -o 0.0.0.0"
   end
@@ -566,7 +575,7 @@ desc 'Run labeled tests'
 end
 ~~~
 
-In it we read the variable of the file '.env' and keep it as constant (necessary) to launch the rake (line 12 and 16).
+In it we read the variable of the file '.env' and keep it as constant (necessary) to launch the rake (line 15 and 19).
 
 'Rerun' allows the web to be updated with every change without the need to stop and restart sinatra.
 

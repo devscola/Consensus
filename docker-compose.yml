@@ -1,6 +1,7 @@
 version: '2'
 services:
   web:
+    image: devscola/consensus:latest
     container_name: consensus
     build: .
     ports:
