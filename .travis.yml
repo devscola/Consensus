@@ -13,7 +13,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 install:
-  - docker build -t devscola/consensus .
+  - docker pull devscola/consensus:latest
   - docker-compose build
   - docker-compose up -d
   - sleep 5
