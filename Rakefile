@@ -1,6 +1,7 @@
 require_relative 'environment_configuration'
 require_relative 'support/courier'
 require 'rspec/core/rake_task'
+require 'mongoid'
 
 SINATRA_PORT = retrieve_port
 
@@ -51,3 +52,18 @@ desc 'Run labeled tests'
   test.pattern = Dir['spec/**/*_spec.rb']
   test.rspec_opts = args.extras.map { |tag| "--tag #{tag}" }
 end
+
+
+
+
+
+
+desc 'Create first development database'
+namespace :db do
+  task :test do
+    client = Mongo::Client.new([ 'localhost:27017' ], :database => 'test')
+  end
+end
+
+
+
