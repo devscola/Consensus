@@ -54,16 +54,7 @@ desc 'Run labeled tests'
 end
 
 
-
-
-
-
-desc 'Create first development database'
-namespace :db do
-  task :test do
-    client = Mongo::Client.new([ 'localhost:27017' ], :database => 'test')
-  end
+task :ddbb do
+    Mongoid.load!('mongoid.yml', :development)
+    sh 'rspec spec/ddbb'
 end
-
-
-
