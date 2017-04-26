@@ -7,13 +7,17 @@ module Page
       visit(url)
       validate!
     end
-
-    def fill_user(username)
-      fill_in('username', with: username)
+    
+    def warning_shown?
+      has_css?('#warning')
     end
 
     def space_warning?
       has_css?('#space-warning')
+    end
+    
+    def fill_user(username)
+      fill_in('username', with: username)
     end
 
     def sign_in(username, password)
@@ -28,6 +32,10 @@ module Page
 
     def toggle_password_visibility
       find('#toggler').click
+    end
+
+    def password_masked?
+      has_css?('#password[type="password"]')
     end
 
     def token?
@@ -47,6 +55,7 @@ module Page
       page.assert_selector('#password[type="password"]')
       page.assert_selector('#submit')
       page.assert_selector('#toggler')
+      page.assert_selector('#space-warning',visible:false)
     end
   end
 end

@@ -9,12 +9,34 @@ class Fixture
   NOT_PROPOSER='Cersei'
   MEASURED_TEXT='0123456789'
   MEASURED_TEXT_LENGTH = 10
+  BAD_USERNAME='BadUsername'
+  BAD_PASSWORD='BadPassword'
+  VALID_USERNAME='KingRobert'
+  VALID_PASSWORD='Stag'
 
   def self.pristine
     Fixture.empty
     self
   end
 
+  def self.user_logged
+    current=Page::Login.new
+    current.sign_in(VALID_USERNAME, VALID_PASSWORD)
+    current
+  end
+
+  def self.password_shown
+    current=Page::Login.new
+    current.toggle_password_visibility
+    current  
+  end
+
+  def self.wrong_credentials_attempt
+    current=Page::Login.new
+    current.sign_in(BAD_USERNAME,BAD_PASSWORD)
+    current
+  end
+  
   def self.empty
     visit('/proposals/empty')
     Page::Proposals.new
@@ -49,10 +71,7 @@ class Fixture
   end
 
   def self.login
-    username = 'KingRobert'
-    password = 'Stag'
-    login = Page::Login.new
-    login.sign_in(username, password)
+    Fixture.user_logged
     Page::Proposals.new
   end
 end
