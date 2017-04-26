@@ -3,7 +3,7 @@ require_relative 'test_support/login'
 require_relative 'test_support/fixture'
 require_relative '../../app'
 
-feature 'Login Form' , :wip do
+feature 'Login Form' do
   let(:login_page) do
     Page::Login.new
   end
@@ -34,9 +34,9 @@ feature 'Login Form' , :wip do
     expect(current.password_masked?).to be true
   end
 
-  scenario 'stores a token when authorized' do
+  scenario 'stores a token when authorized', :wip do
     current=Fixture.user_logged
-    expect(current.token?).to be true
+    expect(login_page.token?).to be true
   end
 
   scenario 'stores no token on bad attempt' do

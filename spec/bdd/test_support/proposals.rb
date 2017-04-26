@@ -39,7 +39,7 @@ module Page
     end
 
     def click_user_button(username)
-      find('#' + username, wait:4).click
+      find('#' + username, wait:10).click
     end
 
     def is_added?(username)
@@ -47,7 +47,7 @@ module Page
     end
 
     def visit_proposal(name)
-      click_link(name ,wait: 1)
+      click_link(name ,wait: 4)
       return DiscussionBoard.new
     end
 
