@@ -35,11 +35,11 @@ module Page
     end
 
     def users_shown?
-      has_content?('KingRobert') && has_content?('LyanaMormont')
+      has_content?('KingRobert',wait:1) && has_content?('LyanaMormont',wait:1)
     end
 
     def click_user_button(username)
-      find('#' + username).click
+      find('#' + username, wait:4).click
     end
 
     def is_added?(username)
@@ -93,7 +93,7 @@ module Page
     end
 
     def button_finish_deactivated?
-      has_css?('#proposal-finish[disabled]')
+      has_css?('#proposal-finish[disabled]',wait:2)
     end
 
     def button_finish_activated?
@@ -101,7 +101,7 @@ module Page
     end
 
     def do_show_form
-      find('#newProposal',wait:10).click
+      find('#newProposal',wait:2).click
     end
 
     def fill_enough_content
@@ -133,6 +133,7 @@ module Page
       page.assert_selector('#proposal-finish', visible: false)
       page.assert_selector('#user-selection', visible: false)
       page.assert_selector('#submit', visible: false)
+      page.assert_selector('#form',visible:false)
     end
   end
 end

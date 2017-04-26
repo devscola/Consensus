@@ -6,57 +6,33 @@ require_relative 'test_support/discussion_board'
 require_relative 'test_support/fixture'
 
 feature 'Proposal list' do
-  scenario 'is empty before adding proposals' do
-    current=Fixture.empty
-    expect(current.any_proposal?).to be false
-  end
-
   scenario 'shows proposals added' do
-    current=Fixture.proposal_added
+    current=Fixture.pristine.proposal_added
     expect(current.any_proposal?).to be true
   end
 
-  scenario 'Links proposals to the discussion board' do
-    Fixture.empty
-    current=Fixture.proposal_added
+  scenario 'links every proposal to its discussion board' do
+    current=Fixture.pristine.proposal_added
     board = current.visit_proposal(Fixture::PROPOSAL_NAME)
-
     expect(board.proposal_title).to eq(Fixture::PROPOSAL_NAME)
   end
-
 end
 
 feature 'Proposal form'  do
-  scenario 'is not visible until triggered' do
-    expect(Fixture.at_proposals.form_visible?).to be false    
-  end
-
   scenario 'appears when triggered' do
     expect(Fixture.proposal_form_shown.form_visible?).to be true
   end
 
-  scenario 'Form disappears at proposal creation' do
+  scenario 'disappears at proposal creation' do
     current=Fixture.proposal_added
     expect(current.form_visible?).to be false
-  end
-
-  scenario 'User selection appears after proposal creation' do
-    current=Fixture.proposal_added
-    expect(current.user_selection_is_visible?).to be true
-  end
-end
-
-feature 'New proposal form' do
- 
+  end 
 
   scenario 'counts number of characters' do
-    some_text = 'some random text'
-    character_amount = some_text.length
-
     current=Fixture.proposal_form_shown
-    current.fill_content(some_text)
+    current.fill_content(Fixture::MEASURED_TEXT)
 
-    expect(current.content_length).to eq(character_amount)
+    expect(current.content_length).to eq(Fixture::MEASURED_TEXT_LENGTH)
   end
 
   scenario 'enables submit on enough content' do
@@ -80,66 +56,47 @@ feature 'New proposal form' do
     current= Fixture.proposal_form_filled
     expect(current.info_message_visible?).to eq(false)
   end
+end
 
+feature 'Circle selection' do
+  scenario 'appears after proposal creation' do
+    current=Fixture.proposal_added
+    expect(current.user_selection_is_visible?).to be true
+  end
   
-end
-
-feature 'Create circle' do
-  let(:proposals) { Page::Proposals.new }
-  before(:each) do
-    empty_fixture
-    username = 'KingRobert'
-    password = 'Stag'
-    login = Page::Login.new
-    login.sign_in(username, password)
+  scenario 'shows users of the system' do
+    current=Fixture.proposal_added
+    expect(current.users_shown?).to be true
   end
 
-  scenario 'Shows users of the system' do
-    proposals.new_proposal('some title')
-    expect(proposals.users_shown?).to be true
+  scenario 'marks users added' do
+    the_user = Fixture::NOT_PROPOSER
+    current=Fixture.pristine.proposal_added
+    current.click_user_button(the_user)
+    expect(current.is_added?(the_user)).to be true
   end
 
-  scenario 'Adding a user marks it as added' do
-    the_user = 'Cersei'
-    proposals.new_proposal('some title')
-    proposals.click_user_button(the_user)
-
-    expect(proposals.is_added?(the_user)).to be true
+  scenario 'disallows finishing until at least one user added' do
+    current=Fixture.proposal_added
+    expect(current.button_finish_deactivated?).to be true
   end
 
-  scenario 'Finishing disabled until user added' do
-    proposals.new_proposal('some title')
-
-    expect(proposals.button_finish_deactivated?).to be true
+  scenario 'allows finishing when user added' do
+    current=Fixture.pristine.a_user_involved
+    expect(current.button_finish_deactivated?).to be false
   end
 
-  scenario 'Finishing enabled when user added', :not_deterministic do
-    proposals.new_proposal('some title')
-    proposals.click_user_button('Cersei')
+  scenario 'disappears when finished' do
+    current=Fixture.pristine.a_user_involved
+    current.button_finish_click
 
+    expect(current.user_selection_is_visible?).to be false
+  end
+
+  scenario 'disappears when new proposal asked' do
+    current=Fixture.pristine.proposal_added
     sleep 1
-    expect(proposals.button_finish_deactivated?).to be false
+    current.show_form
+    expect(current.user_selection_is_visible?).to be false
   end
-
-  scenario 'Finishing closes users selection' do
-    proposals.new_proposal('some title')
-    sleep 3
-    proposals.click_user_button('Cersei')
-
-    proposals.button_finish_click
-
-    expect(proposals.user_selection_is_visible?).to be false
-  end
-
-  scenario 'Adding a new proposal close users selection' do
-    proposals.new_proposal('some title')
-    sleep 1
-    proposals.show_form
-
-    expect(proposals.user_selection_is_visible?).to be false
-  end
-end
-
-def empty_fixture
-  visit('/proposals/empty')
 end
