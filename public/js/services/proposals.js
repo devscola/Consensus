@@ -7,49 +7,61 @@ Class('Services.Proposals', {
     },
 
     add: function(proposalData) {
-        this.doRequest(this.baseUrl + '/add', proposalData, function(result) {
+        this.doRequest('/add', proposalData, function(result) {
             Bus.publish('proposal.added', result);
         });
     },
 
     list: function() {
-        this.doRequest(this.baseUrl + '/list', '', function(result) {
+        this.doRequest('/list', '', function(result) {
             Bus.publish('proposal.listed', result);
         });
     },
 
     retrieve: function(id) {
         data = {'proposal_id': id};
-        this.doRequest(this.baseUrl + '/retrieve', data, function(result) {
+        this.doRequest('/retrieve', data, function(result) {
             Bus.publish('proposal.retrieved', result);
         });
     },
 
     retrieveProposerName: function(proposalData) {
         var token = localStorage.getItem('authorized');
+        var oldBaseUrl = this.baseUrl;
         serialized_token = {'token': token};
+
+        this.baseUrl = '';
         this.doRequest('/user/logged', serialized_token, function(proposer) {
             proposalData.proposer = proposer.username;
             this.add(proposalData);
         }.bind(this));
+        this.baseUrl = oldBaseUrl;
     },
 
     retrieveLoggedUser: function() {
         var token = localStorage.getItem('authorized');
+        var oldBaseUrl = this.baseUrl;
         serialized_token = {'token': token};
+
+        this.baseUrl = '';
         this.doRequest('/user/logged', serialized_token, function(proposer) {
             Bus.publish('logged.user', proposer.username);
         }.bind(this));
+        this.baseUrl = oldBaseUrl;
     },
 
     retrieveToken: function() {
         var token = localStorage.getItem('authorized');
+        var oldBaseUrl = this.baseUrl;
         serialized_token = {'token': token};
+
+        this.baseUrl = '';
         this.doRequest('/create-proposal/token', serialized_token, function(response) {
             if(token == response.token){
                 Bus.publish('proposal.create.show');
             }
         }.bind(this));
+        this.baseUrl = oldBaseUrl;
     },
 
     subscribe: function() {

@@ -7,7 +7,7 @@ Class('Services.DiscussionBoard', {
     },
 
     addQuestion: function(questionData) {
-        this.doRequest(this.baseUrl + '/add/question', questionData, function(result) {
+        this.doRequest('/add/question', questionData, function(result) {
             Bus.publish('proposal.question.added', result);
         });
     },

@@ -7,19 +7,19 @@ Class('Services.UserList', {
     },
 
     list: function() {
-        this.doRequest(this.baseUrl + '/circle', '', function(result) {
+        this.doRequest('/circle', '', function(result) {
             Bus.publish('users.retrieved', result);
         });
     },
 
     add: function(circleData) {
-        this.doRequest(this.baseUrl + '/user/add', circleData, function(result) {
+        this.doRequest('/user/add', circleData, function(result) {
             Bus.publish('proposal.user.added', result);
         });
     },
 
     retrieve: function(id) {
-        this.doRequest(this.baseUrl + '/users/retrieve', id, function(result) {
+        this.doRequest('/users/retrieve', id, function(result) {
             Bus.publish('proposal.circle.retrieved', result.circle);
         });
     },

@@ -18,7 +18,7 @@ Class('Services.Login', {
     },
 
     login: function(credentials) {
-        this.doRequest(this.baseUrl, credentials, this.hasSucceeded);
+        this.doRequest('', credentials, this.hasSucceeded);
     },
 
     subscribe: function() {
