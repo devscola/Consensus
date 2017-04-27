@@ -35,7 +35,7 @@ module Proposals
       end
 
       def user_inside_circle?(id, username)
-        circle = retrieve(id)[:circle]
+        circle = retrieve(id)['circle']
 
         circle.include?(username)
       end

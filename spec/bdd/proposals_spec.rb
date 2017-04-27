@@ -107,7 +107,7 @@ feature 'Circle selection' do
     expect(current.user_selection_is_visible?).to be false
   end
 
-  scenario 'allows closing without a single involved', :wip do
+  scenario 'allows closing without a single involved' do
     current = Fixture.pristine.proposal_added
     current.button_cancel_click
     expect(current.user_selection_is_visible?).to be false

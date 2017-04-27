@@ -1,25 +1,42 @@
+require 'mongo'
 module Proposals
   class Repository
-    @proposals = []
+   
 
     class << self
       def store(title = '', content, proposer)
         id = generate_id(title.to_s, content.to_s)
-        @proposals << Proposal.new(title, content, id, proposer)
-        proposal = retrieve(id)
+        proposal = Proposal.new(title, content, id, proposer)
+        save(proposal)
         return proposal.to_h
       end
 
+      def save(proposal)
+        client = Mongo::Client.new([ 'db_mongodb:27017' ],
+         :database => 'consensus_db')
+        collection = client[:proposals]
+        collection.insert_one(proposal.to_h)
+      end
+
       def retrieve(id)
-        @proposals.find { |proposal| proposal.id == id }
+        client = Mongo::Client.new([ 'db_mongodb:27017' ],
+        :database => 'consensus_db')
+        collection = client[:proposals]
+        collection.find({id: id}).first
       end
 
       def all
-        @proposals
+        client = Mongo::Client.new([ 'db_mongodb:27017' ],
+         :database => 'consensus_db')
+        collection = client[:proposals]
+        collection.find()
       end
 
       def empty
-        @proposals = []
+        client = Mongo::Client.new([ 'db_mongodb:27017' ],
+         :database => 'consensus_db')
+        collection = client[:proposals]
+        collection.delete_many()
       end
 
       private
