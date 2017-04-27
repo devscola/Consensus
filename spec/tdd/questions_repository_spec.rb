@@ -20,6 +20,7 @@ describe Proposals::QuestionsRepository do
       'author' => :some_author,
       'proposal_id' => :some_proposal_id
     }
+    
     Proposals::TestRepository.store(question)
     result = Proposals::TestRepository.retrieve(:some_proposal_id)
 

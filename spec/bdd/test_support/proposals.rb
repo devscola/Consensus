@@ -108,7 +108,7 @@ module Page
     end
 
     def button_cancel_deactivated?
-      has_css?('#proposal-cancel[disabled]')
+      has_css?('#proposal-cancel[disabled]', wait:2)
     end
 
     def button_finish_activated?

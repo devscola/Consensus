@@ -8,11 +8,8 @@ Class('Services.Login', {
 
     hasSucceeded: function(result) {
         if (result.valid) {
-            localStorage.setItem('authorized', result.token);
-            localStorage.setItem('username', result.username);
-            Bus.publish('attemp.succeeded');
+            Bus.publish('attemp.succeeded', result);
         } else {
-            localStorage.removeItem('authorized');
             Bus.publish('attemp.failed');
         }
     },

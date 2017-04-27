@@ -3,6 +3,7 @@ Class('DiscussionBoard.Questioner', {
     Extends: Component,
 
     initialize: function(proposalId) {
+        this.proposal = {};
         this.proposalId = proposalId;
         DiscussionBoard.Questioner.Super.call(this, 'question-container');
         this.element.addEventListener('openTextarea', this.showTextarea.bind(this));
@@ -52,12 +53,16 @@ Class('DiscussionBoard.Questioner', {
         return url.split('discussion-board/')[1];
     },
 
-    allowQuestioning: function(proposal) {
-        var username = localStorage.getItem('username');
-        var involved = proposal.circle.includes(username);
-        var isProposer = (proposal.proposer == username);
+    holdProposal: function(proposal) {
+        this.proposal = proposal;
+        Bus.publish('storage.retrieve.username');
+    },
 
-        this.questionButton.validQuestioner = (involved && !isProposer);
+    allowQuestioning: function (username) {
+        var involved = this.proposal.circle.includes(username);
+        var isProposer = (this.proposal.proposer == username);
+
+        this.questionButton.validQuestioner = (involved && !isProposer);    
     },
 
     publish: function() {
@@ -65,8 +70,9 @@ Class('DiscussionBoard.Questioner', {
     },
 
     subscribe: function() {
-        Bus.subscribe('proposal.retrieved', this.allowQuestioning.bind(this));
+        Bus.subscribe('proposal.retrieved', this.holdProposal.bind(this));
         Bus.subscribe('proposal.question.added', this.enableQuestionButton.bind(this));
+        Bus.subscribe('storage.username.retrieved', this.allowQuestioning.bind(this));
     }
 
 });
