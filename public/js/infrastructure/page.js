@@ -1,11 +1,25 @@
 Class('Page', {
 
     initialize: function(components) {
-        components.forEach(function(componentName) {
-            new componentName();
-        });
+        this.initializeComponents(components);
+        this.initializeServices();
+        this.initializeCommonServices();
         this.publish();
         this.subscribe();
+    },
+
+    initializeComponents: function (components) {
+        components.forEach(function(componentName) {
+            new componentName();
+        }); 
+    },
+
+    initializeServices: function () {
+
+    },
+
+    initializeCommonServices: function () {
+
     },
 
     publish: function() {

@@ -72,7 +72,7 @@
                     this.spaceWarningVisibility = 'show';
                 } else {
                     this.spaceWarningVisibility = 'hide';
-                };
+                }
             },
 
             togglePassword: function() {
@@ -82,7 +82,7 @@
                 } else {
                     this.showPassword();
                     this.eyeGlyphicon = 'glyphicon glyphicon-eye-close';
-                };
+                }
             },
 
             showText: function() {
@@ -98,7 +98,7 @@
                     this.visibility = 'show';
                 } else {
                     this.visibility = 'hide';
-                };
+                }
             },
 
             hideWarning: function() {
@@ -108,16 +108,16 @@
             controlEnterSubmit: function(event) {
                 if (event.keyCode == 13) {
                     this.loginAttempt();
-                };
+                }
             },
 
             controlEventKeyboard: function(event) {
                 if (event.keyCode == 13) {
                     this.loginAttempt();
-                };
+                }
                 if (event.ctrlKey && event.keyCode == 32) {
                     this.togglePassword();
-                };
+                }
             },
 
             loginAttempt: function() {

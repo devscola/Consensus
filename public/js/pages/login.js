@@ -7,7 +7,7 @@ Class('Page.Login', {
     },
 
     initialize: function() {
-        instances = [Login.Form, Services.Login];
+        instances = [Login.Form, Services.Login, Services.Storage];
         Page.Login.Super.call(this, instances);
     },
 

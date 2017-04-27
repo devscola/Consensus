@@ -4,7 +4,7 @@ require_relative 'test_support/login'
 require_relative 'test_support/fixture'
 require_relative '../../app'
 
-feature 'Discussion board',:wip  do
+feature 'Discussion board'  do
    
   scenario 'Shows circle users including the proposer' do
     current=Fixture.pristine.a_user_involved
@@ -42,7 +42,7 @@ feature 'Discussion board',:wip  do
   xscenario 'Shows textarea when question button is clicked' do
     Fixture.pristine.a_user_involved
     current=Fixture.involved_questioning
-    expect(current.question_button_active?).to be false
+    expect(currentquestion_button_active?).to be false
     expect(current.question_content?).to be true
   end
 
