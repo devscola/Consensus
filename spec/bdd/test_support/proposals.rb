@@ -100,7 +100,7 @@ module Page
     end
 
     def button_cancel_click
-      find('#proposal-cancel').click
+      find('#proposal-cancel', wait:2).click
     end
 
     def button_finish_deactivated?
