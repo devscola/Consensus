@@ -12,8 +12,12 @@ Class('Proposals.ProposalCreator', {
        this.element.actionAllowed = true;
     },
 
+    enableButton: function() {
+        this.element.activated = true;
+    },
+
     create: function() {
-        Bus.publish('proposal.empty');
+        this.element.activated = false;
         Bus.publish('proposal.new');
     },
 
@@ -23,6 +27,7 @@ Class('Proposals.ProposalCreator', {
 
     subscribe: function() {
         Bus.subscribe('proposal.create.show', this.showButton.bind(this));
+        Bus.subscribe('circle.finished', this.enableButton.bind(this));
     }
 
 });

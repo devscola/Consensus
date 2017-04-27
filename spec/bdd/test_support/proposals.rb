@@ -67,6 +67,13 @@ module Page
       do_show_form
     end
 
+    def new_proposal_enabled?
+      button = find('#newProposal')
+      result = button[:disabled]
+      return true if result.nil?
+      false
+    end
+
     def submit_button_enabled?
       button = find('#submit')
       result = button[:disabled]
@@ -92,8 +99,16 @@ module Page
       find('#proposal-finish').click
     end
 
+    def button_cancel_click
+      find('#proposal-cancel').click
+    end
+
     def button_finish_deactivated?
       has_css?('#proposal-finish[disabled]',wait:2)
+    end
+
+    def button_cancel_deactivated?
+      has_css?('#proposal-cancel[disabled]')
     end
 
     def button_finish_activated?

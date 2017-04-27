@@ -31,18 +31,17 @@ feature 'Discussion board' do
     expect(current.submit_question_active?).to be true
   end
 
-  xscenario 'Submit question doesnt activate without enough text' do
-    Fixture.pristine.a_user_involved
-    current = Fixture.involved_questioning
-    current.fill_question(Fixture.enough_text[0...-1])
-    expect(current.submit_question_active?).to be false
+  scenario 'Submit question doesnt activate without enough text' do
+    board = Fixture.pristine.involved_questioning
+    board.fill_question(Fixture.enough_text[0...-1])
+    expect(board.submit_question_active?).to be false
   end
 
-  xscenario 'Shows textarea when question button is clicked' do
-    Fixture.pristine.a_user_involved
-    current = Fixture.involved_questioning
-    expect(current.question_button_active?).to be false
-    expect(current.question_content?).to be true
+  scenario 'Shows textarea when question button is clicked' do
+    board = Fixture.pristine.involved_questioning
+    board.create_question
+    expect(board.question_button_active?).to be false
+    expect(board.question_content?).to be true
   end
 
   scenario 'Does not show question button for proposal user' do

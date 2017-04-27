@@ -27,14 +27,14 @@ feature 'Login Form' do
     login_page.toggle_password_visibility
     expect(page).to have_css('#password[type="text"]')
   end
-  
+
   scenario 'shows secured password on demand' do
     current= Fixture.password_shown
     current.toggle_password_visibility
     expect(current.password_masked?).to be true
   end
 
-  scenario 'stores a token when authorized', :wip do
+  scenario 'stores a token when authorized' do
     current=Fixture.user_logged
     expect(login_page.token?).to be true
   end
@@ -43,7 +43,7 @@ feature 'Login Form' do
     current=Fixture.wrong_credentials_attempt
     expect(current.token?).to be false
   end
-    
+
   scenario 'shows warning on trailing spaces' do
     name = Fixture::VALID_USERNAME + '    '
     login_page.fill_user(name)

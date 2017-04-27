@@ -1,4 +1,4 @@
-<link rel="import" href="/web_components/infrastructure/polymer.html">
+<link rel="import" href="/vendor/polymer/polymer.html">
 
 <dom-module id="proposal-circle">
 	<template>
@@ -16,7 +16,8 @@
 			<div id="user-selection" class="panel-body">
 				Create your circle
 				<ul id="users" class="list-group"></ul>
-				<button id="proposal-finish" disabled$="{{buttonDisabled}}" on-click="closeCircle" class="btn btn-default">Finish</button>
+				<button id="proposal-finish" disabled$="{{finishDisabled}}" on-click="closeCircle" class="btn btn-default">Finish</button>
+				<button id="proposal-cancel" disabled$="{{cancelDisabled}}" on-click="closeCircle" class="btn btn-danger">Cancel</button>
 			</div>
 		</div>
 
@@ -53,16 +54,23 @@
 					value: []
 				},
 
-				buttonDisabled: {
+				finishDisabled: {
 					type: Boolean,
 					value: true
+				},
+
+				cancelDisabled: {
+					type: Boolean,
+					value: null
 				}
+
 
 			},
 
 			closeCircle: function(){
 				this.visible = false;
 				this.emptyCircle();
+				this.fire('circleFinished');
 			},
 
 			emptyCircle: function(){
@@ -115,7 +123,8 @@
 		    },
 
 		    addUserToCircle: function(username) {
-			    this.buttonDisabled = false;
+				this.finishDisabled = false;
+				this.cancelDisabled = true;
 		        var circleData = {
 		            username: username,
 		            id: this.proposal.id
