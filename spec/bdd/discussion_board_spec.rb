@@ -31,11 +31,10 @@ feature 'Discussion board' do
     expect(current.submit_question_active?).to be true
   end
 
-  xscenario 'Submit question doesnt activate without enough text' do
-    Fixture.pristine.a_user_involved
-    current = Fixture.involved_questioning
-    current.fill_question(Fixture.enough_text[0...-1])
-    expect(current.submit_question_active?).to be false
+  scenario 'Submit question doesnt activate without enough text' do
+    board = Fixture.pristine.involved_questioning
+    board.fill_question(Fixture.enough_text[0...-1])
+    expect(board.submit_question_active?).to be false
   end
 
   xscenario 'Shows textarea when question button is clicked' do
