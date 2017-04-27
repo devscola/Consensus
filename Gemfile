@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
-
 ruby '>= 2.4.0'
+
 gem 'rake', '~> 12.0.0'
 gem 'sinatra', '~> 1.4.8'
+gem 'mongo', '~> 2.4'
+gem 'mongoid'
 
 group :development do
   gem 'rerun', '~> 0.11.0'

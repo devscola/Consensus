@@ -1,0 +1,6 @@
+development:
+  clients:
+    default:
+      database: consensus_db
+      hosts:
+        - localhost:27017

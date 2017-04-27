@@ -12,6 +12,7 @@ services:
 
     links:
       - selenium
+      - mongo
     command: bash -c "bundle install --jobs 3 && bundle exec rake prepare && bundle exec rake"
 
   selenium:
@@ -22,7 +23,23 @@ services:
     logging:
       driver: none
 
+  mongo:
+    container_name: "db_mongodb"
+    image: mongo:latest
+    volumes_from:
+        - data
+    ports:
+        - "27017:27017"
+    command: --smallfiles
+
+  data:
+    image: mongo:latest
+    container_name: "db_mongodb_data"
+    volumes:
+      - /var/lib/mongo
+      - ./setup:/setup
+    command: "true"
+
 volumes:
   bundle:
     driver: local
-

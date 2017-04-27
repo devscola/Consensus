@@ -7,6 +7,7 @@ Class('Proposals.Form', {
         this.element.addEventListener('proposalSubmit', this.addProposal.bind(this));
         this.circleContainer = document.getElementById('circle-container');
         this.circleContainer.addEventListener('proposalUserAdd', this.addUserToCircle.bind(this));
+        this.circleContainer.addEventListener('circleFinished', this.finishCircle.bind(this));
     },
 
     showForm: function() {
@@ -31,14 +32,18 @@ Class('Proposals.Form', {
     },
 
     fillUsersList: function(list) {
-        this.circleContainer.usersList = list;   
-        this.circleContainer.proposal = this.proposal;     
+        this.circleContainer.usersList = list;
+        this.circleContainer.proposal = this.proposal;
     },
 
     fillProposal: function(proposal) {
         this.showCircle();
-        this.proposal = proposal; 
-        Bus.publish('users.retrieve');   
+        this.proposal = proposal;
+        Bus.publish('users.retrieve');
+    },
+
+    finishCircle: function() {
+        Bus.publish('circle.finished');
     },
 
     subscribe: function() {

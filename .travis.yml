@@ -19,6 +19,8 @@ install:
   - sleep 5
 
 script:
+  - docker exec db_mongodb mongo admin /setup/create-admin.js
+  - docker exec db_mongodb mongo admin /setup/create-user.js -u admin -p admin --authenticationDatabase admin
   - docker-compose run web /bin/sh -c "cd /opt/consensus; touch travis.ci; bundle install; bundle exec rake prepare; bundle exec rake"
   - sleep 1
 
