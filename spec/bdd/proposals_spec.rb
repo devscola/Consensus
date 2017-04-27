@@ -5,7 +5,7 @@ require_relative 'test_support/proposals'
 require_relative 'test_support/discussion_board'
 require_relative 'test_support/fixture'
 
-xfeature 'New proposal button' do
+feature 'New proposal button' do
   scenario 'disallows create new proposal after clicked' do
     current = Fixture.user_logged
     current.show_form
@@ -19,7 +19,7 @@ xfeature 'New proposal button' do
   end
 end
 
-xfeature 'Proposal list' do
+feature 'Proposal list' do
   scenario 'shows proposals added' do
     current = Fixture.pristine.proposal_added
     expect(current.any_proposal?).to be true
@@ -32,7 +32,7 @@ xfeature 'Proposal list' do
   end
 end
 
-xfeature 'Proposal form'  do
+feature 'Proposal form'  do
   scenario 'appears when triggered' do
     expect(Fixture.proposal_form_shown.form_visible?).to be true
   end
@@ -72,7 +72,7 @@ xfeature 'Proposal form'  do
   end
 end
 
-xfeature 'Circle selection' do
+feature 'Circle selection' do
   scenario 'appears after proposal creation' do
     current = Fixture.proposal_added
     expect(current.user_selection_is_visible?).to be true
