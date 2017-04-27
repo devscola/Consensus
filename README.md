@@ -42,16 +42,23 @@ In one console, up the docker container:
 docker-compose up
 ~~~
 
-If you want test app, in other console run the tests:
+For initialize user admin in Mongo, in other console run:
+
+**Console B:**
+
+~~~
+sh buildMongo.sh
+~~~
+
+If you want test the app, in other console run the tests:
 
 **Console B:**
 
 All test:
-
 ~~~
 docker-compose run web rake test
 ~~~
 
-If you want execute app, open navigator (firefox, chrome, ...) and visit localhost:4567
+If you want view app, open navigator (firefox, chrome, ...) and visit localhost:4567
 
 #More information in file **CONTRIBUTING.md**
