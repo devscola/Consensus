@@ -37,11 +37,11 @@ feature 'Discussion board' do
     expect(board.submit_question_active?).to be false
   end
 
-  xscenario 'Shows textarea when question button is clicked' do
-    Fixture.pristine.a_user_involved
-    current = Fixture.involved_questioning
-    expect(current.question_button_active?).to be false
-    expect(current.question_content?).to be true
+  scenario 'Shows textarea when question button is clicked' do
+    board = Fixture.pristine.involved_questioning
+    board.create_question
+    expect(board.question_button_active?).to be false
+    expect(board.question_content?).to be true
   end
 
   scenario 'Does not show question button for proposal user' do
