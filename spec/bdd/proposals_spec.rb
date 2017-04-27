@@ -106,4 +106,15 @@ feature 'Circle selection' do
 
     expect(current.user_selection_is_visible?).to be false
   end
+
+  scenario 'allows closing without a single involved' do
+    current = Fixture.proposal_added
+    current.button_cancel_click
+    expect(current.user_selection_is_visible?).to be false
+  end
+
+  scenario 'disallows canceling when user added' do
+    current = Fixture.pristine.a_user_involved
+    expect(current.button_cancel_deactivated?).to be true
+  end
 end
