@@ -2,7 +2,7 @@ require 'rack/test'
 require 'json'
 require_relative './../../services/proposals/routes'
 
-describe 'Proposals service' do
+xdescribe 'Proposals service' do
   include Rack::Test::Methods
 
   def app

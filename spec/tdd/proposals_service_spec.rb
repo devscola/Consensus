@@ -2,7 +2,7 @@ require 'spec_helper_tdd'
 require 'digest/md5'
 require_relative './../../services/proposals/service'
 
-describe Proposals::Service, :wip do
+xdescribe Proposals::Service, :wip do
   before(:each) do
     Proposals::Service.empty
   end
@@ -39,7 +39,7 @@ describe Proposals::Service, :wip do
     expect(result['content']).to eq 'content_sample'
   end
 
-  it 'adds users to a proposal circle' do
+  xit 'adds users to a proposal circle' do
     some_proposal_title = 'some title'
     some_proposal_content = 'some content'
     username = 'KingRobert'
