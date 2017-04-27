@@ -67,6 +67,13 @@ module Page
       do_show_form
     end
 
+    def new_proposal_enabled?
+      button = find('#newProposal')
+      result = button[:disabled]
+      return true if result.nil?
+      false
+    end
+
     def submit_button_enabled?
       button = find('#submit')
       result = button[:disabled]

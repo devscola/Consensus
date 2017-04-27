@@ -1,4 +1,4 @@
-<link rel="import" href="/web_components/infrastructure/polymer.html">
+<link rel="import" href="/vendor/polymer/polymer.html">
 
 <dom-module id="proposal-circle">
 	<template>
@@ -63,6 +63,7 @@
 			closeCircle: function(){
 				this.visible = false;
 				this.emptyCircle();
+				this.fire('circleFinished');
 			},
 
 			emptyCircle: function(){

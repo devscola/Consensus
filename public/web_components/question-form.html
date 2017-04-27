@@ -1,4 +1,4 @@
-<link rel="import" href="/web_components/infrastructure/polymer.html">
+<link rel="import" href="/vendor/polymer/polymer.html">
 
 <dom-module id="question-form">
     <template>
@@ -16,7 +16,7 @@
         <div id="questionContent" class$="{{displayed}}">
             <textarea id="questionText" name="question-text" value="{{theQuestion::input}}" on-input="counterSwitch" on-keyup="controlEnterSubmit"></textarea>
             <span class="badge">{{count}}</span>
-            <button id="question-submit" on-click="questionAttempt"disabled$="{{enabledSubmit}}">submit</button>
+            <button id="question-submit" on-click="questionAttempt" disabled$="{{enabledSubmit}}">submit</button>
         </div>
     </template>
 

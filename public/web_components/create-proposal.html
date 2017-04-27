@@ -12,7 +12,7 @@
             }
         </style>
 
-        <button id="newProposal" on-click="create" class$="{{visibility}} btn btn-default">New Proposal</button>
+        <button id="newProposal" on-click="create" class$="{{visibility}} btn btn-default" disabled$="{{buttonDisabled}}">New Proposal</button>
 
     </template>
 
@@ -32,6 +32,18 @@
                 visibility: {
                     type: String,
                     value: 'hide'
+                },
+
+                buttonDisabled: {
+                    type: String,
+                    value: null
+                },
+
+                activated: {
+                    type: Boolean,
+                    value: true,
+                    reflectToAttribute: true,
+                    observer: 'toggleButton'
                 }
             },
 
@@ -40,6 +52,14 @@
                     this.visibility = 'show';
                 } else {
                     this.visibility = 'hide';
+                }
+            },
+
+            toggleButton: function() {
+                if (this.activated) {
+                    this.buttonDisabled = null;
+                } else {
+                    this.buttonDisabled = 'disabled';
                 }
             },
 
