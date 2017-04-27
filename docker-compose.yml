@@ -12,7 +12,7 @@ services:
 
     links:
       - selenium
-      - mongo
+      - mongocontainer
     command: bash -c "bundle install --jobs 3 && bundle exec rake prepare && bundle exec rake"
 
   selenium:
@@ -23,8 +23,7 @@ services:
     logging:
       driver: none
 
-  mongo:
-    container_name: "db_mongodb"
+  mongocontainer:
     image: mongo:latest
     ports:
         - "27017:27017"
