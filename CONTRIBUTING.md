@@ -94,6 +94,7 @@ Prepare the local project:
 
 ~~~
 bundle exec rake prepare
+sh buildMongoLocal.sh
 ~~~
 
 then run Rake:
