@@ -50,8 +50,3 @@ desc 'Run labeled tests'
   test.pattern = Dir['spec/**/*_spec.rb']
   test.rspec_opts = args.extras.map { |tag| "--tag #{tag}" }
 end
-
-task :ddbb do
-    Mongoid.load!('mongoid.yml', :development)
-    sh 'rspec spec/ddbb'
-end
