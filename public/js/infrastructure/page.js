@@ -19,7 +19,7 @@ Class('Page', {
     },
 
     initializeCommonServices: function () {
-
+        new Services.Storage();
     },
 
     publish: function() {

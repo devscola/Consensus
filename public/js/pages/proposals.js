@@ -8,8 +8,7 @@ Class('Page.Proposals', {
             Proposals.ProposalCreator,
             Proposals.List,
             Proposals.Form,
-            Services.UserList,
-            Services.Storage
+            Services.UserList
         ];
         Page.Proposals.Super.call(this, instances);
     },

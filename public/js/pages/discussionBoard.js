@@ -8,8 +8,7 @@ Class('Page.DiscussionBoard', {
             DiscussionBoard.Content,
             DiscussionBoard.Circle,
             Services.Proposals,
-            Services.DiscussionBoard,
-            Services.Storage
+            Services.DiscussionBoard
         ];
         Page.DiscussionBoard.Super.call(this, instances);
 
