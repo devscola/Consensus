@@ -1,5 +1,8 @@
 require 'mongo'
 
+#Log level messages: info, debug
+Mongo::Logger.logger.level = ::Logger::INFO
+
 module Proposals
   class Repository
    
