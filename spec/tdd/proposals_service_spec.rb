@@ -2,7 +2,7 @@ require 'spec_helper_tdd'
 require 'digest/md5'
 require_relative './../../services/proposals/service'
 
-xdescribe Proposals::Service, :wip do
+describe Proposals::Service, :wip do
   before(:each) do
     Proposals::Service.empty
   end
@@ -29,7 +29,7 @@ xdescribe Proposals::Service, :wip do
     expect(the_proposal['title']).to eq :some_title
   end
 
-  it 'retrieve a scenario via search' do
+  xit 'retrieve a scenario via search' do
     proposal = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
     Proposals::Service.add('not_what_you_re_looking_for', 'content_sample', :some_proposer)
 
