@@ -1,5 +1,6 @@
-require_relative 'repository'
 require_relative 'questions_repository'
+require_relative 'repository'
+require_relative 'proposal'
 
 module Proposals
   class Service
