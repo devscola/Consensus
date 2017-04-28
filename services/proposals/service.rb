@@ -23,21 +23,19 @@ module Proposals
 
       def involve(id, username)
         proposal = Repository.retrieve(id)
-
-        proposal.circle << username unless user_inside_circle?(id, username)
-
+        proposal.involve(username)
+        Repository.update(proposal)
         proposal.to_h
       end
 
       def involved(id)
         proposal = Repository.retrieve(id)
-        { 'circle': proposal.circle }
+        { 'circle': proposal.involved }
       end
 
       def user_inside_circle?(id, username)
-        circle = retrieve(id)['circle']
-
-        circle.include?(username)
+        the_proposal = Repository.retrieve(id)
+        the_proposal.involved?(username)
       end
 
       def add_question(question)

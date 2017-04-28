@@ -1,6 +1,5 @@
 require 'mongo'
 
-#Log level messages: info, debug
 Mongo::Logger.logger.level = ::Logger::INFO
 
 module Proposals
@@ -9,7 +8,8 @@ module Proposals
     class << self
       def store(title = '', content, proposer)
         id = generate_id(title.to_s, content.to_s)
-        proposal = Proposal.new(title, content, id, proposer)
+        proposal = Proposal.new(id, proposer)
+        proposal.attach(title,content)
         save(proposal)
         return proposal.to_h
       end
@@ -21,11 +21,20 @@ module Proposals
         collection.insert_one(proposal.to_h)
       end
 
+      def update(proposal)
+        client = Mongo::Client.new([ 'mongocontainer:27017' ],
+         :database => 'consensus_db')
+        collection = client[:proposals]
+        document=proposal.to_h
+        collection.find_one_and_replace({id: document[:id]},document)
+      end
+
       def retrieve(id)
         client = Mongo::Client.new([ 'mongocontainer:27017' ],
         :database => 'consensus_db')
         collection = client[:proposals]
-        collection.find({id: id}).first
+        data=collection.find({id: id}).first
+        Proposal.from_bson(data)
       end
 
       def all
@@ -49,18 +58,44 @@ module Proposals
       end
 
       class Proposal
-        attr_reader :id, :title, :proposer, :content, :circle
+        def self.from_bson bson
+          the_proposal=Proposal.new(bson['id'],bson['proposer'])
+          the_proposal.attach(bson['title'],bson['content'])
+          the_proposal.create_circle(bson['circle'])
+          the_proposal
+        end
 
-        def initialize(title, content, id, proposer)
+        def initialize(id,proposer)
+          @id = id
+          @circle=[]
+          @proposer=proposer
+          involve(@proposer)
+        end
+
+        def attach(title,content)
           @title = title
           @content = content
-          @id = id
-          @proposer = proposer
-          @circle = [proposer]
+        end
+
+        def involve(person)
+          return if involved?(person)
+          @circle.push(person)
+        end
+
+        def involved
+          @circle
+        end
+
+        def involved? person
+          @circle.include?(person)
+        end
+        
+        def create_circle(a_circle)
+          a_circle.each{|person| involve(person)}
         end
 
         def to_h
-          { title: @title, content: @content, proposer: @proposer, id: @id, circle: @circle }
+          { 'title': @title, 'content': @content, 'proposer': @proposer, 'id': @id, 'circle': @circle }
         end
       end
     end
