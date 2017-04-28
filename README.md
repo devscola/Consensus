@@ -42,13 +42,6 @@ In one console, up the docker container:
 docker-compose up
 ~~~
 
-For initialize user admin in Mongo, in other console run:
-
-**Console B:**
-
-~~~
-sh buildMongo.sh
-~~~
 
 If you want test the app, in other console run the tests:
 
