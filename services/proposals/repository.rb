@@ -10,25 +10,26 @@ module Proposals
         proposal = Proposal.new(id, proposer)
         proposal.attach(title,content)
         save(proposal)
-        return proposal.to_h
+        return proposal
       end
 
       def save(proposal)
-        collection.insert_one(proposal.to_h)
+        collection.insert_one(proposal.serialize)
       end
 
       def update(proposal)
-        document=proposal.to_h
-        collection.find_one_and_replace({id: document[:id]},document)
+        document=proposal.serialize
+        collection.find_one_and_replace({id: document['id']},document)
       end
 
       def retrieve(id)
-        data=collection.find({id: id}).first
+        data = collection.find({id: id}).first
         Proposal.from_bson(data)
       end
 
       def all
-        collection.find()
+        proposals_data = collection.find()
+        proposals_data.map { |data| Proposals::Proposal.from_bson(data) }
       end
 
       def empty

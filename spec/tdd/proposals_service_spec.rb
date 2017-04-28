@@ -2,7 +2,7 @@ require 'spec_helper_tdd'
 require 'digest/md5'
 require_relative './../../services/proposals/service'
 
-describe Proposals::Service, :wip do
+describe Proposals::Service do
   before(:each) do
     Proposals::Service.empty
   end
@@ -33,10 +33,10 @@ describe Proposals::Service, :wip do
     proposal = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
     Proposals::Service.add('not_what_you_re_looking_for', 'content_sample', :some_proposer)
 
-    result = Proposals::Service.retrieve(proposal[:id])
-    expect(result[:id]).to eq proposal[:id]
-    expect(result[:title]).to eq 'title_sample'
-    expect(result[:content]).to eq 'content_sample'
+    result = Proposals::Service.retrieve(proposal['id'])
+    expect(result['id']).to eq proposal['id']
+    expect(result['title']).to eq 'title_sample'
+    expect(result['content']).to eq 'content_sample'
   end
 
   it 'adds users to a proposal circle' do
@@ -65,18 +65,18 @@ describe Proposals::Service, :wip do
 
     result = Proposals::Service.retrieve(retrieval_code)
 
-    expect(result.to_h[:circle]).to eq([:some_proposer, 'KingRobert', 'Cersei'])
+    expect(result['circle']).to eq([:some_proposer, 'KingRobert', 'Cersei'])
   end
 
-  it 'retrieve if user belongs to circle' do
+  it 'retrieve if user belongs to circle', :wip do
     proposal = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
-    username1 = 'KingRobert'
-    username2 = 'Arya'
-    Proposals::Service.involve(proposal[:id], username1)
-    Proposals::Service.involve(proposal[:id], username2)
+    some_person = 'KingRobert'
+    another_person = 'Arya'
+    Proposals::Service.involve(proposal['id'], some_person)
+    Proposals::Service.involve(proposal['id'], another_person)
 
 
-    result = Proposals::Service.user_inside_circle?(proposal[:id], username1)
+    result = Proposals::Service.user_inside_circle?(proposal['id'], some_person)
 
     expect(result).to be true
   end
