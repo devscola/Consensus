@@ -4,9 +4,7 @@ Class('Page.DiscussionBoard', {
 
     initialize: function() {
         instances = [
-            DiscussionBoard.Title,
-            DiscussionBoard.Content,
-            DiscussionBoard.Circle,
+            DiscussionBoard.ProposalPanel,
             Services.Proposals,
             Services.DiscussionBoard
         ];

@@ -68,7 +68,7 @@ describe Proposals::Service do
     expect(result['circle']).to eq([:some_proposer, 'KingRobert', 'Cersei'])
   end
 
-  it 'retrieve if user belongs to circle', :wip do
+  it 'retrieve if user belongs to circle' do
     proposal = Proposals::Service.add('title_sample', 'content_sample', :some_proposer)
     some_person = 'KingRobert'
     another_person = 'Arya'
