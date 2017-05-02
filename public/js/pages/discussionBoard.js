@@ -1,7 +1,7 @@
 Class('Page.DiscussionBoard', {
 
     initialize: function() {
-        new DiscussionBoard.Panel();
+        new DiscussionBoard.ProposalPanel();
         new DiscussionBoard.Questioner(this.retrieveId());
 
         new Services.Proposals();
