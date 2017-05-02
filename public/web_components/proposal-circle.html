@@ -21,7 +21,7 @@
 						<li class="user list-group-item">
 							<template is="dom-if" if="{{!item.checked}}">
 								<button name="{{item.username}}" class="add-button" on-click="addUserToCircle">
-									<span name="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+									<span name="{{item.username}}" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
 								</button>
 							</template>
 							<template is="dom-if" if="{{item.checked}}">
