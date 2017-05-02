@@ -35,11 +35,11 @@ module Page
     end
 
     def users_shown?
-      has_content?('KingRobert',wait:1) && has_content?('LyanaMormont',wait:1)
+      has_content?('KingRobert', wait: 1) && has_content?('LyanaMormont', wait: 1)
     end
 
     def click_user_button(username)
-      find('#' + username, wait:10).click
+      find("button[name=#{username}]", wait: 10).click
     end
 
     def is_added?(username)
@@ -47,7 +47,7 @@ module Page
     end
 
     def visit_proposal(name)
-      click_link(name ,wait: 4)
+      click_link(name, wait: 4)
       return DiscussionBoard.new
     end
 

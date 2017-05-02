@@ -10,12 +10,28 @@
 			#circle.hide {
 				display: none;
 			}
-
 		</style>
+
 		<div id="circle" class$="{{circleVisibility}}">
 			<div id="user-selection" class="panel-body">
 				Create your circle
-				<ul id="users" class="list-group"></ul>
+				<ul id="users" class="list-group">
+					<template is="dom-repeat" items="{{circleUsersList}}">
+
+						<li class="user list-group-item">
+							<template is="dom-if" if="{{!item.checked}}">
+								<button name="{{item.username}}" class="add-button" on-click="addUserToCircle">
+									<span name="{{item.username}}" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+								</button>
+							</template>
+							<template is="dom-if" if="{{item.checked}}">
+								<span id="{{item.username}}-checked" class="glyphicon glyphicon-check" aria-hidden="true"></span>
+							</template>
+							 {{item.username}}
+						</li>
+
+					</template>
+				</ul>
 				<button id="proposal-finish" disabled$="{{finishDisabled}}" on-click="closeCircle" class="btn btn-default">Finish</button>
 				<button id="proposal-cancel" disabled$="{{cancelDisabled}}" on-click="closeCircle" class="btn btn-danger">Cancel</button>
 			</div>
@@ -23,7 +39,6 @@
 
 	</template>
 	<script>
-
 		Polymer({
 			is: 'proposal-circle',
 
@@ -44,14 +59,12 @@
 				},
 
 				proposal: {
-					type: Object,
-					reflectToAttribute: true,
-					observer: 'renderUsersList'
+					type: Object
 				},
 
-				usersList: {
+				circleUsersList: {
 					type: Array,
-					value: []
+					reflectToAttribute: true
 				},
 
 				finishDisabled: {
@@ -63,8 +76,6 @@
 					type: Boolean,
 					value: null
 				}
-
-
 			},
 
 			closeCircle: function(){
@@ -77,72 +88,14 @@
 			    this.users.innerHTML = '';
 			},
 
-			renderUsersList: function(){
-				this.emptyCircle();
-				this.usersList.forEach( function(username) {
-					var listItem = document.createElement('li');
-					listItem.className = 'user list-group-item';
-
-		            this.selectUser(username, listItem);
-
-		            listItem.append(document.createTextNode(' ' + username));
-		            this.users.append(listItem);
-
-	        	}.bind(this));
-
-			},
-
-			selectUser: function(username, element) {
-				if (this.proposal.circle.includes(username)) {
-					checkSymbol = this.createCheckSymbol(username);
-					element.append(checkSymbol);
-				} else {
-					button = this.createButton(username);
-					element.append(button);
-				}
-			},
-
-			createCheckSymbol: function(username) {
-				var checkSymbol = document.createElement('span');
-				checkSymbol.className = 'glyphicon glyphicon-check';
-				checkSymbol.ariaHidden = 'true';
-				checkSymbol.id = username + '-checked';
-				return checkSymbol;
-			},
-
-			createButton: function(username) {
-				button = this.createAddToCircleButton(username);
-				this.addUserEvent(button);
-				return button;
-			},
-
-			addUserEvent: function(button) {
-		        button.addEventListener('click', function(){
-		            this.addUserToCircle(button.id);
-		        }.bind(this));
-		    },
-
-		    addUserToCircle: function(username) {
+		    addUserToCircle: function(event) {
 				this.finishDisabled = false;
 				this.cancelDisabled = true;
 		        var circleData = {
-		            username: username,
+		            username: event.target.name,
 		            id: this.proposal.id
 		        };
 		        this.fire('proposalUserAdd', circleData);
-		    },
-
-		    createAddToCircleButton: function(username) {
-		        var iconButton = document.createElement('span');
-		        iconButton.className = 'glyphicon glyphicon-unchecked';
-		        iconButton.ariaHidden = 'true';
-
-		        var button = document.createElement('button');
-		        button.appendChild(iconButton);
-		        button.className = 'add-button';
-		        button.id = username;
-
-		        return button;
 		    },
 
 			toggleVisibility: function(){
@@ -152,9 +105,6 @@
 					this.circleVisibility = 'hide';
 				}
 			}
-
-
-
 		});
 	</script>
 </dom-module>

@@ -6,17 +6,12 @@
         <link rel="stylesheet" href="/styles/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/styles/bootsketch.css">
         <link rel="import" href="/web_components/question-button.html">
+        <link rel="import" href="/web_components/proposal-panel.html">
         <link rel="import" href="/web_components/question-form.html">
     </head>
     <body>
         <div class="container">
-            <div class="panel panel-default col-sm-offset-1 col-sm-10">
-                <div id="title" class="panel-heading"></div>
-                <div id="content" class="panel-body" style="overflow-x: scroll;"></div>
-            </div>
-            <div class="panel panel-default col-sm-offset-1 col-sm-10">
-                <ul id="circle" class="list-inline"></ul>
-            </div>
+            <proposal-panel id="proposal"></proposal-panel>
             <div id="question-container" class="col-sm-offset-1 col-sm-10">
                 <question-button id="questioner"></question-button>
                 <question-form id="question-content" minimum-length='100'></question-form>
@@ -35,9 +30,7 @@
         <script src="/js/services/storage.js"></script>
 
         <script src="/js/components/discussion-board/questioner.js"></script>
-        <script src="/js/components/discussion-board/title.js"></script>
-        <script src="/js/components/discussion-board/content.js"></script>
-        <script src="/js/components/discussion-board/circle.js"></script>
+        <script src="/js/components/discussion-board/proposalPanel.js"></script>
 
         <script src="/js/pages/discussionBoard.js"></script>
 
