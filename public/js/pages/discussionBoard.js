@@ -1,18 +1,15 @@
 Class('Page.DiscussionBoard', {
 
-    Extends: Page,
-
     initialize: function() {
-        instances = [
-            DiscussionBoard.Title,
-            DiscussionBoard.Content,
-            DiscussionBoard.Circle,
-            Services.Proposals,
-            Services.DiscussionBoard
-        ];
-        Page.DiscussionBoard.Super.call(this, instances);
-
+        new DiscussionBoard.Title();
+        new DiscussionBoard.Content();
+        new DiscussionBoard.Circle();
         new DiscussionBoard.Questioner(this.retrieveId());
+
+        new Services.Proposals();
+        new Services.DiscussionBoard();
+        new Services.Storage();
+        this.publish();
     },
 
     retrieveId: function() {
@@ -24,7 +21,4 @@ Class('Page.DiscussionBoard', {
         id = this.retrieveId();
         Bus.publish('proposal.retrieve', id);
     },
-
-    subscribe: function() {}
-
 });

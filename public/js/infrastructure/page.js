@@ -2,8 +2,6 @@ Class('Page', {
 
     initialize: function(components) {
         this.initializeComponents(components);
-        this.initializeServices();
-        this.initializeCommonServices();
         this.publish();
         this.subscribe();
     },
@@ -12,14 +10,6 @@ Class('Page', {
         components.forEach(function(componentName) {
             new componentName();
         }); 
-    },
-
-    initializeServices: function () {
-
-    },
-
-    initializeCommonServices: function () {
-        new Services.Storage();
     },
 
     publish: function() {

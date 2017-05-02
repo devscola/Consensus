@@ -11,6 +11,7 @@ Class('Page.Proposals', {
             Services.UserList
         ];
         Page.Proposals.Super.call(this, instances);
+        new Services.Storage();
     },
 
     publish: function() {
