@@ -15,31 +15,39 @@ Class('Proposals.Form', {
         this.element.visible = true;
     },
 
-    showCircle: function() {
-        this.circleContainer.visible = true;
+    addProposal: function(data) {
+        Bus.publish('proposal.add', data.detail);
     },
 
-    refreshCircle: function(proposal) {
+    fillProposal: function(proposal) {
+        this.showCircle();
+        this.proposal = proposal;
         this.circleContainer.proposal = proposal;
+        Bus.publish('users.retrieve');
+    },
+
+    showCircle: function() {
+        this.circleContainer.visible = true;
     },
 
     addUserToCircle: function(data){
         Bus.publish('proposal.user.add', data.detail);
     },
 
-    addProposal: function(data) {
-        Bus.publish('proposal.add', data.detail);
-    },
-
     fillUsersList: function(list) {
-        this.circleContainer.usersList = list;
-        this.circleContainer.proposal = this.proposal;
+        this.usersList = list;
+        this.refreshCircle(this.proposal);
     },
 
-    fillProposal: function(proposal) {
-        this.showCircle();
-        this.proposal = proposal;
-        Bus.publish('users.retrieve');
+    refreshCircle: function(proposal) {
+        var circleUsersList = [];
+        this.usersList.forEach(function(username) {
+            circleUsersList.push({
+                username: username,
+                checked: proposal.circle.includes(username)
+            });
+        });
+        this.circleContainer.circleUsersList = circleUsersList;
     },
 
     finishCircle: function() {
@@ -51,7 +59,6 @@ Class('Proposals.Form', {
         Bus.subscribe('proposal.added', this.fillProposal.bind(this));
         Bus.subscribe('proposal.user.added', this.refreshCircle.bind(this));
         Bus.subscribe('users.retrieved', this.fillUsersList.bind(this));
-
     }
 
 });
