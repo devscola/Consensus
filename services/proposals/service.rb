@@ -1,6 +1,6 @@
 require_relative '../../domain/proposal'
 require_relative '../../domain/circle'
-require_relative 'questions_repository'
+require_relative '../questions/repository'
 require_relative 'repository'
 require_relative 'proposal'
 require_relative 'circle'
@@ -45,10 +45,10 @@ module Proposals
 
       def add_question(question)
         proposal_id = question.fetch('proposal_id')
-        Proposals::QuestionsRepository.store(question)
+        Questions::Repository.store(question)
 
         proposal = Repository.retrieve(proposal_id).serialize
-        questions = QuestionsRepository.retrieve(proposal_id).map { |question| question.to_h }
+        questions = Questions::Repository.retrieve(proposal_id).map { |question| question.to_h }
         proposal['questions'] = questions
         proposal
       end

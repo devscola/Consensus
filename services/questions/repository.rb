@@ -1,5 +1,5 @@
-module Proposals
-  class QuestionsRepository
+module Questions
+  class Repository
     class << self
       def store(question)
         @contents ||= []

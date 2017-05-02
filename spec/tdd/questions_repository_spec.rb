@@ -1,17 +1,17 @@
 require 'spec_helper_tdd'
-require_relative './../../services/proposals/questions_repository'
+require_relative './../../services/questions/repository'
 
-module Proposals
-  class TestRepository < QuestionsRepository
+module Questions
+  class TestRepository < Repository
     def self.flush
       @contents = []
     end
   end
 end
 
-describe Proposals::QuestionsRepository do
+describe Questions::Repository do
   before(:each) do
-    Proposals::TestRepository.flush
+    Questions::TestRepository.flush
   end
 
   it 'stores questions' do
@@ -20,9 +20,9 @@ describe Proposals::QuestionsRepository do
       'author' => :some_author,
       'proposal_id' => :some_proposal_id
     }
-    
-    Proposals::TestRepository.store(question)
-    result = Proposals::TestRepository.retrieve(:some_proposal_id)
+
+    Questions::TestRepository.store(question)
+    result = Questions::TestRepository.retrieve(:some_proposal_id)
 
     expect(result.first.body).to be(:some_question)
     expect(result.first.date).to be_truthy
@@ -30,7 +30,7 @@ describe Proposals::QuestionsRepository do
   end
 
   it 'delivers nothing when there are no questions related to a proposal' do
-    result = Proposals::TestRepository.retrieve(:some_proposal_id)
+    result = Questions::TestRepository.retrieve(:some_proposal_id)
 
     expect(result).to eq([])
   end
