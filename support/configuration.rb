@@ -1,5 +1,8 @@
+Mongo::Logger.logger.level = ::Logger::INFO
+
 module Support
   class Configuration
+
     HOSTS = {
       'development' => 'mongocontainer',
       nil => 'localhost'
