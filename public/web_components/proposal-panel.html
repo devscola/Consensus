@@ -1,0 +1,49 @@
+<link rel="import" href="/vendor/polymer/polymer.html">
+
+<dom-module id="proposal-panel">
+    <template>
+        <style>
+        </style>
+            <div class="panel panel-default col-sm-offset-1 col-sm-10">
+                <div id="title" class="panel-heading">{{title}}</div>
+                <div id="content" class="panel-body" style="overflow-x: scroll;">{{content}}</div>
+            </div>
+            <div class="panel panel-default col-sm-offset-1 col-sm-10">
+                <ul id="circle" class="list-inline">
+                    <template is="dom-repeat" items="{{circle}}">
+                        <li class="user-involved list-group-item">{{item}}</li>
+                    </template>
+                </ul>
+            </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'proposal-panel',
+
+            properties: {
+                
+                visibility: {
+                    type: Boolean,
+                    default: true
+                },
+
+                title: {
+                    type: String,
+                    value: ''                
+                },
+
+                content: {
+                    type: String,
+                    value: ''                
+                },
+
+                circle: {
+                    type: Array,
+                    value: []
+                }
+            }
+
+        });
+    </script>
+</dom-module>
