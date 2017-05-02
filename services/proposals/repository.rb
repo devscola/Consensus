@@ -1,4 +1,13 @@
+require_relative '../../environment_configuration'
 require 'mongo'
+
+mode = retrieve_mode
+
+if (mode == 'development')
+  DB_CONNECTOR = 'mongocontainer'
+else
+  DB_CONNECTOR = 'localhost'
+end
 
 Mongo::Logger.logger.level = ::Logger::INFO
 
@@ -43,7 +52,7 @@ module Proposals
       end
 
       def connection
-        @connection ||= Mongo::Client.new([ 'mongocontainer:27017' ],
+        @connection ||= Mongo::Client.new([ "#{DB_CONNECTOR}:27017" ],
                  :database => 'consensus_db')
       end
 
