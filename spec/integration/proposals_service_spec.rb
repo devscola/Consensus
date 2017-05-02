@@ -12,7 +12,7 @@ describe 'Proposals service' do
   it 'adds question to proposal' do
     proposal = add_proposal
     question = {
-      body: 'some_text',
+      content: 'some_text',
       author: 'KingRobert',
       proposal_id: proposal['id']
     }.to_json
@@ -20,7 +20,7 @@ describe 'Proposals service' do
     post '/proposals/add/question', question
     result = retrieved_proposal
 
-    expect(result[:body]).to eq('some_text')
+    expect(result[:content]).to eq('some_text')
     expect(result[:author]).to eq('KingRobert')
   end
 
@@ -55,9 +55,9 @@ describe 'Proposals service' do
 
   def retrieved_proposal
     first_question = parse_response['questions'].first
-    body = first_question['body']
+    content = first_question['content']
     author = first_question['author']
-    { body: body, author: author }
+    { content: content, author: author }
   end
 
   def parse_response

@@ -16,17 +16,18 @@ describe Questions::Repository do
 
   it 'stores questions' do
     question = {
-      'body' => :some_question,
+      'content' => :some_question,
       'author' => :some_author,
       'proposal_id' => :some_proposal_id
     }
 
     Questions::TestRepository.store(question)
-    result = Questions::TestRepository.retrieve(:some_proposal_id)
+    questions = Questions::TestRepository.retrieve(:some_proposal_id)
+    result = questions.first
 
-    expect(result.first.body).to be(:some_question)
-    expect(result.first.date).to be_truthy
-    expect(result.first.author).to be(:some_author)
+    expect(result.content).to be(:some_question)
+    expect(result.date).to be_truthy
+    expect(result.author).to be(:some_author)
   end
 
   it 'delivers nothing when there are no questions related to a proposal' do
