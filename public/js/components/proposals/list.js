@@ -7,16 +7,11 @@ Class('Proposals.List', {
     },
 
     show: function(proposals) {
-        this.emptyList();
         this.enlist(proposals);
     },
 
     retrieve: function() {
         Bus.publish('proposal.list');
-    },
-
-    emptyList: function() {
-        this.element.innerHTML = '';
     },
 
     enlist: function(proposals) {
