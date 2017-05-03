@@ -7,6 +7,7 @@ Class('Proposals.List', {
     },
 
     show: function(proposals) {
+        this.element.innerHTML = '';
         this.enlist(proposals);
     },
 
