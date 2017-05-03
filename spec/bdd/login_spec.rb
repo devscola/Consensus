@@ -17,7 +17,7 @@ feature 'Login Form' do
   end
 
   scenario 'allows dissmissing warning' do
-    current=Fixture.wrong_credentials_attempt
+    current = Fixture.wrong_credentials_attempt
     current.dismiss_wrong_credentials_warning
 
     expect(current.warning_shown?).to be false
@@ -29,18 +29,18 @@ feature 'Login Form' do
   end
 
   scenario 'shows secured password on demand' do
-    current= Fixture.password_shown
+    current = Fixture.password_shown
     current.toggle_password_visibility
     expect(current.password_masked?).to be true
   end
 
   scenario 'stores a token when authorized' do
-    current=Fixture.user_logged
+    Fixture.user_logged
     expect(login_page.token?).to be true
   end
 
   scenario 'stores no token on bad attempt' do
-    current=Fixture.wrong_credentials_attempt
+    current = Fixture.wrong_credentials_attempt
     expect(current.token?).to be false
   end
 
@@ -49,5 +49,4 @@ feature 'Login Form' do
     login_page.fill_user(name)
     expect(login_page.space_warning?).to be true
   end
-
 end

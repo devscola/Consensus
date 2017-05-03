@@ -1,8 +1,8 @@
 module Proposals
   class Proposal < Domain::Proposal
-    def self.from_bson bson
-      the_proposal = Proposals::Proposal.new(bson['id'],bson['proposer'])
-      the_proposal.attach(bson['title'],bson['content'])
+    def self.from_bson(bson)
+      the_proposal = Proposals::Proposal.new(bson['id'], bson['proposer'])
+      the_proposal.attach(bson['title'], bson['content'])
       the_proposal.create_circle(bson['circle'])
       the_proposal
     end

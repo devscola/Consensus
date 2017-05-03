@@ -46,7 +46,7 @@ task :tag, [:tag] do |t, arg|
 end
 
 desc 'Run labeled tests'
-  RSpec::Core::RakeTask.new do |test, args|
+RSpec::Core::RakeTask.new do |test, args|
   test.pattern = Dir['spec/**/*_spec.rb']
   test.rspec_opts = args.extras.map { |tag| "--tag #{tag}" }
 end

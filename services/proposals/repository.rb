@@ -17,12 +17,12 @@ module Proposals
       end
 
       def update(proposal)
-        document=proposal.serialize
-        collection.find_one_and_replace({id: document['id']},document)
+        document = proposal.serialize
+        collection.find_one_and_replace({ id: document['id'] }, document)
       end
 
       def retrieve(id)
-        data = collection.find({id: id}).first
+        data = collection.find({ id: id }).first
         Proposal.from_bson(data)
       end
 
@@ -42,8 +42,10 @@ module Proposals
       end
 
       def connection
-        @connection ||= Mongo::Client.new([ "#{host}:27017" ],
-                 :database => 'consensus_db')
+        @connection ||= Mongo::Client.new(
+          ["#{host}:27017"],
+          :database => 'consensus_db'
+        )
       end
 
       def collection

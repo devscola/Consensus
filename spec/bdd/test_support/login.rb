@@ -7,7 +7,7 @@ module Page
       visit(url)
       validate!
     end
-    
+
     def warning_shown?
       has_css?('#warning')
     end
@@ -15,7 +15,7 @@ module Page
     def space_warning?
       has_css?('#space-warning')
     end
-    
+
     def fill_user(username)
       fill_in('username', with: username)
     end
@@ -42,7 +42,7 @@ module Page
       script = <<~SCRIPT
         return localStorage.getItem('authorized');
       SCRIPT
-      
+
       token = execute_script(script)
       return true if token
       false
@@ -55,7 +55,7 @@ module Page
       page.assert_selector('#password[type="password"]')
       page.assert_selector('#submit')
       page.assert_selector('#toggler')
-      page.assert_selector('#space-warning',visible:false)
+      page.assert_selector('#space-warning', visible: false)
     end
   end
 end

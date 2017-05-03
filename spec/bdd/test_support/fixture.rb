@@ -47,7 +47,7 @@ class Fixture
 
   def self.wrong_credentials_attempt
     current = Page::Login.new
-    current.sign_in(BAD_USERNAME,BAD_PASSWORD)
+    current.sign_in(BAD_USERNAME, BAD_PASSWORD)
     current
   end
 

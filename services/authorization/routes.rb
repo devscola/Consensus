@@ -39,5 +39,4 @@ class App < Sinatra::Base
 
     return result.to_json
   end
-
 end

@@ -4,7 +4,7 @@ module Authorization
   class Service
     def self.verify(username, password)
       credential = Repository.retrieve(username)
-      if( credential.secured_by?(password) )
+      if (credential.secured_by?(password))
         Repository.token(username)
       else
         false
@@ -23,6 +23,5 @@ module Authorization
     def self.decode_token(md5)
       Repository.retrieve_token(md5)
     end
-
   end
 end

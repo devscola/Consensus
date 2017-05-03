@@ -9,7 +9,7 @@ module Questions
       end
 
       def retrieve(proposal_id)
-        questions = collection.find({proposal_id: proposal_id})
+        questions = collection.find({ proposal_id: proposal_id })
         questions.map do |question_data|
           Questions::Question.from_bson(question_data)
         end
@@ -18,8 +18,10 @@ module Questions
       private
 
       def connection
-        @connection ||= Mongo::Client.new([ "#{host}:27017" ],
-                 :database => 'consensus_db')
+        @connection ||= Mongo::Client.new(
+          ["#{host}:27017"],
+          :database => 'consensus_db'
+        )
       end
 
       def collection

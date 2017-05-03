@@ -43,7 +43,7 @@ describe Proposals::Service do
     some_proposal_title = 'some title'
     some_proposal_content = 'some content'
     username = 'KingRobert'
-    Proposals::Service.add(some_proposal_title, some_proposal_content,:some_proposer)
+    Proposals::Service.add(some_proposal_title, some_proposal_content, :some_proposer)
     retrieval_code = calculate_proposal_signature(some_proposal_title, some_proposal_content)
     Proposals::Service.involve(retrieval_code, username)
 
@@ -57,9 +57,8 @@ describe Proposals::Service do
     some_proposal_content = 'some content'
     first_user = 'KingRobert'
     second_user = 'Cersei'
-    Proposals::Service.add(some_proposal_title, some_proposal_content, :some_proposer)
-    retrieval_code = calculate_proposal_signature(some_proposal_title,
-      some_proposal_content)
+    Proposals::Service.add(some_proposal_title, some_proposal_content,:some_proposer)
+    retrieval_code = calculate_proposal_signature(some_proposal_title, some_proposal_content)
     Proposals::Service.involve(retrieval_code, first_user)
     Proposals::Service.involve(retrieval_code, second_user)
 
@@ -74,7 +73,6 @@ describe Proposals::Service do
     another_person = 'Arya'
     Proposals::Service.involve(proposal['id'], some_person)
     Proposals::Service.involve(proposal['id'], another_person)
-
 
     result = Proposals::Service.user_inside_circle?(proposal['id'], some_person)
 
@@ -92,5 +90,4 @@ describe Proposals::Service do
     proposal_signature = title + content
     Digest::MD5.hexdigest(proposal_signature)
   end
-
 end
