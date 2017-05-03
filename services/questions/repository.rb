@@ -25,7 +25,7 @@ module Questions
       end
 
       def collection
-        connection[:proposals]
+        connection[:questions]
       end
 
       def host
