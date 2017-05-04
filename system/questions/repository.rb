@@ -15,6 +15,10 @@ module Questions
         end
       end
 
+      def flush
+        collection.delete_many
+      end
+
       private
 
       def connection

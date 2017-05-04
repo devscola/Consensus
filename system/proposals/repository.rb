@@ -31,8 +31,8 @@ module Proposals
         proposals_data.map { |data| Proposals::Proposal.from_bson(data) }
       end
 
-      def empty
-        collection.delete_many()
+      def flush
+        collection.delete_many
       end
 
       private

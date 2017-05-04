@@ -21,8 +21,8 @@ module Proposals
         all_proposals.map { |proposal| proposal.serialize }
       end
 
-      def empty
-        Repository.empty
+      def flush
+        Repository.flush
       end
 
       def retrieve(id)
@@ -51,7 +51,7 @@ module Proposals
         question = Questions::Question.from_json(question_data)
         Questions::Repository.store(question)
 
-        proposal = Repository.retrieve(proposal_id).serialize
+        proposal = Proposals::Repository.retrieve(proposal_id).serialize
         questions = Questions::Repository.retrieve(proposal_id).map do |question|
           question.serialize
         end

@@ -1,19 +1,15 @@
 module Questions
   class Question < Domain::Question
-    def self.from_bson(data)
-      Questions::Question.new(
-        data['content'],
-        data['author'],
-        data['proposal_id']
-      )
-    end
+    class << self
+      def from_bson(data)
+        Questions::Question.new(
+          data['content'],
+          data['author'],
+          data['proposal_id']
+        )
+      end
 
-    def self.from_json(data)
-      Questions::Question.new(
-        data['content'],
-        data['author'],
-        data['proposal_id']
-      )
+      alias_method :from_json, :from_bson
     end
 
     def serialize

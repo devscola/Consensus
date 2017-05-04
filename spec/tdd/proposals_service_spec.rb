@@ -4,7 +4,7 @@ require_relative './../../system/proposals/service'
 
 describe Proposals::Service do
   before(:each) do
-    Proposals::Service.empty
+    Proposals::Service.flush
   end
 
   it 'return empty when no proposals' do

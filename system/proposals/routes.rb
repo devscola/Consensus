@@ -23,7 +23,7 @@ class App < Sinatra::Base
   end
 
   get '/proposals/empty' do
-    Proposals::Service.empty
+    Proposals::Service.flush
   end
 
   post '/proposals/retrieve' do
@@ -65,11 +65,5 @@ class App < Sinatra::Base
   post '/proposals/add/question' do
     question = JSON.parse(request.body.read)
     Proposals::Service.add_question(question).to_json
-  end
-
-  private
-
-  def empty_json
-    ''.to_json
   end
 end

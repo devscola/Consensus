@@ -43,7 +43,7 @@ module Page
     end
 
     def question_button_active?
-      button = find('#question.question-button')
+      button = find('#question.question-button', wait: 4)
       result = button[:disabled]
       result.nil?
     end
