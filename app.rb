@@ -1,6 +1,6 @@
 require 'sinatra/base'
-require_relative './services/authorization/routes'
-require_relative './services/proposals/routes'
+require_relative './system/authorization/routes'
+require_relative './system/proposals/routes'
 
 class App < Sinatra::Base
   set :public_folder, './public/'

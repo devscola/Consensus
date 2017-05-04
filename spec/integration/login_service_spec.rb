@@ -1,6 +1,6 @@
 require 'rack/test'
 require 'json'
-require_relative './../../services/authorization/routes'
+require_relative './../../system/authorization/routes'
 
 describe 'login service' do
   include Rack::Test::Methods

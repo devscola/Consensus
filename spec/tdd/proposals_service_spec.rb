@@ -1,6 +1,6 @@
 require 'spec_helper_tdd'
 require 'digest/md5'
-require_relative './../../services/proposals/service'
+require_relative './../../system/proposals/service'
 
 describe Proposals::Service do
   before(:each) do

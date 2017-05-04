@@ -1,5 +1,5 @@
 require 'spec_helper_tdd'
-require_relative './../../services/authorization/service'
+require_relative './../../system/authorization/service'
 
 describe Authorization::Service do
   it 'tells if an username and a password are related' do

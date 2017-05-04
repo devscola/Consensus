@@ -1,5 +1,5 @@
 require 'spec_helper_tdd'
-require_relative './../../services/questions/repository'
+require_relative './../../system/questions/repository'
 
 module Questions
   class TestRepository < Repository

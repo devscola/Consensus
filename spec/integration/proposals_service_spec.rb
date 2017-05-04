@@ -1,6 +1,6 @@
 require 'rack/test'
 require 'json'
-require_relative './../../services/proposals/routes'
+require_relative './../../system/proposals/routes'
 
 describe 'Proposals service' do
   include Rack::Test::Methods
