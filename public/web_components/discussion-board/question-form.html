@@ -14,7 +14,7 @@
         </style>
 
         <div id="questionContent" class$="{{displayed}}">
-            <textarea id="questionText" name="question-text" value="{{theQuestion::input}}" on-input="counterSwitch" on-keyup="controlEnterSubmit"></textarea>
+            <textarea id="questionText" name="question-text" on-input="updateCounter" on-keyup="controlEnterSubmit"></textarea>
             <span class="badge">{{count}}</span>
             <button id="question-submit" on-click="questionAttempt" disabled$="{{enabledSubmit}}">submit</button>
         </div>
@@ -33,7 +33,7 @@
 
                 enabledSubmit: {
                     type: String,
-                    value: null,
+                    value: 'true',
                     reflectToAttribute: true
                 },
 
@@ -46,11 +46,6 @@
                     type: Boolean,
                     reflectToAttribute: true,
                     observer: 'evaluateDisplay'
-                },
-
-                theQuestion:{
-                    type: String,
-                    value: ''
                 },
 
                 count:{
@@ -75,18 +70,18 @@
                     this.displayed = 'show';
                 } else {
                     this.displayed = 'hide';
-                };
+                }
             },
 
-            counterSwitch: function() {
-                this.count=this.theQuestion.length;
+            updateCounter: function() {
+                this.count = this.$.questionText.value.length;
                 this.activateSubmit();
             },
 
             controlEnterSubmit: function(event) {
                 if (event.keyCode == 13) {
                     this.questionAttempt();
-                };
+                }
             },
 
             activateSubmit: function() {
@@ -94,7 +89,7 @@
                     this.enabledSubmit = null;
                 } else {
                     this.enabledSubmit = 'true';
-                };
+                }
             }
 
         });

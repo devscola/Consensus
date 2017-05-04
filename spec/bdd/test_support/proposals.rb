@@ -48,7 +48,7 @@ module Page
 
     def visit_proposal(name)
       click_link(name, wait: 4)
-      return DiscussionBoard.new
+      return Page::DiscussionBoard.new
     end
 
     def entries

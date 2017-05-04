@@ -17,7 +17,7 @@ class Fixture
   INVOLVED_PASSWORD = 'Lion'
 
   def self.pristine
-    Fixture.empty
+    visit('/proposals/empty')
     self
   end
 
@@ -51,40 +51,36 @@ class Fixture
     current
   end
 
-  def self.empty
-    visit('/proposals/empty')
-    Page::Proposals.new
-  end
-
   def self.proposal_added
     current = Fixture.login
     current.new_proposal(PROPOSAL_NAME)
     current
   end
 
-  def self.involved_questioning
-    Fixture.a_user_involved
-    current = Fixture.involved_logged
-    board = current.visit_proposal(Fixture::PROPOSAL_NAME)
+  def self.proposal_with_a_user_involved
+    current = Fixture.proposal_added
+    current.click_user_button(NOT_PROPOSER)
+    current
+  end
+
+  def self.proposal_visited
+    current = Page::Proposals.new
+    current.visit_proposal(PROPOSAL_NAME)
+  end
+
+  def self.involved_is_questioning
+    Fixture.involved_logged
+    board = Fixture.proposal_visited
     board.create_question
+    board.fill_enough_text
     board
   end
 
   def self.involved_asked
     current = Fixture.involved_questioning
-    current.fill_question(Fixture.enough_text)
+    current.fill_enough_text
     current.submit_question_form
     current
-  end
-
-  def self.enough_text
-    enough_length_text = ''
-    101.times { enough_length_text << 'a' }
-    enough_length_text
-  end
-
-  def self.at_proposals
-    Page::Proposals.new
   end
 
   def self.proposal_form_shown

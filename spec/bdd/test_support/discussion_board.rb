@@ -1,5 +1,8 @@
 module Page
   class DiscussionBoard
+    ENOUGH_TEXT = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m'
+    NOT_ENOUGH_TEXT = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aene'
+
     include Capybara::DSL
 
     def initialize
@@ -45,10 +48,6 @@ module Page
       result.nil?
     end
 
-    def fill_question(text)
-      fill_in('questionText', with: text)
-    end
-
     def submit_question_active?
       button = find('#question-submit.question-form', visible: false)
       result = button[:disabled]
@@ -61,6 +60,26 @@ module Page
 
     def submit_question_form
       find('#question-submit.question-form').click
+    end
+
+    def fill_enough_text
+      script = <<~SCRIPT
+        content = document.getElementById('questionText');
+        content.value = '#{ENOUGH_TEXT}';
+        form = document.getElementById('question-content');
+        form.updateCounter();
+      SCRIPT
+      execute_script(script)
+    end
+
+    def fill_not_enough_text
+      script = <<~SCRIPT
+        content = document.getElementById('questionText');
+        content.value = '#{NOT_ENOUGH_TEXT}';
+        form = document.getElementById('question-content');
+        form.updateCounter();
+      SCRIPT
+      execute_script(script)
     end
 
     private
