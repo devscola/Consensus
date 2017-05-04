@@ -1,0 +1,36 @@
+<link rel="import" href="/vendor/polymer/polymer.html">
+
+<dom-module id="proposals-list">
+	<template>
+		<style>
+		</style>
+
+		 <div id="list" class="list-group">
+			<template is="dom-repeat" items="{{proposalsList}}">
+				<div class="proposal-entry list-group-item">
+					<a href="discussion-board/{{item.id}}">{{item.title}}</a>
+				</div>
+			</template>
+		 </div>
+	</template>
+	<script>
+		Polymer({
+			is: 'proposals-list',
+
+			properties: {
+
+				visible: {
+					type: Boolean,
+					default: true
+				},
+
+				proposalsList: {
+					type: Array,
+					reflectToAttribute: true
+				}
+
+			}
+
+		});
+	</script>
+</dom-module>

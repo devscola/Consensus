@@ -144,7 +144,7 @@ module Page
 
     def validate!
       page.assert_selector('#newProposal.create-proposal', visible: false)
-      page.assert_selector('#proposals-list', visible: false)
+      page.assert_selector('#proposals-container', visible: false)
       page.assert_selector('#proposal-finish.proposal-circle', visible: false)
       page.assert_selector('#user-selection.proposal-circle', visible: false)
       page.assert_selector('#submit.proposal-form', visible: false)

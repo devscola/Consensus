@@ -4,44 +4,26 @@ Class('Proposals.List', {
 
     initialize: function() {
         Proposals.List.Super.call(this, 'proposals-list');
+        this.proposalsContainer = document.getElementById('proposals-container');
     },
 
-    show: function(proposals) {
-        this.element.innerHTML = '';
-        this.enlist(proposals);
+    render: function(proposals) {
+        var proposalsList = [];
+        proposals.result.forEach(function(proposal) {
+            proposalsList.push({
+                title: proposal.title,
+                id: proposal.id
+            });
+        });
+        this.proposalsContainer.proposalsList = proposalsList;        
     },
 
     retrieve: function() {
         Bus.publish('proposal.list');
     },
 
-    enlist: function(proposals) {
-        var callback = function(proposal) {
-            var entry = this.createEntry();
-            var link = this.linkerize(proposal);
-
-            link.textContent = proposal.title;
-            entry.append(link);
-            this.element.append(entry);
-        };
-        proposals.result.forEach(callback.bind(this));
-    },
-
-    createEntry: function() {
-        var container = document.createElement('div');
-        container.className = 'proposal-entry list-group-item';
-        return container;
-    },
-
-    linkerize: function(proposal){
-        var link = document.createElement('a');
-        link.href = 'discussion-board/' + proposal.id;
-        return link;
-    },
-
-
     subscribe: function() {
-        Bus.subscribe('proposal.listed', this.show.bind(this));
+        Bus.subscribe('proposal.listed', this.render.bind(this));
         Bus.subscribe('proposal.added', this.retrieve.bind(this));
     }
 

@@ -4,7 +4,7 @@ require_relative 'test_support/login'
 require_relative 'test_support/fixture'
 require_relative '../../app'
 
-feature 'Discussion board', :wip do
+feature 'Discussion board' do
   scenario 'Shows circle users including the proposer' do
     current = Fixture.pristine.a_user_involved
     board = current.visit_proposal(Fixture::PROPOSAL_NAME)
