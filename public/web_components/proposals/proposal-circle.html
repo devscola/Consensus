@@ -80,12 +80,7 @@
 
 			closeCircle: function(){
 				this.visible = false;
-				this.emptyCircle();
 				this.fire('circleFinished');
-			},
-
-			emptyCircle: function(){
-			    this.users.innerHTML = '';
 			},
 
 		    addUserToCircle: function(event) {
