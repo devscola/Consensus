@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require_relative './service'
+require_relative './../questions/service'
 
 class App < Sinatra::Base
   post '/proposal/users' do
@@ -62,8 +63,15 @@ class App < Sinatra::Base
     result.to_json
   end
 
-  post '/proposals/add/question' do
+  post '/proposal/add/question' do
     question = JSON.parse(request.body.read)
-    Proposals::Service.add_question(question).to_json
+    proposal_id = question['proposal_id']
+
+    Questions::Service.store(question)
+    questions = Questions::Service.retrieve(proposal_id)
+    proposal = Proposals::Service.retrieve(proposal_id)
+
+    proposal['questions'] = questions
+    return proposal.to_json
   end
 end

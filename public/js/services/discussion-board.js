@@ -3,7 +3,7 @@ Class('Services.DiscussionBoard', {
     Extends: Service,
 
     initialize: function() {
-        Services.DiscussionBoard.Super.call(this, '/proposals');
+        Services.DiscussionBoard.Super.call(this, '/proposal');
     },
 
     addQuestion: function(questionData) {

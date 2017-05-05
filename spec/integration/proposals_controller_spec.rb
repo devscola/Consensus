@@ -1,12 +1,17 @@
 require 'rack/test'
 require 'json'
 require_relative './../../system/proposals/routes'
+require_relative './../../system/questions/repository'
 
 describe 'Proposals controller' do
   include Rack::Test::Methods
 
   def app
     App.new
+  end
+
+  before(:each) do
+    Questions::Repository.flush
   end
 
   it 'retrieves all users' do
@@ -16,19 +21,21 @@ describe 'Proposals controller' do
     expect(result).to be_truthy
   end
 
-  it 'adds question to proposal' do
-    proposal = add_proposal
+  it 'delivers the proposal with it questions' do
+    add_proposal
+    last_proposal_id = parse_response['id']
+
     question = {
-      content: 'some_text',
-      author: 'KingRobert',
-      proposal_id: proposal['id']
+      'author' => 'some_author',
+      'content' => 'some_content',
+      'proposal_id' => last_proposal_id
     }.to_json
 
-    post '/proposals/add/question', question
-    result = retrieved_proposal
+    post '/proposal/add/question', question
+    delivered_proposal = JSON.parse(last_response.body)
+    result = delivered_proposal['questions'].first
 
-    expect(result[:content]).to eq('some_text')
-    expect(result[:author]).to eq('KingRobert')
+    expect(result['author']).to eq('some_author')
   end
 
   it 'cannot add a user to a proposal circle twice' do

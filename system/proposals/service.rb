@@ -45,20 +45,6 @@ module Proposals
         the_proposal = Repository.retrieve(id)
         the_proposal.involved?(username)
       end
-
-      def add_question(question_data)
-        proposal_id = question_data.fetch('proposal_id')
-        question = Questions::Question.from_json(question_data)
-        Questions::Repository.store(question)
-
-        proposal = Proposals::Repository.retrieve(proposal_id).serialize
-        questions = Questions::Repository.retrieve(proposal_id).map do |question|
-          question.serialize
-        end
-
-        proposal['questions'] = questions
-        proposal
-      end
     end
   end
 end
