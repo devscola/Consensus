@@ -86,7 +86,14 @@ bundle install --path vendor/bundle
 ~~~
 
 
+## Install MongoDB
+
+Link: https://www.mongodb.com/
+
+
 ## Run tests in local environment:
+
+First start MongoDB.
 
 To run the test you must have the Consensus app up.
 
@@ -506,6 +513,7 @@ services:
      - bundle:/usr/local/bundle
     links:
       - selenium
+      - mongocontainer
     command: bundle exec rake
 
   selenium:
@@ -516,6 +524,12 @@ services:
     logging:
       driver: none
 
+  mongocontainer:
+    image: mongo:latest
+    ports:
+        - "27017:27017"
+    command: --smallfiles
+
 volumes:
   bundle:
     driver: local
@@ -525,9 +539,9 @@ In line 8, the environment variable is read for the port that the container will
 
 The first parameter refers to the input (exposed by Sinatra) and the second parameter refers to the output port of the container for that service.
 
-In line 13 we are forced to put into the Selenium environment that will be in charge of giving the web service that we need.
+In line 13 we are forced to put into the Selenium environment that will be in charge of giving the web service that we need, and in line 14 on put link to Mongo container.
 
-On line 14, we tell our container to start the indicated 'bundle' at the start of the environment.
+On line 15, we tell our container to start the indicated 'bundle' at the start of the environment.
 
 ## Preparing the application for booting with 'rake'
 
@@ -562,6 +576,7 @@ At last we update the 'Rakefile' with the following content:
 ~~~
 require_relative 'environment_configuration'
 require 'rspec/core/rake_task'
+require 'mongoid'
 
 SINATRA_PORT = retrieve_port
 
@@ -606,7 +621,7 @@ desc 'Run labeled tests'
 end
 ~~~
 
-In it we read the variable of the file '.env' and keep it as constant (necessary) to launch the rake (line 15 and 19).
+In it we read the variable of the file '.env' and keep it as constant (necessary) to launch the rake (line 16 and 20).
 
 'Rerun' allows the web to be updated with every change without the need to stop and restart sinatra.
 
@@ -724,6 +739,62 @@ end
 ~~~
 
 In this file on create the functions for configure the diferents environments.
+
+The file 'mongoid.yml':
+
+~~~
+development:
+  clients:
+    default:
+      database: consensus_db
+      hosts:
+        - localhost:27017
+~~~
+
+The file 'support/configuration.rb'
+
+~~~
+Mongo::Logger.logger.level = ::Logger::INFO
+
+module Support
+  class Configuration
+    HOSTS = {
+      'development' => 'mongocontainer',
+      nil => 'localhost'
+    }
+
+    def self.retrieve_mode
+      begin
+        consensus_environment = ENV.fetch('CONSENSUS_MODE')
+      rescue
+        consensus_environment = nil
+      end
+      return consensus_environment
+    end
+
+    def self.host
+      HOSTS[retrieve_mode]
+    end
+  end
+end
+~~~
+
+And in the repository's files on add:
+
+~~~
+require 'mongo'
+
+def connection
+  @connection ||= Mongo::Client.new(
+    ["#{host}:27017"],
+    :database => 'consensus_db'
+  )
+end
+
+def host
+  Support::Configuration.host
+end
+~~~
 
 
 # CONTINUOUS INTEGRATION
