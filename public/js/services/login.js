@@ -8,9 +8,9 @@ Class('Services.Login', {
 
     hasSucceeded: function(result) {
         if (result.valid) {
-            Bus.publish('attemp.succeeded', result);
+            Bus.publish('login.attempt.succeeded', result);
         } else {
-            Bus.publish('attemp.failed');
+            Bus.publish('login.attempt.failed');
         }
     },
 
@@ -19,7 +19,7 @@ Class('Services.Login', {
     },
 
     subscribe: function() {
-        Bus.subscribe('LoginAttempt', this.login.bind(this));
+        Bus.subscribe('login.attempt', this.login.bind(this));
     }
 
 });

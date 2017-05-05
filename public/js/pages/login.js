@@ -17,6 +17,6 @@ Class('Page.Login', {
     },
 
     subscribe: function() {
-        Bus.subscribe('attemp.succeeded', this.goToHome);
+        Bus.subscribe('login.attempt.succeeded', this.goToHome);
     }
 });

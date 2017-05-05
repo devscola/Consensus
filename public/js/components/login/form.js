@@ -8,7 +8,7 @@ Class('Login.Form', {
     },
 
     doLogin: function(polymerEvent) {
-        Bus.publish('LoginAttempt', polymerEvent.detail);
+        Bus.publish('login.attempt', polymerEvent.detail);
     },
 
     showWarning: function() {
@@ -16,7 +16,7 @@ Class('Login.Form', {
     },
 
     subscribe: function() {
-        Bus.subscribe('attemp.failed', this.showWarning.bind(this));
+        Bus.subscribe('login.attempt.failed', this.showWarning.bind(this));
     }
 
 });
