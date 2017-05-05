@@ -5,7 +5,7 @@ module Domain
     def initialize(id, proposer)
       @id = id
       @circle = Circle.new
-      @proposer=proposer
+      @proposer = proposer
       involve(@proposer)
     end
 
@@ -22,7 +22,7 @@ module Domain
       @circle.involved
     end
 
-    def involved? person
+    def involved?(person)
       @circle.involved?(person)
     end
   end

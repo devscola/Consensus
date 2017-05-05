@@ -13,7 +13,7 @@ module Domain
       @involved
     end
 
-    def involved? person
+    def involved?(person)
       @involved.include?(person)
     end
   end
