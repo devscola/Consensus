@@ -28,7 +28,7 @@ Class('Services.Proposals', {
 
     holdProposalData: function(proposalData) {
         this.proposalData = proposalData;
-        Bus.publish('storage.retrieve.authorization');
+        Bus.publish('storage.authorization.retrieve');
     },
 
     retrieveProposerName: function (authorized) {
@@ -57,8 +57,8 @@ Class('Services.Proposals', {
 
         this.baseUrl = '';
         this.doRequest('/create-proposal/token', serialized_token, function(response) {
-            if(token == response.token){
-                Bus.publish('proposal.create.show');
+            if(token == response.token) {
+                Bus.publish('proposal.create.button.show');
             }
         }.bind(this));
         this.baseUrl = oldBaseUrl;
@@ -67,7 +67,7 @@ Class('Services.Proposals', {
     subscribe: function() {
         Bus.subscribe('proposal.logged.user',this.retrieveLoggedUser.bind(this));
         Bus.subscribe('proposal.add', this.holdProposalData.bind(this));
-        Bus.subscribe('proposal.logged', this.retrieveToken.bind(this));
+        Bus.subscribe('proposal.check.user.logged', this.retrieveToken.bind(this));
         Bus.subscribe('proposal.list', this.list.bind(this));
         Bus.subscribe('proposal.retrieve', this.retrieve.bind(this));
         Bus.subscribe('storage.authorization.retrieved', this.retrieveProposerName.bind(this));

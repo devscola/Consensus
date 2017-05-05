@@ -55,14 +55,14 @@ Class('DiscussionBoard.Questioner', {
 
     holdProposal: function(proposal) {
         this.proposal = proposal;
-        Bus.publish('storage.retrieve.username');
+        Bus.publish('storage.username.retrieve');
     },
 
     allowQuestioning: function (username) {
         var involved = this.proposal.circle.includes(username);
         var isProposer = (this.proposal.proposer == username);
 
-        this.questionButton.validQuestioner = (involved && !isProposer);    
+        this.questionButton.validQuestioner = (involved && !isProposer);
     },
 
     publish: function() {

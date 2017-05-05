@@ -22,12 +22,12 @@ Class('Proposals.ProposalCreator', {
     },
 
     isLogged: function(){
-        Bus.publish('proposal.logged');
+        Bus.publish('proposal.check.user.logged');
     },
 
     subscribe: function() {
-        Bus.subscribe('proposal.create.show', this.showButton.bind(this));
-        Bus.subscribe('circle.finished', this.enableButton.bind(this));
+        Bus.subscribe('proposal.create.button.show', this.showButton.bind(this));
+        Bus.subscribe('proposal.circle.finished', this.enableButton.bind(this));
     }
 
 });

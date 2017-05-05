@@ -51,7 +51,7 @@ Class('Proposals.Form', {
     },
 
     finishCircle: function() {
-        Bus.publish('circle.finished');
+        Bus.publish('proposal.circle.finished');
     },
 
     subscribe: function() {

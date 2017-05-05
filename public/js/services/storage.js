@@ -28,8 +28,8 @@ Class('Services.Storage', {
     subscribe: function() {
         Bus.subscribe('login.attempt.succeeded', this.storageAuthorization.bind(this));
         Bus.subscribe('login.attempt.failed', this.removeAuthorization.bind(this));
-        Bus.subscribe('storage.retrieve.username', this.retrieveUsername.bind(this));
-        Bus.subscribe('storage.retrieve.authorization', this.retrieveAuthorization.bind(this));
+        Bus.subscribe('storage.username.retrieve', this.retrieveUsername.bind(this));
+        Bus.subscribe('storage.authorization.retrieve', this.retrieveAuthorization.bind(this));
     }
 
 });
