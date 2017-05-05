@@ -19,6 +19,7 @@
                 display: none;
             }
         </style>
+
         <div id="form" class$="{{formVisibility}} panel-body">
             <input id="title" class="form-control" placeholder="Type your title here. Remember, keep it short and clear">
             <textarea id="content" class="form-control" on-input="updateCounter" on-keyup="ctrlEnterSubmit" placeholder="Type your proposal text here. Remember, explain your proposal thoroughly"></textarea>
@@ -30,7 +31,6 @@
                 Submit
             </button>
         </div>
-
     </template>
 
     <script>
