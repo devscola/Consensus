@@ -2,7 +2,7 @@ require 'sinatra/base'
 require_relative './service'
 
 class App < Sinatra::Base
-  post '/proposal/circle' do
+  post '/proposal/users' do
     result = Authorization::Service.users
     result.to_json
   end

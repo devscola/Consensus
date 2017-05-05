@@ -7,7 +7,7 @@ Class('Services.UserList', {
     },
 
     list: function() {
-        this.doRequest('/circle', '', function(result) {
+        this.doRequest('/users', '', function(result) {
             Bus.publish('users.retrieved', result);
         });
     },

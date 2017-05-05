@@ -9,6 +9,13 @@ describe 'Proposals controller' do
     App.new
   end
 
+  it 'retrieves all users' do
+    post '/proposal/users'
+    result = parse_response
+
+    expect(result).to be_truthy
+  end
+
   it 'adds question to proposal' do
     proposal = add_proposal
     question = {
