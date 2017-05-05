@@ -47,11 +47,6 @@ Class('Services.Proposals', {
         var token = localStorage.getItem('authorized');
         var oldBaseUrl = this.baseUrl;
         serialized_token = {'token': token};
-
-        this.baseUrl = '';
-        this.doRequest('/user/logged', serialized_token, function(proposer) {
-            Bus.publish('logged.user', proposer.username);
-        }.bind(this));
         this.baseUrl = oldBaseUrl;
     },
 
