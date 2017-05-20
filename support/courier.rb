@@ -12,9 +12,9 @@ module Support
       def collect_polymer_files
         puts 'Support::Courier: starting to collect Polymer files...'
 
-        polymer_main = open('https://polygit.org/components/polymer/polymer.html')
-        polymer_mini = open('https://polygit.org/components/polymer/polymer-mini.html')
-        polymer_micro = open('https://polygit.org/components/polymer/polymer-micro.html')
+        polymer_main = open('https://polygit.org/polymer+1.x/components/polymer/polymer.html')
+        polymer_mini = open('https://polygit.org/polymer+1.x/components/polymer/polymer-mini.html')
+        polymer_micro = open('https://polygit.org/polymer+1.x/components/polymer/polymer-micro.html')
         webcomponents_js = open('https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.24/webcomponents-lite.min.js')
 
         engine_main = File.open('public/vendor/polymer/polymer.html', 'w')
