@@ -1,6 +1,6 @@
-###README.md
+### README.md
 
-##DOCKER INSTALATION:
+## DOCKER INSTALATION:
 
 1.- You must install Docker following the web instructions:
 
@@ -19,7 +19,7 @@ Link: https://docs.docker.com/compose/install/
 6. If you are user Windows remember share your C: drive in docker settings.
 
 
-##RUN APP
+## RUN APP
 
 1.- Download git:
 
@@ -54,4 +54,4 @@ docker-compose run web rake test
 
 If you want view app, open navigator (firefox, chrome, ...) and visit localhost:4567
 
-#More information in file **CONTRIBUTING.md**
+# More information in file **CONTRIBUTING.md**
