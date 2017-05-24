@@ -1,5 +1,3 @@
-### README.md
-
 ## DOCKER INSTALATION:
 
 1.- You must install Docker following the web instructions:
@@ -54,4 +52,4 @@ docker-compose run web rake test
 
 If you want view app, open navigator (firefox, chrome, ...) and visit localhost:4567
 
-# More information in file **CONTRIBUTING.md**
+#### More information in file **CONTRIBUTING.md**
