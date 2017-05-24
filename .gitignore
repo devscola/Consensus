@@ -18,3 +18,5 @@ public/vendor/
 .ruby-gemset
 .rvmrc
 .DS_Store
+.directory
+
