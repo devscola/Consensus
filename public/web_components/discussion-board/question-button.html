@@ -16,7 +16,7 @@
         <button
             id="question"
             on-click="openTextarea"
-            disabled$="{{enabledQuestion}}"
+            disabled$="{{questionEnabled}}"
             class$="{{visibility}}"
         >
             ?
@@ -28,7 +28,7 @@
             is: 'question-button',
 
             properties: {
-                enabledQuestion: {
+                questionEnabled: {
                     type: Boolean,
                     value: false,
                 },
@@ -65,12 +65,12 @@
 
             openTextarea: function(e, detail) {
                 this.fire('openTextarea');
-                this.enabledQuestion = true;
+                this.questionEnabled = true;
             },
 
             buttonActivation: function() {
                 this.buttonActivated = false;
-                this.enabledQuestion = false;
+                this.questionEnabled = false;
             },
 
             showButton: function() {
