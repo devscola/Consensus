@@ -10,8 +10,6 @@ Gemfile.lock
 /doc/
 /rdoc/
 /.bundle/
-/vendor/
-public/vendor/
 /dependencies/bundle
 /lib/bundler/man/
 .ruby-version
@@ -19,4 +17,3 @@ public/vendor/
 .rvmrc
 .DS_Store
 .directory
-
