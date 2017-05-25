@@ -1,6 +1,6 @@
-require_relative '../../domain/question'
-require_relative '../../domain/proposal'
-require_relative '../../domain/circle'
+require_relative '../domain/question'
+require_relative '../domain/proposal'
+require_relative '../domain/circle'
 
 require_relative '../questions/repository'
 require_relative '../questions/question'
