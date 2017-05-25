@@ -3,14 +3,15 @@ Class('DiscussionBoard.Questioner', {
     Extends: Component,
 
     initialize: function(proposalId) {
-        this.proposal = {};
-        this.proposalId = proposalId;
         DiscussionBoard.Questioner.Super.call(this, 'question-container');
-        this.element.addEventListener('openTextarea', this.showTextarea.bind(this));
-        this.element.addEventListener('questionSubmit', this.addQuestion.bind(this));
-        this.retrieveAuthor();
         this.questionForm = document.getElementById('question-content');
         this.questionButton = document.getElementById('questioner');
+
+        this.proposal = {};
+        this.proposalId = proposalId;
+
+        this.element.addEventListener('openTextarea', this.showTextarea.bind(this));
+        this.element.addEventListener('questionSubmit', this.addQuestion.bind(this));
     },
 
     userValidation: function(result) {
@@ -30,10 +31,6 @@ Class('DiscussionBoard.Questioner', {
         questionData.author = this.author;
         questionData.body = body.value;
         Bus.publish('proposal.question.add', questionData);
-    },
-
-    retrieveAuthor: function(){
-        Bus.publish('proposal.logged.user');
     },
 
     loggedUser: function(author){

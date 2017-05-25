@@ -43,13 +43,6 @@ Class('Services.Proposals', {
         this.baseUrl = oldBaseUrl;
     },
 
-    retrieveLoggedUser: function() {
-        var token = localStorage.getItem('authorized');
-        var oldBaseUrl = this.baseUrl;
-        serialized_token = {'token': token};
-        this.baseUrl = oldBaseUrl;
-    },
-
     retrieveToken: function() {
         var token = localStorage.getItem('authorized');
         var oldBaseUrl = this.baseUrl;
@@ -65,7 +58,6 @@ Class('Services.Proposals', {
     },
 
     subscribe: function() {
-        Bus.subscribe('proposal.logged.user',this.retrieveLoggedUser.bind(this));
         Bus.subscribe('proposal.add', this.holdProposalData.bind(this));
         Bus.subscribe('proposal.check.user.logged', this.retrieveToken.bind(this));
         Bus.subscribe('proposal.list', this.list.bind(this));
