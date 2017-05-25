@@ -1,6 +1,4 @@
-# CONSENSUS README
-
-## INDEX
+# INDEX
 
 * Configure local system
 * Docker
@@ -185,7 +183,7 @@ end
 ~~~
 
 The first line is the description of the code, inside the inverted commas we write the description.
-In the second one, we call to the function with _rspec_ and say to it that we are going to use the arguments that hereinafter we will work across the _tag_. 
+In the second one, we call to the function with _rspec_ and say to it that we are going to use the arguments that hereinafter we will work across the _tag_.
 In the third one, we specify the tests path.
 In the fourth one, we make a method to use the _tag_ tag. (we can use any word to tag)
 

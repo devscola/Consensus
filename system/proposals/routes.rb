@@ -43,26 +43,6 @@ class App < Sinatra::Base
     result.to_json
   end
 
-  post '/proposal/users/retrieve' do
-    body = JSON.parse(request.body.read)
-    id = body['id']
-    result = Proposals::Service.involved(id)
-    result.to_json
-  end
-
-  # post '/proposals/user/involved' do
-  #   body = JSON.parse(request.body.read)
-  #   id = body['id']
-  #   token = body['token']
-
-  #   username = Authorization::Service.decode(token)
-
-  #   user_is_involved = Proposals::Service.user_inside_circle?(id, username)
-
-  #   result = { 'valid': user_is_involved }
-  #   result.to_json
-  # end
-
   post '/proposal/add/question' do
     question = JSON.parse(request.body.read)
     proposal_id = question['proposal_id']
