@@ -4,7 +4,7 @@ Class('Proposals.ProposalCreator', {
 
     initialize: function() {
         Proposals.ProposalCreator.Super.call(this, 'create-proposal');
-        this.element.addEventListener('create', this.create.bind(this));
+        this.element.addEventListener('create', this.openForm.bind(this));
         this.isLogged();
     },
 
@@ -16,7 +16,7 @@ Class('Proposals.ProposalCreator', {
         this.element.activated = true;
     },
 
-    create: function() {
+    openForm: function() {
         this.element.activated = false;
         Bus.publish('proposal.new');
     },
