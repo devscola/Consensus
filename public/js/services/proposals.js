@@ -7,10 +7,16 @@ Class('Services.Proposals', {
         Services.Proposals.Super.call(this, '/proposals');
     },
 
-    add: function(proposalData) {
-        this.doRequest('/add', proposalData, function(result) {
+    add: function(proposal) {
+        this.doRequest('/add', proposal, function(result) {
             Bus.publish('proposal.added', result);
         });
+    },
+
+    fillProposalData: function(proposal) {
+        proposal.title = this.proposalData.title;
+        proposal.content = this.proposalData.content;
+        this.add(proposal);
     },
 
     list: function() {
@@ -31,38 +37,11 @@ Class('Services.Proposals', {
         Bus.publish('storage.authorization.retrieve');
     },
 
-    retrieveProposerName: function (authorized) {
-        var oldBaseUrl = this.baseUrl;
-        serialized_token = {'token': authorized};
-
-        this.baseUrl = '';
-        this.doRequest('/user/logged', serialized_token, function(proposer) {
-            this.proposalData.proposer = proposer.username;
-            this.add(this.proposalData);
-        }.bind(this));
-        this.baseUrl = oldBaseUrl;
-    },
-
-    retrieveToken: function() {
-        var token = localStorage.getItem('authorized');
-        var oldBaseUrl = this.baseUrl;
-        serialized_token = {'token': token};
-
-        this.baseUrl = '';
-        this.doRequest('/create-proposal/token', serialized_token, function(response) {
-            if(token == response.token) {
-                Bus.publish('proposal.create.button.show');
-            }
-        }.bind(this));
-        this.baseUrl = oldBaseUrl;
-    },
-
     subscribe: function() {
         Bus.subscribe('proposal.add', this.holdProposalData.bind(this));
-        Bus.subscribe('proposal.check.user.logged', this.retrieveToken.bind(this));
+        Bus.subscribe('proposal.adding', this.fillProposalData.bind(this));
         Bus.subscribe('proposal.list', this.list.bind(this));
         Bus.subscribe('proposal.retrieve', this.retrieve.bind(this));
-        Bus.subscribe('storage.authorization.retrieved', this.retrieveProposerName.bind(this));
     }
 
 });

@@ -1,6 +1,7 @@
 Class('Page.Proposals', {
 
     initialize: function() {
+        new Services.Authorization();
         new Services.Proposals();
 
         new Proposals.ProposalCreator();
