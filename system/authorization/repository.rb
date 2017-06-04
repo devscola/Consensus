@@ -4,13 +4,13 @@ module Authorization
   class Repository
     class << self
       LOGIN_CREDENTIALS = [
-        { :username => 'KingRobert', :password => 'Stag'},
-        { :username => 'Cersei', :password => 'Lion'},
-        { :username => 'Khaleesi', :password => 'Dragon'},
-        { :username => 'Arya', :password => 'Wolf'},
-        { :username => 'Varys', :password => 'Bird'},
-        { :username => 'Joffrey', :password => 'Asshole'},
-        { :username => 'LyanaMormont', :password => 'Badass'}
+        { 'username' => 'KingRobert', 'password' => 'Stag'},
+        { 'username' => 'Cersei', 'password' => 'Lion'},
+        { 'username' => 'Khaleesi', 'password' => 'Dragon'},
+        { 'username' => 'Arya', 'password' => 'Wolf'},
+        { 'username' => 'Varys', 'password' => 'Bird'},
+        { 'username' => 'Joffrey', 'password' => 'Asshole'},
+        { 'username' => 'LyanaMormont', 'password' => 'Badass'}
       ].freeze
       private_constant :LOGIN_CREDENTIALS
 
@@ -35,7 +35,7 @@ module Authorization
         list_users = []
 
         LOGIN_CREDENTIALS.each do |user|
-          list_users << user[:username]
+          list_users << user['username']
         end
 
         list_users
@@ -67,8 +67,8 @@ module Authorization
         credentials = []
 
         LOGIN_CREDENTIALS.each do |user_credentials|
-          username = user_credentials[:username]
-          password = user_credentials[:password]
+          username = user_credentials['username']
+          password = user_credentials['password']
 
           credentials << Credential.new(username, password)
         end
