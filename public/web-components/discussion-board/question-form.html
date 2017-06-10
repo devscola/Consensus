@@ -14,7 +14,7 @@
         </style>
 
         <div id="questionContent" class$="{{displayed}}">
-            <textarea id="questionText" name="question-text" on-input="updateCounter" on-keyup="controlEnterSubmit"></textarea>
+            <textarea id="questionText" data-name="question-text" on-input="updateCounter" on-keyup="controlEnterSubmit"></textarea>
             <span class="badge">{{count}}</span>
             <button id="question-submit" on-click="questionAttempt" disabled$="{{enabledSubmit}}">submit</button>
         </div>

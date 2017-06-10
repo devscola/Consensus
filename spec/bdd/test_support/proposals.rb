@@ -39,7 +39,7 @@ module Page
     end
 
     def click_user_button(username)
-      find("button[name=#{username}]", wait: 10).click
+      find("button[data-username=#{username}]", wait: 10).click
     end
 
     def is_added?(username)

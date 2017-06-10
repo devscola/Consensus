@@ -20,8 +20,8 @@
 
 						<li class="user list-group-item">
 							<template is="dom-if" if="{{!item.checked}}">
-								<button name="{{item.username}}" class="add-button" on-click="addUserToCircle">
-									<span name="{{item.username}}" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+								<button data-username$="{{item.username}}" class="add-button" on-click="addUserToCircle">
+									<span data-username="{{item.username}}" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
 								</button>
 							</template>
 							<template is="dom-if" if="{{item.checked}}">
@@ -87,7 +87,7 @@
 				this.finishDisabled = false;
 				this.cancelDisabled = true;
 		        var circleData = {
-		            username: event.target.name,
+		            username: event.target.dataUsername,
 		            id: this.proposal.id
 		        };
 		        this.fire('proposalUserAdd', circleData);
