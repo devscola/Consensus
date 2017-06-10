@@ -5,21 +5,21 @@
         <title>Proposals</title>
         <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/vendor/bootstrap/bootsketch.css">
-        <link rel="import" href="/web-components/proposals/create-proposal.html">
-        <link rel="import" href="/web-components/proposals/proposal-form.html">
-        <link rel="import" href="/web-components/proposals/proposal-circle.html">
-        <link rel="import" href="/web-components/proposals/proposals-list.html">
+        <link rel="import" href="/web-components/proposals/consensus-proposal-creator.html">
+        <link rel="import" href="/web-components/proposals/consensus-proposal-form.html">
+        <link rel="import" href="/web-components/proposals/consensus-proposal-circle.html">
+        <link rel="import" href="/web-components/proposals/consensus-proposals-list.html">
     </head>
     <body>
         <div class="container">
             <div class="col-sm-4">
-                <create-proposal id="create-proposal"></create-proposal>
-                <proposals-list id="proposals-container"></proposals-list>
+                <consensus-proposal-creator id="create-proposal"></consensus-proposal-creator>
+                <consensus-proposals-list id="proposals-container"></consensus-proposals-list>
             </div>
 
             <div class="panel col-sm-8">
-                <proposal-form id="form-container" minimum-content-length="1000"></proposal-form>
-                <proposal-circle id="circle-container"></proposal-circle>
+                <consensus-proposal-form id="form-container" minimum-content-length="1000"></consensus-proposal-form>
+                <consensus-proposal-circle id="circle-container"></consensus-proposal-circle>
             </div>
         </div>
 

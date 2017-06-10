@@ -14,7 +14,7 @@ module Page
       do_show_form
       fill_in('title', with: title)
       fill_enough_content
-      find('#submit.proposal-form').click
+      find('#submit.consensus-proposal-form').click
     end
 
     def any_proposal?
@@ -22,15 +22,15 @@ module Page
     end
 
     def form_visible?
-      has_css?('#form.proposal-form')
+      has_css?('#form.consensus-proposal-form')
     end
 
     def user_selection_is_visible?
-      has_css?('#user-selection.proposal-circle', wait: 2)
+      has_css?('#user-selection.consensus-proposal-circle', wait: 2)
     end
 
     def info_message_visible?
-      message = find('#info-message.proposal-form', visible: false)
+      message = find('#info-message.consensus-proposal-form', visible: false)
       message.visible?
     end
 
@@ -43,7 +43,7 @@ module Page
     end
 
     def is_added?(username)
-      has_css?('#' + username + '-checked.proposal-circle')
+      has_css?('#' + username + '-checked.consensus-proposal-circle')
     end
 
     def visit_proposal(name)
@@ -53,7 +53,7 @@ module Page
 
     def entries
       all_entries = []
-      entries = page.all('.proposal-entry')
+      entries = page.all('.consensus-proposal-entry')
 
       entries.each do |node|
         entry = { identifier: node.text[0] }
@@ -68,14 +68,14 @@ module Page
     end
 
     def new_proposal_enabled?
-      button = find('#newProposal.create-proposal')
+      button = find('#newProposal.consensus-proposal-creator')
       result = button[:disabled]
       return true if result.nil?
       false
     end
 
     def submit_button_enabled?
-      button = find('#submit.proposal-form')
+      button = find('#submit.consensus-proposal-form')
       result = button[:disabled]
 
       return true if result.nil?
@@ -92,31 +92,31 @@ module Page
     end
 
     def content_length
-      find('#content.proposal-form').value.length.to_i
+      find('#content.consensus-proposal-form').value.length.to_i
     end
 
     def button_finish_click
-      find('#proposal-finish.proposal-circle').click
+      find('#proposal-finish.consensus-proposal-circle').click
     end
 
     def button_cancel_click
-      find('#proposal-cancel.proposal-circle', wait: 2).click
+      find('#proposal-cancel.consensus-proposal-circle', wait: 2).click
     end
 
     def button_finish_deactivated?
-      has_css?('#proposal-finish.proposal-circle[disabled]', wait: 2)
+      has_css?('#proposal-finish.consensus-proposal-circle[disabled]', wait: 2)
     end
 
     def button_cancel_deactivated?
-      has_css?('#proposal-cancel.proposal-circle[disabled]', wait: 2)
+      has_css?('#proposal-cancel.consensus-proposal-circle[disabled]', wait: 2)
     end
 
     def button_finish_activated?
-      find('#proposal-finish.proposal-circle').has_no_content?('disabled')
+      find('#proposal-finish.consensus-proposal-circle').has_no_content?('disabled')
     end
 
     def do_show_form
-      find('#newProposal.create-proposal', wait: 2).click
+      find('#newProposal.consensus-proposal-creator', wait: 5).click
     end
 
     def fill_enough_content
@@ -143,12 +143,12 @@ module Page
     end
 
     def validate!
-      page.assert_selector('#newProposal.create-proposal', visible: false)
+      page.assert_selector('#newProposal.consensus-proposal-creator', visible: false)
       page.assert_selector('#proposals-container', visible: false)
-      page.assert_selector('#proposal-finish.proposal-circle', visible: false)
-      page.assert_selector('#user-selection.proposal-circle', visible: false)
-      page.assert_selector('#submit.proposal-form', visible: false)
-      page.assert_selector('#form.proposal-form', visible: false)
+      page.assert_selector('#proposal-finish.consensus-proposal-circle', visible: false)
+      page.assert_selector('#user-selection.consensus-proposal-circle', visible: false)
+      page.assert_selector('#submit.consensus-proposal-form', visible: false)
+      page.assert_selector('#form.consensus-proposal-form', visible: false)
     end
   end
 end

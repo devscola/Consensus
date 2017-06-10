@@ -5,16 +5,16 @@
         <title>Discussion board</title>
         <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
         <link rel="stylesheet" href="/vendor/bootstrap/bootsketch.css">
-        <link rel="import" href="/web-components/discussion-board/question-button.html">
-        <link rel="import" href="/web-components/discussion-board/proposal-panel.html">
-        <link rel="import" href="/web-components/discussion-board/question-form.html">
+        <link rel="import" href="/web-components/discussion-board/consensus-question-button.html">
+        <link rel="import" href="/web-components/discussion-board/consensus-proposal-panel.html">
+        <link rel="import" href="/web-components/discussion-board/consensus-question-form.html">
     </head>
     <body>
         <div class="container">
-            <proposal-panel id="proposal"></proposal-panel>
+            <consensus-proposal-panel id="proposal"></consensus-proposal-panel>
             <div id="question-container" class="col-sm-offset-1 col-sm-10">
-                <question-button id="questioner"></question-button>
-                <question-form id="question-content" minimum-length='100'></question-form>
+                <consensus-question-button id="questioner"></consensus-question-button>
+                <consensus-question-form id="question-content" minimum-length='100'></consensus-question-form>
             </div>
         </div>
 
